@@ -1,6 +1,3 @@
-[build]
-  publish = "."
-
 [[headers]]
   for = "/*"
   [headers.values]
