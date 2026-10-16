@@ -514,9 +514,10 @@ MA SITUATION :
     <div class="w" style="max-width:560px">
         <h2 style="margin-top:12px">Re&ccedil;ois le prochain num&eacute;ro.</h2>
         <p style="font-size:16px;color:var(--t2);margin-top:8px;margin-bottom:24px">Guides IA, prompts pr&ecirc;ts &agrave; l'emploi et astuces automatisation. Chaque semaine dans ta bo&icirc;te mail.</p>
-        <form style="display:flex;gap:12px;max-width:460px;margin:0 auto" onsubmit="event.preventDefault();alert('Merci ! Tu es inscrit.')">
-            <input type="email" required placeholder="Ton adresse email" style="flex:1;padding:0 16px;height:48px;border:1px solid var(--line);border-radius:6px;font-family:var(--sans);font-size:15px;background:var(--bg);color:var(--t1);outline:none">
-            <button type="submit" style="background:var(--accent);color:#fff;font-family:var(--sans);font-size:15px;font-weight:600;padding:0 24px;height:48px;border:none;border-radius:9999px;cursor:pointer;white-space:nowrap">S'inscrire</button>
+        <form name="newsletter" method="POST" data-netlify="true" action="/merci.html" style="display:flex;gap:12px;max-width:460px;margin:0 auto">
+            <input type="hidden" name="form-name" value="newsletter">
+            <input type="email" name="email" required placeholder="Ton adresse email" style="flex:1;padding:0 16px;height:48px;border:1px solid var(--line);border-radius:6px;font-family:var(--sans);font-size:15px;background:var(--bg);color:var(--t1);outline:none">
+            <button type="submit" style="background:var(--accent);color:#fff;font-family:var(--sans);font-size:15px;font-weight:600;padding:0 24px;height:48px;border:none;border-radius:9999px;cursor:pointer">S'inscrire</button>
         </form>
         <p style="font-size:13px;color:var(--t3);margin-top:10px">Gratuit. D&eacute;sinscription en un clic.</p>
     </div>
