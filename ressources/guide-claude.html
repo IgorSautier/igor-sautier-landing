@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le guide complet de Claude | Igor Sautier</title>
+<meta name="description" content="Tout ce que tu dois savoir sur Claude par Anthropic : mod&egrave;les, fonctionnalit&eacute;s et cas d'usage.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --accent:#BB111C;
+    --accent-hover:#a00f18;
+    --t1:#1a1a1a;
+    --t2:#6b6b6b;
+    --t3:#a3a3a3;
+    --bg:#f5f2ef;
+    --bg-tint:#f0ece8;
+    --card:#ffffff;
+    --line:#ded9d3;
+    --sans:'Outfit',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:15px;font-weight:400;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;line-height:1.6}
+::selection{background:rgba(187,17,28,0.12)}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
+.nav-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.nav-avatar img{width:100%;height:100%;object-fit:cover}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:14px;color:var(--t2);font-weight:400;transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:8px 20px;border-radius:9999px;border:none;cursor:pointer;transition:background .15s}
+.nav-cta:hover{background:var(--accent-hover)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--t1);border-radius:1px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:16px 24px;z-index:99;flex-direction:column;gap:16px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;color:var(--t2);padding:4px 0}
+.mobile-menu .nav-cta{text-align:center;justify-content:center}
+
+/* ARTICLE LAYOUT */
+.article-wrap{max-width:720px;margin:0 auto;padding:0 24px}
+.back-link{display:inline-block;font-size:14px;color:var(--t2);font-weight:500;margin-top:24px;margin-bottom:24px;transition:color .15s}
+.back-link:hover{color:var(--t1)}
+.article-meta{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.article-cat{font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px}
+.article-dot{color:var(--t3)}
+.article-time,.article-date{font-size:13px;color:var(--t3)}
+.article-header h1{font-size:40px;font-weight:800;line-height:1.1;margin-bottom:12px}
+.article-subtitle{font-size:17px;color:var(--t2);line-height:1.5;font-weight:400;margin-bottom:32px}
+
+/* TOC */
+.toc{margin-bottom:40px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.toc-toggle{display:flex;align-items:center;gap:8px;width:100%;padding:14px 20px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--t1);background:var(--card);border:none;cursor:pointer;transition:background .15s}
+.toc-toggle:hover{background:var(--bg-tint)}
+.toc-toggle svg:last-child{margin-left:auto;transition:transform .2s}
+.toc-toggle.open svg:last-child{transform:rotate(180deg)}
+.toc-list{display:none;list-style:none;padding:0 20px 16px;margin:0}
+.toc-list.open{display:block}
+.toc-list li{margin-bottom:4px}
+.toc-list a{display:block;padding:6px 0;font-size:14px;color:var(--t2);transition:color .15s}
+.toc-list a:hover{color:var(--accent)}
+
+/* ARTICLE BODY */
+.article-body h2{font-size:24px;font-weight:700;margin-top:40px;margin-bottom:16px;line-height:1.3}
+.article-body p{font-size:16px;color:var(--t2);line-height:1.8;margin-bottom:16px}
+.article-body ul,.article-body ol{padding-left:24px;margin-bottom:16px}
+.article-body li{font-size:16px;color:var(--t2);line-height:1.8;margin-bottom:8px}
+.article-body strong{color:var(--t1);font-weight:600}
+.article-body a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.article-body a:hover{color:var(--accent-hover)}
+
+/* PROMPT BLOCKS */
+.prompt-block{margin:24px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.prompt-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--bg-tint);border-bottom:1px solid var(--line)}
+.prompt-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3)}
+.prompt-copy{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:6px;padding:4px 12px;cursor:pointer;transition:all .15s}
+.prompt-copy:hover{background:var(--accent);color:#fff}
+.prompt-text{padding:16px;font-size:14px;color:var(--t1);line-height:1.7;white-space:pre-wrap;font-family:var(--sans)}
+
+/* STEP HEADINGS */
+.step-heading{display:flex;align-items:center;gap:14px;margin-top:40px;margin-bottom:16px}
+.step-badge{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;font-size:14px;font-weight:700;flex-shrink:0}
+.step-heading h2{font-size:24px;font-weight:700;margin:0;line-height:1.3}
+
+/* PLAN CARD */
+.plan-card{margin:32px 0;padding:28px 24px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.plan-card h3{font-size:18px;font-weight:700;margin-bottom:16px}
+.plan-card ol{padding-left:24px;margin:0}
+.plan-card li{font-size:15px;color:var(--t2);line-height:1.7;margin-bottom:8px}
+.plan-card li strong{color:var(--t1)}
+
+/* TIP */
+.tip{margin:24px 0;padding:16px 20px;border-left:3px solid var(--accent);font-style:italic;color:var(--t2);font-size:15px;line-height:1.7;background:transparent}
+
+/* KEEP READING */
+.keep-reading{margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
+.keep-reading>h2{font-size:22px;font-weight:700;margin-bottom:24px}
+.kr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.kr-card{display:flex;flex-direction:column;padding:24px;background:var(--card);border:1px solid var(--line);border-radius:12px;transition:border-color .15s,box-shadow .15s}
+.kr-card:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.kr-cat{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px}
+.kr-card h3{font-size:16px;font-weight:700;margin-bottom:8px;line-height:1.3}
+.kr-card p{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:12px;flex:1}
+.kr-link{font-size:13px;font-weight:600;color:var(--accent)}
+
+/* CTA BOX */
+.cta-box{margin-top:48px;padding:48px 32px;background:var(--card);border:1px solid var(--line);border-radius:16px;text-align:center}
+.cta-box h2{font-size:24px;font-weight:700;margin-bottom:12px}
+.cta-box p{font-size:15px;color:var(--t2);margin-bottom:24px}
+.cta-box .cta-btn{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-family:var(--sans);font-size:17px;font-weight:600;padding:16px 36px;border:none;border-radius:9999px;cursor:pointer;transition:background .15s}
+.cta-box .cta-btn:hover{background:var(--accent-hover)}
+.cta-box .micro{font-size:14px;color:var(--t3);margin-top:12px}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);margin-top:64px;padding:24px 0}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between}
+.footer-left{font-size:14px;color:var(--t2)}
+.footer-left a{margin-left:16px;text-decoration:underline;color:var(--t3)}
+.footer-left a:hover{color:var(--t1)}
+.footer-socials{display:flex;gap:16px}
+.footer-socials a{color:var(--t3);transition:color .15s}
+.footer-socials a:hover{color:var(--t1)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .nav-inner{padding:0 20px}
+    .nav-links{display:none}
+    .nav-cta-desk{display:none}
+    .hamburger{display:flex}
+    .article-wrap{padding:0 20px}
+    .article-header h1{font-size:28px}
+    .article-subtitle{font-size:15px}
+    .article-body h2{font-size:20px}
+    .kr-grid{grid-template-columns:1fr}
+    .cta-box{padding:32px 20px}
+    .footer-inner{flex-direction:column;gap:16px;text-align:center;padding:0 20px}
+    .step-heading h2{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+<div class="nav-inner">
+    <a href="../index.html" class="nav-brand">
+        <div class="nav-avatar"><img src="../igor.jpg" alt="Igor Sautier"></div>
+        Igor
+    </a>
+    <div class="nav-links">
+        <a href="../index.html">Accueil</a>
+        <a href="index.html">Ressources</a>
+        <a href="../a-propos.html">&Agrave; propos</a>
+    </div>
+    <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta nav-cta-desk" target="_blank" rel="noopener">R&eacute;server un appel</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Accueil</a>
+    <a href="index.html">Ressources</a>
+    <a href="../a-propos.html">&Agrave; propos</a>
+    <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta" target="_blank" rel="noopener">R&eacute;server un appel</a>
+</div>
+
+<!-- ARTICLE -->
+<div class="article-wrap">
+
+    <!-- BACK LINK -->
+    <a href="index.html" class="back-link">&#8592; Retour aux ressources</a>
+
+    <!-- META -->
+    <div class="article-meta">
+        <span class="article-cat">GUIDE</span>
+        <span class="article-dot">&middot;</span>
+        <span class="article-time">12 min de lecture</span>
+        <span class="article-dot">&middot;</span>
+        <span class="article-date">1 oct. 2026</span>
+    </div>
+
+    <!-- HEADER -->
+    <div class="article-header">
+        <h1>Le guide complet de Claude</h1>
+        <p class="article-subtitle">Tout ce que tu dois savoir sur Claude par Anthropic : mod&egrave;les, fonctionnalit&eacute;s et cas d'usage.</p>
+    </div>
+
+    <!-- TOC -->
+    <div class="toc">
+        <button class="toc-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h12M2 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Sur cette page (6) <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <ul class="toc-list">
+            <li><a href="#cest-quoi-claude">C'est quoi Claude</a></li>
+            <li><a href="#les-modeles">Les mod&egrave;les : Opus, Sonnet, Haiku</a></li>
+            <li><a href="#fonctionnalites">Fonctionnalit&eacute;s uniques</a></li>
+            <li><a href="#prompter-claude">Comment bien prompter Claude</a></li>
+            <li><a href="#claude-vs-chatgpt">Quand choisir Claude plut&ocirc;t que ChatGPT</a></li>
+            <li><a href="#plan-action">Ton plan d'action</a></li>
+        </ul>
+    </div>
+
+    <!-- ARTICLE BODY -->
+    <div class="article-body">
+
+        <h2 id="cest-quoi-claude">C'est quoi Claude</h2>
+        <p>Claude est un assistant IA d&eacute;velopp&eacute; par <strong>Anthropic</strong>, une entreprise fond&eacute;e par d'anciens chercheurs d'OpenAI. Contrairement &agrave; ChatGPT, Claude a &eacute;t&eacute; con&ccedil;u d&egrave;s le d&eacute;part avec une approche centr&eacute;e sur la s&eacute;curit&eacute;, la fiabilit&eacute; et l'honn&ecirc;tet&eacute;. En 2026, c'est l'un des mod&egrave;les les plus performants du march&eacute;, et c'est celui que j'utilise au quotidien pour mon travail.</p>
+        <p>L'interface principale de Claude s'appelle <strong>claude.ai</strong>. Tu peux l'utiliser gratuitement avec des limites d'usage, ou passer sur l'abonnement Pro (20 $/mois) pour avoir un acc&egrave;s &eacute;largi et des fonctionnalit&eacute;s avanc&eacute;es comme les Projects, les Artifacts et un quota d'utilisation bien plus g&eacute;n&eacute;reux.</p>
+        <p>Si tu cherches une IA qui comprend vraiment ce que tu lui demandes, qui ne te sort pas du contenu g&eacute;n&eacute;rique &agrave; chaque r&eacute;ponse, et qui sait reconna&icirc;tre quand elle ne sait pas, Claude m&eacute;rite toute ton attention. Pour comprendre les diff&eacute;rences avec l'autre outil majeur, consulte aussi <a href="guide-chatgpt.html">le guide complet de ChatGPT</a>.</p>
+
+        <h2 id="les-modeles">Les mod&egrave;les : Opus, Sonnet, Haiku</h2>
+        <p>Anthropic propose trois familles de mod&egrave;les, chacune adapt&eacute;e &agrave; un type d'usage diff&eacute;rent. Comprendre ces diff&eacute;rences te permet d'optimiser &agrave; la fois la qualit&eacute; des r&eacute;ponses et ton budget.</p>
+        <ul>
+            <li><strong>Claude Opus</strong> : le mod&egrave;le le plus puissant. C'est la Rolls-Royce de la gamme. Opus excelle sur les t&acirc;ches complexes : raisonnement multi-&eacute;tapes, analyse de documents longs, r&eacute;daction sophistiqu&eacute;e, code avanc&eacute;. C'est le mod&egrave;le que tu veux utiliser quand la qualit&eacute; prime sur la vitesse. Il est plus lent que Sonnet, mais ses r&eacute;ponses sont plus nuanc&eacute;es, plus pr&eacute;cises et mieux structur&eacute;es.</li>
+            <li><strong>Claude Sonnet</strong> : le mod&egrave;le &eacute;quilibr&eacute;, et le plus utilis&eacute;. Rapide, performant, et capable de g&eacute;rer la grande majorit&eacute; des t&acirc;ches quotidiennes. R&eacute;daction, analyse, brainstorming, code. Sonnet est le choix par d&eacute;faut sur claude.ai et c'est celui que je recommande pour commencer. Il offre un excellent ratio qualit&eacute;-vitesse.</li>
+            <li><strong>Claude Haiku</strong> : le mod&egrave;le rapide et &eacute;conomique. Id&eacute;al pour les t&acirc;ches simples et r&eacute;p&eacute;titives : classification de texte, reformulation, extraction d'informations, r&eacute;ponses courtes. Haiku est parfait quand tu as besoin de traiter un grand volume de requ&ecirc;tes rapidement, notamment via l'API pour des automatisations.</li>
+        </ul>
+        <blockquote class="tip">Commence toujours avec Sonnet. Si le r&eacute;sultat n'est pas assez bon sur une t&acirc;che complexe, passe sur Opus. Utilise Haiku uniquement pour les t&acirc;ches simples ou quand tu travailles avec l'API dans des workflows automatis&eacute;s.</blockquote>
+
+        <h2 id="fonctionnalites">Fonctionnalit&eacute;s uniques</h2>
+        <p>Claude ne se limite pas &agrave; un simple chat question-r&eacute;ponse. Trois fonctionnalit&eacute;s le distinguent vraiment de la concurrence :</p>
+
+        <p><strong>Artifacts.</strong> Quand tu demandes &agrave; Claude de g&eacute;n&eacute;rer du code, un tableau, un graphique, une page web ou un document structur&eacute;, il le cr&eacute;e dans un panneau s&eacute;par&eacute; appel&eacute; "Artifact". Tu vois le r&eacute;sultat en temps r&eacute;el, tu peux l'&eacute;diter, le copier, ou le t&eacute;l&eacute;charger. C'est comme avoir un espace de travail visuel int&eacute;gr&eacute; directement dans la conversation. Tu peux cr&eacute;er des dashboards interactifs, des formulaires HTML, des graphiques SVG, des documents complets, le tout sans quitter l'interface.</p>
+
+        <p><strong>Projects.</strong> Les Projects sont la fonctionnalit&eacute; la plus puissante pour un usage professionnel. Tu cr&eacute;es un espace de travail d&eacute;di&eacute; avec des fichiers de contexte : ton guide de style, tes processus internes, ta charte &eacute;ditoriale, tes templates, tes donn&eacute;es clients. Claude se r&eacute;f&egrave;re automatiquement &agrave; ces fichiers dans chaque conversation du projet. C'est comme lui donner une m&eacute;moire permanente sur ton business. Tu peux cr&eacute;er un Project par client, par activit&eacute; ou par type de t&acirc;che.</p>
+
+        <p><strong>Computer Use.</strong> Claude peut contr&ocirc;ler un ordinateur : naviguer sur des sites web, cliquer sur des boutons, remplir des formulaires, prendre des captures d'&eacute;cran. Cette fonctionnalit&eacute; ouvre des possibilit&eacute;s &eacute;normes en automatisation. Tu peux lui demander de faire des recherches sur un site sp&eacute;cifique, de remplir un formulaire CRM, ou de naviguer dans une interface que tu ne peux pas connecter via API.</p>
+
+        <blockquote class="tip">Les Projects sont un game-changer. Si tu n'utilises pas encore cette fonctionnalit&eacute;, c'est la premi&egrave;re chose &agrave; configurer. Uploade tes 3 documents les plus importants (guide de style, processus de vente, pr&eacute;sentation de ton offre) et tu verras la diff&eacute;rence imm&eacute;diatement.</blockquote>
+
+        <h2 id="prompter-claude">Comment bien prompter Claude</h2>
+        <p>Claude adore le contexte. Plus tu lui donnes d'informations, meilleure sera sa r&eacute;ponse. Contrairement &agrave; d'autres IA o&ugrave; un prompt court peut suffire, Claude performe nettement mieux quand tu prends le temps de d&eacute;tailler ta demande. Voici trois approches qui transforment la qualit&eacute; de tes r&eacute;sultats.</p>
+
+        <p><strong>Approche 1 : le brief complet.</strong> Au lieu de donner une instruction s&egrave;che, fournis un brief structur&eacute; avec le contexte, l'objectif, l'audience, le ton et les contraintes. Claude traite toutes ces informations et produit un r&eacute;sultat beaucoup plus cibl&eacute;.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 1 &middot; BRIEF COMPLET</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Contexte : je suis consultant en automatisation pour des PME fran&ccedil;aises (5-50 salari&eacute;s). Mon offre principale est un audit gratuit de 30 minutes o&ugrave; j'identifie les t&acirc;ches automatisables.
+
+Objectif : &eacute;crire un post LinkedIn qui g&eacute;n&egrave;re des prises de rendez-vous pour cet audit.
+
+Audience : dirigeants de PME, directeurs des op&eacute;rations, office managers. Ils sont d&eacute;bord&eacute;es par les t&acirc;ches r&eacute;p&eacute;titives mais sceptiques sur l'IA.
+
+Ton : direct, concret, z&eacute;ro jargon technique. Tutoiement. Pas de emojis sauf en fin de post.
+
+Contraintes :
+- Maximum 1300 caract&egrave;res
+- Commencer par un hook chiffr&eacute; ou une question provocante
+- Inclure un exemple concret d'automatisation simple
+- Terminer par un CTA vers l'audit gratuit
+- Pas de hashtags dans le corps du texte (les mettre en commentaire)
+
+Donne-moi 3 variantes avec des hooks diff&eacute;rents.</div>
+        </div>
+
+        <p><strong>Approche 2 : le prompt syst&egrave;me dans un Project.</strong> Au lieu de r&eacute;p&eacute;ter ton contexte &agrave; chaque conversation, configure un prompt syst&egrave;me dans un Project. Claude le lira automatiquement au d&eacute;but de chaque &eacute;change. C'est particuli&egrave;rement efficace pour standardiser le ton, le format et les consignes de tes contenus.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 2 &middot; PROMPT SYST&Egrave;ME PROJECT</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Tu es l'assistant de r&eacute;daction de [Nom de ton entreprise].
+
+R&egrave;gles permanentes :
+- Tutoiement syst&eacute;matique
+- Ton : professionnel mais accessible, comme un coll&egrave;gue comp&eacute;tent
+- Phrases courtes (max 20 mots). Paragraphes courts (max 4 lignes)
+- Toujours donner des exemples concrets, jamais de th&eacute;orie abstraite
+- Quand tu proposes du contenu, donne 2 variantes
+- Si ma demande est floue, pose 2 questions de clarification avant de r&eacute;pondre
+- Ne commence jamais une r&eacute;ponse par "Bien s&ucirc;r !" ou "Absolument !"
+- Utilise les documents du Project comme r&eacute;f&eacute;rence pour le ton et les sujets
+
+Contexte business :
+- Secteur : [ton secteur]
+- Audience principale : [ta cible]
+- Ton de marque : [2-3 adjectifs]
+- Sujets interdits : [ce qu'il ne faut pas aborder]</div>
+        </div>
+
+        <p><strong>Approche 3 : l'analyse structur&eacute;e.</strong> Quand tu envoies un document &agrave; analyser, ne dis pas simplement "analyse ce document". Donne une grille d'analyse pr&eacute;cise avec les crit&egrave;res que tu veux &eacute;valuer, le format de sortie souhait&eacute; et les actions concr&egrave;tes que tu attends.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 3 &middot; ANALYSE STRUCTUR&Eacute;E</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Analyse le document ci-joint en utilisant cette grille :
+
+1. R&Eacute;SUM&Eacute; EX&Eacute;CUTIF (5 lignes max)
+   - Quel est le sujet principal ?
+   - Quelle est la conclusion cl&eacute; ?
+
+2. POINTS FORTS (liste &agrave; puces)
+   - Ce qui est bien argument&eacute;, clair, utile
+
+3. POINTS FAIBLES (liste &agrave; puces)
+   - Ce qui manque, ce qui est flou, ce qui pourrait &ecirc;tre contest&eacute;
+
+4. DONN&Eacute;ES CL&Eacute;S (tableau)
+   - Extrais tous les chiffres, dates et r&eacute;f&eacute;rences cit&eacute;s dans le document
+
+5. ACTIONS RECOMMAND&Eacute;ES (liste num&eacute;rot&eacute;e)
+   - Que dois-je faire concr&egrave;tement suite &agrave; ce document ?
+   - Classe par priorit&eacute; (urgent / important / &agrave; planifier)
+
+Format de sortie : Markdown avec titres H2 pour chaque section.</div>
+        </div>
+
+        <blockquote class="tip">Claude est particuli&egrave;rement bon quand tu lui donnes des exemples de ce que tu veux. Si tu veux un email dans un certain style, colle un email que tu as &eacute;crit toi-m&ecirc;me en disant "voici un exemple de mon ton habituel, &eacute;cris le prochain email dans le m&ecirc;me style". &Ccedil;a change tout.</blockquote>
+
+        <h2 id="claude-vs-chatgpt">Quand choisir Claude plut&ocirc;t que ChatGPT</h2>
+        <p>Les deux outils sont excellents, mais ils n'ont pas les m&ecirc;mes forces. Voici les situations concr&egrave;tes o&ugrave; Claude prend clairement l'avantage.</p>
+        <p><strong>Analyse de documents longs.</strong> Tu as un contrat de 80 pages, un cahier des charges technique, ou un rapport financier &agrave; analyser ? Claude g&egrave;re des contextes beaucoup plus longs que ChatGPT (jusqu'&agrave; 200 000 tokens). Il peut traiter le document en entier, pas juste les premi&egrave;res pages. Et surtout, ses analyses sont plus d&eacute;taill&eacute;es et plus fid&egrave;les au texte original.</p>
+        <p><strong>R&eacute;daction soign&eacute;e.</strong> Si tu veux un texte qui ne "sonne pas IA", Claude produit un r&eacute;sultat plus naturel et mieux structur&eacute;. Ses tournures de phrases sont moins pr&eacute;visibles, son vocabulaire est plus vari&eacute;, et il respecte mieux les consignes de ton. Pour des articles, des newsletters ou des scripts vid&eacute;o, la diff&eacute;rence est notable.</p>
+        <p><strong>Code et automatisation.</strong> Claude &eacute;crit du code propre, bien comment&eacute;, et sait expliquer ses choix techniques. Pour du Python, du JavaScript, des workflows <a href="automatiser-n8n.html">n8n</a> ou des scripts d'automatisation, il est souvent plus rigoureux que ChatGPT, notamment sur les cas limites et la gestion des erreurs.</p>
+        <p><strong>Fiabilit&eacute; factuelle.</strong> Claude hallucine moins. Quand il ne sait pas, il le dit. Quand il n'est pas s&ucirc;r, il te pr&eacute;vient. Pour des t&acirc;ches o&ugrave; la pr&eacute;cision compte (analyse juridique, donn&eacute;es financi&egrave;res, recherche technique), cette prudence est un vrai avantage.</p>
+        <p><strong>Quand ChatGPT reste meilleur :</strong> navigation web en temps r&eacute;el, g&eacute;n&eacute;ration d'images avec DALL-E, &eacute;cosyst&egrave;me de plugins et GPTs, mode vocal avanc&eacute;. Pour un comparatif d&eacute;taill&eacute;, consulte <a href="claude-vs-chatgpt.html">Claude vs ChatGPT : le comparatif complet</a>.</p>
+
+        <h2 id="plan-action">Ton plan d'action</h2>
+        <p>Tu as maintenant une vue compl&egrave;te de Claude et de ses capacit&eacute;s. Voici comment commencer &agrave; l'utiliser efficacement d&egrave;s cette semaine :</p>
+        <ol>
+            <li><strong>Cr&eacute;e ton compte sur claude.ai</strong> si ce n'est pas encore fait. La version gratuite suffit pour d&eacute;couvrir l'outil et tester les fonctionnalit&eacute;s de base.</li>
+            <li><strong>Configure ton premier Project.</strong> Choisis un domaine de ton activit&eacute; (r&eacute;daction de contenu, gestion client, analyse de documents) et uploade 2 &agrave; 3 fichiers de r&eacute;f&eacute;rence. &Eacute;cris un prompt syst&egrave;me avec le template ci-dessus.</li>
+            <li><strong>Teste le prompt du brief complet</strong> sur une t&acirc;che r&eacute;elle. Prends un contenu que tu dois produire cette semaine et utilise l'approche d&eacute;taill&eacute;e. Compare le r&eacute;sultat avec ce que tu obtiens habituellement.</li>
+            <li><strong>Explore les Artifacts.</strong> Demande &agrave; Claude de te g&eacute;n&eacute;rer un tableau de bord simple, un formulaire HTML ou un document structur&eacute;. Tu verras la puissance de cette fonctionnalit&eacute; en quelques minutes.</li>
+            <li><strong>Connecte Claude &agrave; tes outils.</strong> Si tu utilises <a href="automatiser-n8n.html">n8n</a> ou un autre outil d'automatisation, int&egrave;gre l'API Claude pour automatiser des t&acirc;ches de r&eacute;daction, de classification ou d'analyse.</li>
+        </ol>
+        <blockquote class="tip">Le meilleur moyen de progresser avec Claude, c'est de l'utiliser pour une t&acirc;che r&eacute;elle que tu fais chaque semaine. Pas un exercice fictif : une vraie t&acirc;che de ton quotidien. Tu verras les limites et les forces bien plus vite qu'avec des tests g&eacute;n&eacute;riques.</blockquote>
+
+    </div>
+
+    <!-- CONTINUE A LIRE -->
+    <section class="keep-reading">
+        <h2>Continue &agrave; lire</h2>
+        <div class="kr-grid">
+            <a href="guide-chatgpt.html" class="kr-card">
+                <div class="kr-cat">GUIDE</div>
+                <h3>Le guide complet de ChatGPT</h3>
+                <p>Mod&egrave;les, fonctionnalit&eacute;s, Custom Instructions et techniques de prompting avanc&eacute;es.</p>
+                <span class="kr-link">Lire la ressource &rarr;</span>
+            </a>
+            <a href="claude-vs-chatgpt.html" class="kr-card">
+                <div class="kr-cat">COMPARATIF</div>
+                <h3>Claude vs ChatGPT</h3>
+                <p>Le comparatif d&eacute;taill&eacute; pour choisir la bonne IA selon ta t&acirc;che.</p>
+                <span class="kr-link">Lire la ressource &rarr;</span>
+            </a>
+            <a href="automatiser-n8n.html" class="kr-card">
+                <div class="kr-cat">AUTOMATISATION</div>
+                <h3>Automatise tes t&acirc;ches avec n8n</h3>
+                <p>Connecte tes outils et gagne des heures chaque semaine avec n8n.</p>
+                <span class="kr-link">Lire la ressource &rarr;</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- CTA BOX -->
+    <div class="cta-box">
+        <h2>R&eacute;serve ton audit gratuit</h2>
+        <p>30 minutes pour identifier les t&acirc;ches que tu peux automatiser dans ton business.</p>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="cta-btn" target="_blank" rel="noopener">R&eacute;server mon audit gratuit</a>
+        <p class="micro">30 min &middot; Gratuit &middot; Sans engagement</p>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-inner">
+    <div class="footer-left">
+        &copy; 2026 Igor Sautier
+        <a href="../mentions-legales.html">Mentions l&eacute;gales</a>
+    </div>
+    <div class="footer-socials">
+        <a href="https://instagram.com/automatise_avec_igor" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://tiktok.com/@automatise_avec_igor" aria-label="TikTok" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.48a8.27 8.27 0 004.76 1.51v-3.45a4.85 4.85 0 01-1-.85z"/></svg>
+        </a>
+        <a href="https://youtube.com/@automatise_avec_igor" aria-label="YouTube" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 00.5 6.19 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.84.55 9.38.55 9.38.55s7.54 0 9.38-.55a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/igor-sautier" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.75 1.75 0 0024 22.27V1.73A1.75 1.75 0 0022.22 0z"/></svg>
+        </a>
+    </div>
+</div>
+</footer>
+
+<script>
+(function(){
+    var btn=document.getElementById('hamburgerBtn');
+    var menu=document.getElementById('mobileMenu');
+    btn.addEventListener('click',function(){menu.classList.toggle('open')});
+    document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!menu.contains(e.target))menu.classList.remove('open')});
+})();
+</script>
+
+</body>
+</html>

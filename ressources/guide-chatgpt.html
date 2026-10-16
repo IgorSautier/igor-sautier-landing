@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le guide complet de ChatGPT | Igor Sautier</title>
+<meta name="description" content="Chaque mod&egrave;le, chaque fonctionnalit&eacute;, chaque astuce pour utiliser ChatGPT comme un pro en 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --accent:#BB111C;
+    --accent-hover:#a00f18;
+    --t1:#1a1a1a;
+    --t2:#6b6b6b;
+    --t3:#a3a3a3;
+    --bg:#f5f2ef;
+    --bg-tint:#f0ece8;
+    --card:#ffffff;
+    --line:#ded9d3;
+    --sans:'Outfit',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:15px;font-weight:400;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;line-height:1.6}
+::selection{background:rgba(187,17,28,0.12)}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
+.nav-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.nav-avatar img{width:100%;height:100%;object-fit:cover}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:14px;color:var(--t2);font-weight:400;transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:8px 20px;border-radius:9999px;border:none;cursor:pointer;transition:background .15s}
+.nav-cta:hover{background:var(--accent-hover)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--t1);border-radius:1px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:16px 24px;z-index:99;flex-direction:column;gap:16px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;color:var(--t2);padding:4px 0}
+.mobile-menu .nav-cta{text-align:center;justify-content:center}
+
+/* ARTICLE LAYOUT */
+.article-wrap{max-width:720px;margin:0 auto;padding:0 24px}
+.back-link{display:inline-block;font-size:14px;color:var(--t2);font-weight:500;margin-top:24px;margin-bottom:24px;transition:color .15s}
+.back-link:hover{color:var(--t1)}
+.article-meta{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.article-cat{font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px}
+.article-dot{color:var(--t3)}
+.article-time,.article-date{font-size:13px;color:var(--t3)}
+.article-header h1{font-size:40px;font-weight:800;line-height:1.1;margin-bottom:12px}
+.article-subtitle{font-size:17px;color:var(--t2);line-height:1.5;font-weight:400;margin-bottom:32px}
+
+/* TOC */
+.toc{margin-bottom:40px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.toc-toggle{display:flex;align-items:center;gap:8px;width:100%;padding:14px 20px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--t1);background:var(--card);border:none;cursor:pointer;transition:background .15s}
+.toc-toggle:hover{background:var(--bg-tint)}
+.toc-toggle svg:last-child{margin-left:auto;transition:transform .2s}
+.toc-toggle.open svg:last-child{transform:rotate(180deg)}
+.toc-list{display:none;list-style:none;padding:0 20px 16px;margin:0}
+.toc-list.open{display:block}
+.toc-list li{margin-bottom:4px}
+.toc-list a{display:block;padding:6px 0;font-size:14px;color:var(--t2);transition:color .15s}
+.toc-list a:hover{color:var(--accent)}
+
+/* ARTICLE BODY */
+.article-body h2{font-size:24px;font-weight:700;margin-top:40px;margin-bottom:16px;line-height:1.3}
+.article-body p{font-size:16px;color:var(--t2);line-height:1.8;margin-bottom:16px}
+.article-body ul,.article-body ol{padding-left:24px;margin-bottom:16px}
+.article-body li{font-size:16px;color:var(--t2);line-height:1.8;margin-bottom:8px}
+.article-body strong{color:var(--t1);font-weight:600}
+.article-body a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.article-body a:hover{color:var(--accent-hover)}
+
+/* PROMPT BLOCKS */
+.prompt-block{margin:24px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.prompt-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--bg-tint);border-bottom:1px solid var(--line)}
+.prompt-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3)}
+.prompt-copy{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:6px;padding:4px 12px;cursor:pointer;transition:all .15s}
+.prompt-copy:hover{background:var(--accent);color:#fff}
+.prompt-text{padding:16px;font-size:14px;color:var(--t1);line-height:1.7;white-space:pre-wrap;font-family:var(--sans)}
+
+/* STEP HEADINGS */
+.step-heading{display:flex;align-items:center;gap:14px;margin-top:40px;margin-bottom:16px}
+.step-badge{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;font-size:14px;font-weight:700;flex-shrink:0}
+.step-heading h2{font-size:24px;font-weight:700;margin:0;line-height:1.3}
+
+/* PLAN CARD */
+.plan-card{margin:32px 0;padding:28px 24px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.plan-card h3{font-size:18px;font-weight:700;margin-bottom:16px}
+.plan-card ol{padding-left:24px;margin:0}
+.plan-card li{font-size:15px;color:var(--t2);line-height:1.7;margin-bottom:8px}
+.plan-card li strong{color:var(--t1)}
+
+/* TIP */
+.tip{margin:24px 0;padding:16px 20px;border-left:3px solid var(--accent);font-style:italic;color:var(--t2);font-size:15px;line-height:1.7;background:transparent}
+
+/* KEEP READING */
+.keep-reading{margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
+.keep-reading>h2{font-size:22px;font-weight:700;margin-bottom:24px}
+.kr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.kr-card{display:flex;flex-direction:column;padding:24px;background:var(--card);border:1px solid var(--line);border-radius:12px;transition:border-color .15s,box-shadow .15s}
+.kr-card:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.kr-cat{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px}
+.kr-card h3{font-size:16px;font-weight:700;margin-bottom:8px;line-height:1.3}
+.kr-card p{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:12px;flex:1}
+.kr-link{font-size:13px;font-weight:600;color:var(--accent)}
+
+/* CTA BOX */
+.cta-box{margin-top:48px;padding:48px 32px;background:var(--card);border:1px solid var(--line);border-radius:16px;text-align:center}
+.cta-box h2{font-size:24px;font-weight:700;margin-bottom:12px}
+.cta-box p{font-size:15px;color:var(--t2);margin-bottom:24px}
+.cta-box .cta-btn{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-family:var(--sans);font-size:17px;font-weight:600;padding:16px 36px;border:none;border-radius:9999px;cursor:pointer;transition:background .15s}
+.cta-box .cta-btn:hover{background:var(--accent-hover)}
+.cta-box .micro{font-size:14px;color:var(--t3);margin-top:12px}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);margin-top:64px;padding:24px 0}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between}
+.footer-left{font-size:14px;color:var(--t2)}
+.footer-left a{margin-left:16px;text-decoration:underline;color:var(--t3)}
+.footer-left a:hover{color:var(--t1)}
+.footer-socials{display:flex;gap:16px}
+.footer-socials a{color:var(--t3);transition:color .15s}
+.footer-socials a:hover{color:var(--t1)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .nav-inner{padding:0 20px}
+    .nav-links{display:none}
+    .nav-cta-desk{display:none}
+    .hamburger{display:flex}
+    .article-wrap{padding:0 20px}
+    .article-header h1{font-size:28px}
+    .article-subtitle{font-size:15px}
+    .article-body h2{font-size:20px}
+    .kr-grid{grid-template-columns:1fr}
+    .cta-box{padding:32px 20px}
+    .footer-inner{flex-direction:column;gap:16px;text-align:center;padding:0 20px}
+    .step-heading h2{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+<div class="nav-inner">
+    <a href="../index.html" class="nav-brand">
+        <div class="nav-avatar"><img src="../igor.jpg" alt="Igor Sautier"></div>
+        Igor
+    </a>
+    <div class="nav-links">
+        <a href="../index.html">Accueil</a>
+        <a href="index.html">Ressources</a>
+        <a href="../a-propos.html">&Agrave; propos</a>
+    </div>
+    <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta nav-cta-desk" target="_blank" rel="noopener">R&eacute;server un appel</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Accueil</a>
+    <a href="index.html">Ressources</a>
+    <a href="../a-propos.html">&Agrave; propos</a>
+    <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta" target="_blank" rel="noopener">R&eacute;server un appel</a>
+</div>
+
+<!-- ARTICLE -->
+<div class="article-wrap">
+
+    <!-- BACK LINK -->
+    <a href="index.html" class="back-link">&#8592; Retour aux ressources</a>
+
+    <!-- META -->
+    <div class="article-meta">
+        <span class="article-cat">GUIDE</span>
+        <span class="article-dot">&middot;</span>
+        <span class="article-time">15 min de lecture</span>
+        <span class="article-dot">&middot;</span>
+        <span class="article-date">1 oct. 2026</span>
+    </div>
+
+    <!-- HEADER -->
+    <div class="article-header">
+        <h1>Le guide complet de ChatGPT</h1>
+        <p class="article-subtitle">Chaque mod&egrave;le, chaque fonctionnalit&eacute;, chaque astuce pour utiliser ChatGPT comme un pro.</p>
+    </div>
+
+    <!-- TOC -->
+    <div class="toc">
+        <button class="toc-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h12M2 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Sur cette page (7) <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <ul class="toc-list">
+            <li><a href="#cest-quoi-chatgpt">C'est quoi ChatGPT en 2026</a></li>
+            <li><a href="#les-modeles">Les mod&egrave;les disponibles</a></li>
+            <li><a href="#fonctionnalites">Fonctionnalit&eacute;s principales</a></li>
+            <li><a href="#custom-instructions">Custom instructions</a></li>
+            <li><a href="#meilleurs-resultats">Comment obtenir de meilleurs r&eacute;sultats</a></li>
+            <li><a href="#chatgpt-vs-claude">ChatGPT vs Claude</a></li>
+            <li><a href="#plan-action">Ton plan d'action</a></li>
+        </ul>
+    </div>
+
+    <!-- ARTICLE BODY -->
+    <div class="article-body">
+
+        <h2 id="cest-quoi-chatgpt">C'est quoi ChatGPT en 2026</h2>
+        <p>ChatGPT est un assistant IA d&eacute;velopp&eacute; par OpenAI. Tu lui poses une question, tu lui donnes une instruction, et il te r&eacute;pond en langage naturel. Ce n'est pas un moteur de recherche classique. C'est un outil qui g&eacute;n&egrave;re du texte, analyse des documents, &eacute;crit du code, cr&eacute;e des images et peut m&ecirc;me interagir avec ta voix en temps r&eacute;el.</p>
+        <p>Depuis son lancement fin 2022, ChatGPT a &eacute;norm&eacute;ment &eacute;volu&eacute;. La version gratuite donne acc&egrave;s &agrave; GPT-4o, un mod&egrave;le multimodal rapide. Les abonn&eacute;s Plus (20 $/mois) et Pro d&eacute;bloquent des fonctionnalit&eacute;s avanc&eacute;es : mode vocal, navigation web en temps r&eacute;el, g&eacute;n&eacute;ration d'images avec DALL-E, et acc&egrave;s aux mod&egrave;les de raisonnement o1 et o3. En 2026, c'est l'IA conversationnelle la plus utilis&eacute;e au monde avec plus de 200 millions d'utilisateurs actifs chaque semaine.</p>
+        <p>Si tu n'as jamais utilis&eacute; ChatGPT ou si tu restes sur des prompts basiques, ce guide va te montrer comment exploiter tout son potentiel. Et si tu veux comparer avec d'autres outils, consulte aussi <a href="guide-claude.html">le guide complet de Claude</a>.</p>
+
+        <h2 id="les-modeles">Les mod&egrave;les disponibles</h2>
+        <p>OpenAI propose plusieurs mod&egrave;les, chacun avec ses forces. Comprendre les diff&eacute;rences te permet de choisir le bon outil pour chaque t&acirc;che.</p>
+        <ul>
+            <li><strong>GPT-4o</strong> : le mod&egrave;le par d&eacute;faut. Rapide, multimodal (texte, image, audio), et accessible sur le plan gratuit. C'est le plus polyvalent pour les t&acirc;ches quotidiennes : r&eacute;daction, analyse, brainstorming, code simple.</li>
+            <li><strong>GPT-4o mini</strong> : une version all&eacute;g&eacute;e et encore plus rapide. Id&eacute;al pour les t&acirc;ches simples qui ne n&eacute;cessitent pas le plein potentiel du mod&egrave;le standard. Parfait pour des r&eacute;ponses courtes, du tri ou des reformulations basiques.</li>
+            <li><strong>o1</strong> : le mod&egrave;le de raisonnement avanc&eacute;. Il prend plus de temps pour r&eacute;pondre parce qu'il "r&eacute;fl&eacute;chit" &eacute;tape par &eacute;tape avant de formuler sa r&eacute;ponse. Utilise-le pour des probl&egrave;mes complexes : calculs, logique, planification strat&eacute;gique, code avanc&eacute;.</li>
+            <li><strong>o3</strong> : la version la plus puissante du raisonnement. R&eacute;serv&eacute;s aux abonn&eacute;s Pro, ce mod&egrave;le excelle sur les t&acirc;ches qui demandent une r&eacute;flexion approfondie et multi-&eacute;tapes. Pense &agrave; lui pour les analyses financi&egrave;res complexes ou la r&eacute;solution de bugs difficiles.</li>
+        </ul>
+        <blockquote class="tip">Le mod&egrave;le par d&eacute;faut (GPT-4o) couvre 80 % des cas d'usage. Passe sur o1 uniquement quand tu as besoin d'un raisonnement structur&eacute; ou quand la premi&egrave;re r&eacute;ponse n'est pas assez pr&eacute;cise.</blockquote>
+
+        <h2 id="fonctionnalites">Fonctionnalit&eacute;s principales</h2>
+        <p>Voici ce que tu peux faire avec ChatGPT en 2026 :</p>
+        <ul>
+            <li><strong>G&eacute;n&eacute;ration de texte</strong> : emails, articles, scripts vid&eacute;o, l&eacute;gendes Instagram, fiches produit, r&eacute;sum&eacute;s. Tu donnes le contexte et le ton souhait&eacute;, ChatGPT &eacute;crit.</li>
+            <li><strong>Analyse de documents</strong> : uploade un PDF, un tableur Excel ou une image. ChatGPT l'analyse et extrait les informations cl&eacute;s. Pratique pour r&eacute;sumer un contrat de 50 pages ou extraire des chiffres d'un rapport.</li>
+            <li><strong>G&eacute;n&eacute;ration de code</strong> : Python, JavaScript, SQL, HTML, CSS. M&ecirc;me si tu n'es pas d&eacute;veloppeur, tu peux cr&eacute;er des scripts utiles, des automatisations ou des prototypes fonctionnels.</li>
+            <li><strong>G&eacute;n&eacute;ration d'images (DALL-E)</strong> : d&eacute;cris ce que tu veux et ChatGPT g&eacute;n&egrave;re une image. Utile pour des visuels de contenu, des mockups rapides, des illustrations pour tes pr&eacute;sentations.</li>
+            <li><strong>Mode vocal</strong> : parle directement &agrave; ChatGPT comme &agrave; un assistant. Il r&eacute;pond &agrave; l'oral, en temps r&eacute;el, avec une voix naturelle. Parfait en d&eacute;placement ou pour brainstormer sans taper.</li>
+            <li><strong>GPTs personnalis&eacute;s</strong> : des versions de ChatGPT configur&eacute;es pour une t&acirc;che pr&eacute;cise. Tu peux cr&eacute;er le tien (un assistant commercial, un r&eacute;dacteur sp&eacute;cialis&eacute;, un coach) ou utiliser ceux de la communaut&eacute; via le GPT Store.</li>
+            <li><strong>Navigation web</strong> : ChatGPT peut chercher sur internet en temps r&eacute;el pour te donner des informations &agrave; jour, avec les sources. Fini les r&eacute;ponses bas&eacute;es uniquement sur les donn&eacute;es d'entra&icirc;nement.</li>
+            <li><strong>Canvas</strong> : un espace de travail collaboratif o&ugrave; ChatGPT t'aide &agrave; &eacute;crire et &eacute;diter des textes ou du code dans une interface d&eacute;di&eacute;e, avec des suggestions en marge.</li>
+        </ul>
+
+        <h2 id="custom-instructions">Custom instructions</h2>
+        <p>Les Custom Instructions sont l'une des fonctionnalit&eacute;s les plus sous-estim&eacute;es de ChatGPT. Elles te permettent de d&eacute;finir une fois pour toutes qui tu es, ce que tu fais, et comment tu veux que ChatGPT te r&eacute;ponde. Au lieu de r&eacute;p&eacute;ter ton contexte &agrave; chaque conversation, tu le configures une seule fois et chaque nouvelle conversation en tient compte automatiquement.</p>
+        <p>Tu y acc&egrave;des dans les param&egrave;tres de ton compte, section "Personnalisation". Il y a deux champs : ce que ChatGPT doit savoir sur toi, et comment il doit formuler ses r&eacute;ponses.</p>
+        <p>Voici un exemple de Custom Instructions efficaces pour un consultant ou un entrepreneur :</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 1 &middot; CUSTOM INSTRUCTIONS</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">&Agrave; propos de moi :
+Je suis [ton pr&eacute;nom], [ton m&eacute;tier] pour [ton type de clients]. Mon entreprise s'appelle [nom]. Je travaille principalement sur [tes 2-3 activit&eacute;s principales]. Mon audience parle fran&ccedil;ais. Je communique sur Instagram et LinkedIn.
+
+Comment r&eacute;pondre :
+- Tutoie-moi toujours
+- Sois direct et concret, pas de blabla
+- Donne des exemples pratiques, pas de th&eacute;orie abstraite
+- Quand je demande du contenu, propose 3 variantes
+- Formate tes r&eacute;ponses avec des titres et des listes
+- Si ma demande est vague, pose-moi 2-3 questions avant de r&eacute;pondre</div>
+        </div>
+
+        <blockquote class="tip">Les Custom Instructions s'appliquent &agrave; TOUTES tes conversations. Si tu travailles sur des projets tr&egrave;s diff&eacute;rents, pense &agrave; cr&eacute;er des GPTs personnalis&eacute;s pour chaque contexte plut&ocirc;t que de tout mettre dans les Custom Instructions.</blockquote>
+
+        <h2 id="meilleurs-resultats">Comment obtenir de meilleurs r&eacute;sultats</h2>
+        <p>La majorit&eacute; des utilisateurs de ChatGPT tapent un message vague et s'&eacute;tonnent d'obtenir une r&eacute;ponse g&eacute;n&eacute;rique. La qualit&eacute; de la r&eacute;ponse d&eacute;pend directement de la qualit&eacute; de ton prompt. Voici trois techniques concr&egrave;tes pour transformer tes r&eacute;sultats.</p>
+
+        <p><strong>Technique 1 : donne un r&ocirc;le pr&eacute;cis.</strong> Au lieu de demander quelque chose directement, commence par attribuer un r&ocirc;le &agrave; ChatGPT. Un expert en marketing ne r&eacute;pond pas de la m&ecirc;me fa&ccedil;on qu'un g&eacute;n&eacute;raliste. En d&eacute;finissant le r&ocirc;le, tu orientes le style, le vocabulaire et la profondeur de la r&eacute;ponse.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 2 &middot; R&Ocirc;LE</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Tu es un expert en email marketing B2B avec 10 ans d'exp&eacute;rience. Tu travailles avec des PME fran&ccedil;aises dans le secteur du service.
+
+&Eacute;cris un email de relance pour un prospect qui a t&eacute;l&eacute;charg&eacute; notre guide gratuit il y a 5 jours mais qui n'a pas pris de rendez-vous. L'objectif est de d&eacute;clencher une r&eacute;servation d'appel de 30 minutes.
+
+Contraintes :
+- Ton amical mais professionnel
+- Maximum 5 phrases
+- Un seul appel &agrave; l'action
+- Pas de formules clich&eacute;s ("j'esp&egrave;re que vous allez bien")</div>
+        </div>
+
+        <p><strong>Technique 2 : demande un format structur&eacute;.</strong> Si tu veux un r&eacute;sultat utilisable imm&eacute;diatement, pr&eacute;cise le format de sortie. Tableau, liste num&eacute;rot&eacute;e, JSON, Markdown, plan en &eacute;tapes. ChatGPT respecte tr&egrave;s bien les consignes de formatage quand tu les explicites.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 3 &middot; FORMAT STRUCTUR&Eacute;</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Analyse les 5 concurrents principaux de [ton entreprise] dans le secteur [ton secteur] en France.
+
+Pour chaque concurrent, donne-moi :
+1. Nom et URL du site
+2. Proposition de valeur principale (1 phrase)
+3. Fourchette de prix
+4. Points forts (2-3 bullets)
+5. Points faibles (2-3 bullets)
+6. Ce qu'on peut leur prendre comme positionnement
+
+Pr&eacute;sente le tout dans un tableau Markdown avec une ligne par concurrent.</div>
+        </div>
+
+        <p><strong>Technique 3 : it&egrave;re et affine.</strong> Le premier r&eacute;sultat de ChatGPT est rarement parfait. La vraie puissance vient de l'it&eacute;ration. Demande des ajustements pr&eacute;cis : "plus court", "change le ton pour quelque chose de plus percutant", "ajoute un exemple concret pour le point 3", "reformule la conclusion comme un appel &agrave; l'action". C'est une conversation, pas une commande unique.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 4 &middot; IT&Eacute;RATION</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Ce texte est bien mais j'ai besoin de 3 modifications :
+
+1. Le hook d'ouverture est trop mou. Remplace-le par une question provocante qui interpelle directement le lecteur.
+2. Le paragraphe 3 est trop long. Coupe-le en deux et ajoute un exemple chiffr&eacute;.
+3. La conclusion doit pousser &agrave; l'action. Termine par une question directe au lecteur.
+
+Garde le m&ecirc;me ton et la m&ecirc;me structure pour le reste.</div>
+        </div>
+
+        <blockquote class="tip">La r&egrave;gle des 3 it&eacute;rations : si apr&egrave;s 3 aller-retours le r&eacute;sultat ne te convient toujours pas, c'est probablement ton prompt initial qui manque de contexte. Recommence avec un prompt plus d&eacute;taill&eacute; plut&ocirc;t que de continuer &agrave; corriger.</blockquote>
+
+        <h2 id="chatgpt-vs-claude">ChatGPT vs Claude</h2>
+        <p>ChatGPT et <a href="guide-claude.html">Claude</a> sont les deux IA conversationnelles les plus performantes en 2026. Les deux sont excellentes, mais elles n'ont pas les m&ecirc;mes points forts. Voici une comparaison honn&ecirc;te pour t'aider &agrave; choisir.</p>
+        <p><strong>ChatGPT est meilleur pour :</strong></p>
+        <ul>
+            <li>La navigation web en temps r&eacute;el (recherches, actualit&eacute;s, v&eacute;rification de faits)</li>
+            <li>La g&eacute;n&eacute;ration d'images avec DALL-E</li>
+            <li>L'&eacute;cosyst&egrave;me de GPTs personnalis&eacute;s et le GPT Store</li>
+            <li>Le mode vocal conversationnel</li>
+            <li>L'int&eacute;gration avec des outils tiers via les plugins</li>
+        </ul>
+        <p><strong>Claude est meilleur pour :</strong></p>
+        <ul>
+            <li>L'analyse de tr&egrave;s longs documents (contrats, rapports, cahiers des charges)</li>
+            <li>La r&eacute;daction soign&eacute;e avec un ton naturel, moins "IA"</li>
+            <li>Le code complexe et l'automatisation</li>
+            <li>La fiabilit&eacute; factuelle (moins d'hallucinations)</li>
+            <li>Les Projects avec contexte persistant</li>
+        </ul>
+        <p>Mon conseil : utilise les deux. ChatGPT pour le quotidien, la recherche web et le contenu visuel. Claude pour les t&acirc;ches qui demandent de la pr&eacute;cision, de la nuance et du contexte long. Pour un comparatif d&eacute;taill&eacute;, consulte <a href="claude-vs-chatgpt.html">ChatGPT vs Claude : le comparatif complet</a>.</p>
+
+        <h2 id="plan-action">Ton plan d'action</h2>
+        <p>Tu as maintenant une vision compl&egrave;te de ChatGPT. Voici comment passer &agrave; l'action cette semaine :</p>
+        <ol>
+            <li><strong>Configure tes Custom Instructions</strong> en utilisant le prompt plus haut. &Ccedil;a prend 5 minutes et &ccedil;a am&eacute;liore toutes tes futures conversations.</li>
+            <li><strong>Teste les 3 techniques de prompting</strong> sur une t&acirc;che r&eacute;elle de ton travail. Pas un exercice th&eacute;orique : prends un email &agrave; &eacute;crire, une analyse &agrave; faire, ou un contenu &agrave; cr&eacute;er.</li>
+            <li><strong>Explore le GPT Store</strong> et trouve 2 ou 3 GPTs utiles pour ton m&eacute;tier. Il y en a pour la r&eacute;daction, l'analyse de donn&eacute;es, le SEO, le juridique, la comptabilit&eacute;.</li>
+            <li><strong>Compare avec Claude</strong> sur une m&ecirc;me t&acirc;che. Envoie le m&ecirc;me prompt aux deux outils et compare les r&eacute;sultats. Tu verras vite lequel te convient le mieux selon le contexte.</li>
+            <li><strong>Automatise une t&acirc;che r&eacute;p&eacute;titive</strong>. Si tu copies-colles des infos entre deux outils chaque semaine, c'est le moment de d&eacute;couvrir <a href="automatiser-n8n.html">n8n</a> et de connecter ChatGPT &agrave; tes autres applications.</li>
+        </ol>
+        <blockquote class="tip">Ne cherche pas &agrave; tout ma&icirc;triser d'un coup. Commence par une seule t&acirc;che que tu fais chaque semaine, optimise-la avec ChatGPT, et passe &agrave; la suivante quand c'est devenu un r&eacute;flexe.</blockquote>
+
+    </div>
+
+    <!-- CONTINUE A LIRE -->
+    <section class="keep-reading">
+        <h2>Continue &agrave; lire</h2>
+        <div class="kr-grid">
+            <a href="guide-claude.html" class="kr-card">
+                <div class="kr-cat">GUIDE</div>
+                <h3>Le guide complet de Claude</h3>
+                <p>Tout sur Claude par Anthropic : mod&egrave;les, Artifacts, Projects et cas d'usage concrets.</p>
+                <span class="kr-link">Lire la ressource &rarr;</span>
+            </a>
+            <a href="codes-secrets-chatgpt.html" class="kr-card">
+                <div class="kr-cat">PROMPTS</div>
+                <h3>Les codes secrets de ChatGPT</h3>
+                <p>Les prompts avanc&eacute;s que 95 % des utilisateurs ne connaissent pas.</p>
+                <span class="kr-link">Lire la ressource &rarr;</span>
+            </a>
+            <a href="claude-vs-chatgpt.html" class="kr-card">
+                <div class="kr-cat">COMPARATIF</div>
+                <h3>Claude vs ChatGPT</h3>
+                <p>Le comparatif d&eacute;taill&eacute; pour choisir la bonne IA selon ta t&acirc;che.</p>
+                <span class="kr-link">Lire la ressource &rarr;</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- CTA BOX -->
+    <div class="cta-box">
+        <h2>R&eacute;serve ton audit gratuit</h2>
+        <p>30 minutes pour identifier les t&acirc;ches que tu peux automatiser dans ton business.</p>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="cta-btn" target="_blank" rel="noopener">R&eacute;server mon audit gratuit</a>
+        <p class="micro">30 min &middot; Gratuit &middot; Sans engagement</p>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-inner">
+    <div class="footer-left">
+        &copy; 2026 Igor Sautier
+        <a href="../mentions-legales.html">Mentions l&eacute;gales</a>
+    </div>
+    <div class="footer-socials">
+        <a href="https://instagram.com/automatise_avec_igor" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://tiktok.com/@automatise_avec_igor" aria-label="TikTok" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.48a8.27 8.27 0 004.76 1.51v-3.45a4.85 4.85 0 01-1-.85z"/></svg>
+        </a>
+        <a href="https://youtube.com/@automatise_avec_igor" aria-label="YouTube" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 00.5 6.19 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.84.55 9.38.55 9.38.55s7.54 0 9.38-.55a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/igor-sautier" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.75 1.75 0 0024 22.27V1.73A1.75 1.75 0 0022.22 0z"/></svg>
+        </a>
+    </div>
+</div>
+</footer>
+
+<script>
+(function(){
+    var btn=document.getElementById('hamburgerBtn');
+    var menu=document.getElementById('mobileMenu');
+    btn.addEventListener('click',function(){menu.classList.toggle('open')});
+    document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!menu.contains(e.target))menu.classList.remove('open')});
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le prompt qui m'a fait gagner 3h par semaine | Igor Sautier</title>
+<meta name="description" content="Un seul prompt bien construit peut transformer ta productivit&eacute;. D&eacute;couvre celui qui m'a fait gagner 3 heures par semaine et comment l'adapter &agrave; ton m&eacute;tier.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --accent:#BB111C;
+    --accent-hover:#a00f18;
+    --t1:#1a1a1a;
+    --t2:#6b6b6b;
+    --t3:#a3a3a3;
+    --bg:#f5f2ef;
+    --card:#ffffff;
+    --line:#ded9d3;
+    --sans:'Outfit',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:15px;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;line-height:1.7}
+::selection{background:rgba(187,17,28,0.12)}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* ---- NAV ---- */
+nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
+.nav-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.nav-avatar img{width:100%;height:100%;object-fit:cover}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:14px;color:var(--t2);font-weight:400;transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:8px 20px;border-radius:9999px;border:none;cursor:pointer;transition:background .15s}
+.nav-cta:hover{background:var(--accent-hover)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--t1);border-radius:1px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:16px 24px;z-index:99;flex-direction:column;gap:16px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;color:var(--t2);padding:4px 0}
+.mobile-menu .nav-cta{text-align:center;justify-content:center}
+
+/* ---- BACK LINK ---- */
+.back-bar{max-width:720px;margin:0 auto;padding:24px 24px 0}
+.back-bar a{font-size:14px;color:var(--t2);font-weight:500;transition:color .15s}
+.back-bar a:hover{color:var(--t1)}
+
+/* ---- ARTICLE ---- */
+.wrap{max-width:720px;margin:0 auto;padding:32px 24px 80px}
+.meta{font-size:12px;color:var(--t2);margin-bottom:10px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.cat{color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:1.5px}
+h1{font-size:40px;font-weight:800;line-height:1.1;margin-bottom:14px}
+.subtitle{font-size:17px;color:var(--t2);margin-bottom:40px;line-height:1.6}
+
+/* ---- TOC ---- */
+.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:40px}
+.toc-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--t3);margin-bottom:12px}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{margin-bottom:8px}
+.toc a{font-size:15px;color:var(--t2);font-weight:500;transition:color .15s}
+.toc a:hover{color:var(--accent)}
+
+/* ---- CONTENT ---- */
+.content h2{font-size:22px;font-weight:700;margin:36px 0 12px;line-height:1.3}
+.content p{font-size:16px;color:#444;margin-bottom:16px;line-height:1.7}
+.content strong{color:var(--t1)}
+.content ul{margin:0 0 16px 20px;color:#444}
+.content li{margin-bottom:8px;font-size:15px;line-height:1.6}
+.content li strong{color:var(--t1)}
+
+/* ---- PROMPT BLOCK ---- */
+.prompt-block{background:#1a1a1a;border-radius:12px;margin:20px 0 28px;overflow:hidden}
+.prompt-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.prompt-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.4)}
+.prompt-copy{background:none;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);font-size:12px;font-weight:600;padding:4px 14px;border-radius:6px;cursor:pointer;font-family:var(--sans);transition:all .15s}
+.prompt-copy:hover{border-color:rgba(255,255,255,0.3);color:#fff}
+.prompt-text{padding:20px;font-size:14px;color:rgba(255,255,255,0.88);line-height:1.7;white-space:pre-wrap;word-wrap:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+/* ---- TIP BOX ---- */
+.tip-box{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:20px 24px;margin:20px 0 28px}
+.tip-box p{font-size:15px;color:#444;line-height:1.7;margin:0}
+.tip-box strong{color:var(--t1)}
+
+/* ---- CONTINUE A LIRE ---- */
+.related{margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
+.related h2{font-size:20px;font-weight:700;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.related-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;transition:border-color .15s}
+.related-card:hover{border-color:var(--accent)}
+.related-card .rc-cat{font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.related-card .rc-title{font-size:15px;font-weight:700;line-height:1.3;margin-bottom:6px}
+.related-card .rc-desc{font-size:13px;color:var(--t2);line-height:1.5}
+
+/* ---- CTA BOX ---- */
+.cta-box{margin-top:48px;padding:32px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-align:center}
+.cta-box h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.cta-box p{font-size:14px;color:var(--t2);margin-bottom:16px}
+.cta-box a.btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 28px;border-radius:9999px;font-weight:600;font-size:14px;transition:background .15s}
+.cta-box a.btn:hover{background:var(--accent-hover)}
+.cta-box .micro{font-size:12px;color:var(--t3);margin-top:10px}
+
+/* ---- FOOTER ---- */
+footer{border-top:1px solid var(--line);padding:24px 0}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between}
+.footer-left{font-size:14px;color:var(--t2)}
+.footer-left a{margin-left:16px;text-decoration:underline;color:var(--t3)}
+.footer-left a:hover{color:var(--t1)}
+.footer-socials{display:flex;gap:16px}
+.footer-socials a{color:var(--t3);transition:color .15s}
+.footer-socials a:hover{color:var(--t1)}
+
+/* ---- MOBILE ---- */
+@media(max-width:768px){
+    .nav-inner{padding:0 20px}
+    .nav-links{display:none}
+    .nav-cta-desk{display:none}
+    .hamburger{display:flex}
+    h1{font-size:28px}
+    .wrap{padding:24px 20px 60px}
+    .back-bar{padding:16px 20px 0}
+    .related-grid{grid-template-columns:1fr}
+    .footer-inner{padding:0 20px;flex-direction:column;gap:16px;text-align:center}
+    .footer-left a{margin-left:0;display:block;margin-top:8px}
+    .prompt-text{font-size:13px;padding:16px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="../index.html" class="nav-brand">
+            <div class="nav-avatar"><img src="../igor.jpg" alt="Igor Sautier"></div>
+            Igor
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Accueil</a>
+            <a href="index.html">Ressources</a>
+            <a href="../a-propos.html">&Agrave; propos</a>
+        </div>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta nav-cta-desk" target="_blank" rel="noopener">R&eacute;server un appel</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Accueil</a>
+    <a href="index.html">Ressources</a>
+    <a href="../a-propos.html">&Agrave; propos</a>
+    <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta" target="_blank" rel="noopener">R&eacute;server un appel</a>
+</div>
+
+<div class="back-bar">
+    <a href="index.html">&#8592; Retour aux ressources</a>
+</div>
+
+<div class="wrap">
+    <div class="meta">
+        <span class="cat">ASTUCE</span>
+        <span>6 min de lecture</span>
+        <span>23 sept. 2026</span>
+    </div>
+    <h1>Le prompt qui m'a fait gagner 3h par semaine</h1>
+    <p class="subtitle">Un seul prompt, bien construit, qui a chang&eacute; ma fa&ccedil;on de travailler.</p>
+
+    <div class="toc">
+        <div class="toc-title">Sommaire</div>
+        <ul>
+            <li><a href="#probleme">Le probl&egrave;me</a></li>
+            <li><a href="#prompt">Le prompt</a></li>
+            <li><a href="#pourquoi">Pourquoi &ccedil;a marche</a></li>
+            <li><a href="#adapter">Comment l'adapter</a></li>
+            <li><a href="#conseil">Mon conseil</a></li>
+            <li><a href="#action">Plan d'action</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+
+        <h2 id="probleme">Le probl&egrave;me</h2>
+
+        <p>Chaque vendredi, c'&eacute;tait la m&ecirc;me chose. Je passais entre 45 minutes et une heure &agrave; r&eacute;diger mon email de synth&egrave;se hebdomadaire. Rassembler les notes de la semaine, retrouver les chiffres cl&eacute;s, formuler les priorit&eacute;s de la semaine suivante, tout rendre lisible pour l'&eacute;quipe. Multipli&eacute; par quatre semaines, &ccedil;a faisait entre 3 et 4 heures par mois sur une t&acirc;che r&eacute;p&eacute;titive que je repoussais syst&eacute;matiquement.</p>
+
+        <p>Et je ne suis pas le seul. La plupart des entrepreneurs et managers que j'accompagne perdent un temps consid&eacute;rable sur ce type de t&acirc;ches : rapports, comptes-rendus, suivis de projet, synth&egrave;ses de donn&eacute;es. Du travail n&eacute;cessaire, mais qui ne demande aucune cr&eacute;ativit&eacute;. &Ccedil;a suit toujours le m&ecirc;me sch&eacute;ma : tu rassembles des informations en vrac, tu les tries, tu les mets en forme, et tu les envoies. Le contenu change, mais le processus est identique d'une semaine &agrave; l'autre.</p>
+
+        <p>Exactement le genre de chose qu'un bon prompt peut g&eacute;rer. Pas un prompt g&eacute;n&eacute;rique copi&eacute;-coll&eacute; depuis Twitter. Un prompt construit avec m&eacute;thode, qui comprend ton contexte, qui respecte des contraintes pr&eacute;cises, et qui produit un r&eacute;sultat pr&ecirc;t &agrave; envoyer sans retouche. J'ai mis deux semaines &agrave; affiner le mien. Depuis six mois, il me fait gagner 3 heures par semaine. Voici exactement comment il fonctionne.</p>
+
+        <h2 id="prompt">Le prompt</h2>
+
+        <p>Voici le prompt exact que j'utilise chaque semaine. Je colle mes notes brutes (en vrac, sans mise en forme, parfois un m&eacute;lange de fran&ccedil;ais et d'anglais, avec des abr&eacute;viations et des chiffres non format&eacute;s) et je laisse l'IA faire le travail de structuration. Le r&eacute;sultat est un email clair, structur&eacute; et pr&ecirc;t &agrave; envoyer en moins de 30 secondes.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 1 &middot; LE PROMPT PRINCIPAL</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici mes notes de la semaine :
+
+[colle tes notes ici]
+
+R&eacute;dige un email de synth&egrave;se hebdomadaire pour mon &eacute;quipe.
+
+Format :
+- 3 r&eacute;sultats cl&eacute;s de la semaine (avec chiffres si disponibles)
+- 2 priorit&eacute;s de la semaine prochaine
+- 1 point d'attention ou risque &agrave; surveiller
+
+R&egrave;gles :
+- Ton professionnel mais humain
+- Maximum 200 mots
+- Phrases courtes et directes
+- Ne commence pas par "Bonjour l'&eacute;quipe" ou "J'esp&egrave;re que vous allez bien"
+- Utilise des bullet points pour la lisibilit&eacute;
+- Si un chiffre est mentionn&eacute; dans les notes, inclus-le</div>
+        </div>
+
+        <p>Je fais parfois un ou deux ajustements mineurs sur le r&eacute;sultat (un chiffre &agrave; pr&eacute;ciser, une formulation &agrave; adoucir), mais 90% du travail est fait. L'email part en 5 minutes au lieu de 45. Et il est souvent mieux structur&eacute; que ce que j'aurais &eacute;crit moi-m&ecirc;me, parce que l'IA respecte le format &agrave; chaque fois, sans oublier une section.</p>
+
+        <h2 id="pourquoi">Pourquoi &ccedil;a marche</h2>
+
+        <p>Ce prompt n'a rien de magique. Il fonctionne parce qu'il respecte trois principes fondamentaux que la plupart des gens ignorent quand ils utilisent l'IA.</p>
+
+        <p><strong>1. Un format pr&eacute;cis.</strong> En demandant exactement 3 r&eacute;sultats, 2 priorit&eacute;s et 1 point d'attention, tu emp&ecirc;ches l'IA de partir dans tous les sens. Elle sait exactement ce qu'on attend. Pas de pav&eacute; de 500 mots. Pas de paragraphes inutiles. Juste les informations que ton &eacute;quipe a besoin de lire. La structure num&eacute;rot&eacute;e force aussi l'IA &agrave; prioriser : elle doit choisir les 3 r&eacute;sultats les plus importants parmi tout ce que tu lui donnes, au lieu de tout lister sans hi&eacute;rarchie.</p>
+
+        <p><strong>2. Des contraintes claires.</strong> La limite de 200 mots force un r&eacute;sultat concis. Sans cette limite, l'IA g&eacute;n&egrave;re des pav&eacute;s que personne ne lira. Le "ne commence pas par Bonjour l'&eacute;quipe" &eacute;vite les formules g&eacute;n&eacute;riques que tout le monde saute en lisant. Et la contrainte sur les chiffres garantit que les donn&eacute;es importantes ne sont pas noy&eacute;es dans du texte. Chaque contrainte r&eacute;sout un probl&egrave;me pr&eacute;cis que j'ai observ&eacute; dans les premi&egrave;res versions du prompt.</p>
+
+        <p><strong>3. Un ton d&eacute;fini.</strong> "Professionnel mais humain" donne une direction de style claire. Sans cette indication, le r&eacute;sultat sonne souvent trop formel (comme un email d'entreprise du CAC 40) ou trop d&eacute;contract&eacute; (comme un message Slack). Cette simple indication positionne le curseur au bon endroit. L'IA comprend qu'elle doit &ecirc;tre directe sans &ecirc;tre froide, et accessible sans &ecirc;tre famili&egrave;re.</p>
+
+        <h2 id="adapter">Comment l'adapter</h2>
+
+        <p>Ce prompt est un point de d&eacute;part. La vraie puissance, c'est de l'adapter &agrave; ton m&eacute;tier sp&eacute;cifique. Voici quatre variations que j'ai construites pour des profils diff&eacute;rents. Chacune garde les m&ecirc;mes principes (format pr&eacute;cis, contraintes claires, ton d&eacute;fini) mais ajuste le contenu et l'audience.</p>
+
+        <p><strong>Variation marketing :</strong> pour les responsables marketing qui doivent rapporter les performances de leurs campagnes &agrave; leur &eacute;quipe ou &agrave; leur direction.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 2 &middot; VARIATION MARKETING</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici les donn&eacute;es marketing de la semaine :
+
+[colle tes notes / stats ici]
+
+R&eacute;dige un rapport de performance marketing hebdomadaire.
+
+Format :
+- 3 m&eacute;triques cl&eacute;s (avec &eacute;volution vs semaine pr&eacute;c&eacute;dente si disponible)
+- Top 2 des contenus/campagnes les plus performants
+- 1 test &agrave; lancer la semaine prochaine
+- 1 point d'alerte si une m&eacute;trique baisse
+
+R&egrave;gles :
+- Ton factuel, pas de superlatifs ("excellent", "incroyable")
+- Maximum 180 mots
+- Chiffres en gras
+- Commence directement par les m&eacute;triques</div>
+        </div>
+
+        <p><strong>Variation d&eacute;veloppeur :</strong> pour les tech leads ou d&eacute;veloppeurs qui doivent communiquer l'avancement technique &agrave; une &eacute;quipe mixte (tech et non-tech).</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 3 &middot; VARIATION DEV</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici mes notes techniques de la semaine :
+
+[colle tes notes ici]
+
+R&eacute;dige un update technique hebdomadaire pour une &eacute;quipe mixte (devs + product + direction).
+
+Format :
+- Ce qui a &eacute;t&eacute; livr&eacute; (fonctionnalit&eacute;s ou corrections)
+- Ce qui est en cours (avec % d'avancement estim&eacute;)
+- Blocages ou d&eacute;pendances
+- Prochaine release pr&eacute;vue
+
+R&egrave;gles :
+- Compr&eacute;hensible par des non-techniques
+- Pas de jargon sans explication
+- Maximum 200 mots
+- Bullet points uniquement</div>
+        </div>
+
+        <p><strong>Variation manager :</strong> pour les managers qui g&egrave;rent des &eacute;quipes et doivent rapporter &agrave; leur N+1.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 4 &middot; VARIATION MANAGER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici mes notes sur l'&eacute;quipe cette semaine :
+
+[colle tes notes ici]
+
+R&eacute;dige un point hebdomadaire pour mon N+1.
+
+Format :
+- Faits marquants de l'&eacute;quipe (2-3 points)
+- Avancement des objectifs trimestriels (en une phrase chacun)
+- Besoins ou escalades (d&eacute;cisions &agrave; prendre par la direction)
+- Moral de l'&eacute;quipe (une phrase honn&ecirc;te)
+
+R&egrave;gles :
+- Ton synth&eacute;tique, orient&eacute; action
+- Maximum 200 mots
+- Mets les demandes de d&eacute;cision en &eacute;vidence
+- Ne minimise pas les probl&egrave;mes</div>
+        </div>
+
+        <p><strong>Variation freelance :</strong> pour les freelances et ind&eacute;pendants qui doivent informer leurs clients de l'avancement de leur mission.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 5 &middot; VARIATION FREELANCE</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici mes notes sur la mission de cette semaine :
+
+[colle tes notes ici]
+
+R&eacute;dige un email de suivi pour mon client.
+
+Format :
+- Ce qui a &eacute;t&eacute; fait cette semaine (3 points max)
+- Prochaines &eacute;tapes (2 points)
+- Questions ou validations n&eacute;cessaires de la part du client
+
+R&egrave;gles :
+- Ton professionnel mais chaleureux (relation de confiance)
+- Vouvoiement
+- Maximum 150 mots
+- Termine par un CTA clair (question ou proposition de cr&eacute;neau)
+- Ne commence pas par "J'esp&egrave;re que vous allez bien"</div>
+        </div>
+
+        <h2 id="conseil">Mon conseil</h2>
+
+        <div class="tip-box">
+            <p><strong>Retiens cette r&egrave;gle :</strong> un bon prompt donne toujours trois choses &agrave; l'IA. Une structure claire (quel format, combien de points). Une contrainte de longueur (combien de mots). Et un ton (comment &ccedil;a doit sonner). Ce principe s'applique &agrave; n'importe quel prompt, pas seulement aux emails. Synth&egrave;ses, propositions commerciales, posts LinkedIn, descriptions produit. &Agrave; chaque fois que tu donnes ces trois &eacute;l&eacute;ments, le r&eacute;sultat passe de "correct" &agrave; "pr&ecirc;t &agrave; publier". Teste-le sur ta prochaine t&acirc;che d'&eacute;criture. Tu ne reviendras plus en arri&egrave;re.</p>
+        </div>
+
+        <p>Un dernier point important : le prompt parfait n'existe pas du premier coup. Celui que tu viens de lire est la version 7 ou 8 du mien. Les premi&egrave;res versions donnaient des r&eacute;sultats corrects mais pas assez pr&eacute;cis. J'ai ajout&eacute; la contrainte de mots apr&egrave;s avoir re&ccedil;u un pav&eacute; de 400 mots. J'ai ajout&eacute; le "ne commence pas par Bonjour l'&eacute;quipe" apr&egrave;s la quatri&egrave;me fois o&ugrave; l'IA le faisait. Chaque contrainte a &eacute;t&eacute; ajout&eacute;e pour r&eacute;soudre un probl&egrave;me r&eacute;el. Fais pareil : utilise le prompt, note ce qui ne te pla&icirc;t pas dans le r&eacute;sultat, et ajoute une contrainte pour corriger. En 2 ou 3 it&eacute;rations, tu auras un prompt parfaitement calibr&eacute; pour ton contexte.</p>
+
+        <h2 id="action">Plan d'action</h2>
+
+        <p>Voici ce que je te recommande de faire dans les prochaines 48 heures :</p>
+
+        <ul>
+            <li><strong>Aujourd'hui :</strong> copie le prompt principal (ou la variation qui correspond &agrave; ton m&eacute;tier). Colle-le dans un document que tu gardes sous la main (un Google Doc, une note, un favori).</li>
+            <li><strong>Demain :</strong> utilise-le pour une vraie t&acirc;che. Pas un test th&eacute;orique. Prends tes notes de la semaine, colle-les dans Claude ou ChatGPT avec le prompt, et envoie le r&eacute;sultat &agrave; ton &eacute;quipe ou ton client.</li>
+            <li><strong>Vendredi prochain :</strong> refais-le. Note ce que tu as d&ucirc; modifier manuellement dans le r&eacute;sultat. Ajoute une contrainte dans le prompt pour corriger &ccedil;a.</li>
+            <li><strong>Dans un mois :</strong> calcule le temps que tu as gagn&eacute;. Si tu &eacute;conomises ne serait-ce que 30 minutes par semaine, &ccedil;a fait 26 heures par an. Soit plus de 3 jours de travail r&eacute;cup&eacute;r&eacute;s. Avec un seul prompt.</li>
+        </ul>
+
+    </div>
+
+    <!-- CONTINUE A LIRE -->
+    <div class="related">
+        <h2>Continue &agrave; lire</h2>
+        <div class="related-grid">
+            <a href="codes-secrets-chatgpt.html" class="related-card">
+                <div class="rc-cat">PROMPTS</div>
+                <div class="rc-title">Les codes secrets de ChatGPT</div>
+                <div class="rc-desc">Les techniques avanc&eacute;es que les pros utilisent au quotidien.</div>
+            </a>
+            <a href="5-automatisations.html" class="related-card">
+                <div class="rc-cat">AUTOMATISATION</div>
+                <div class="rc-title">5 automatisations &agrave; copier ce week-end</div>
+                <div class="rc-desc">Chacune prend moins de 15 minutes et te fait gagner des heures.</div>
+            </a>
+            <a href="guide-chatgpt.html" class="related-card">
+                <div class="rc-cat">GUIDE</div>
+                <div class="rc-title">Le guide complet de ChatGPT</div>
+                <div class="rc-desc">Tout ce que tu dois savoir pour utiliser ChatGPT efficacement.</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- CTA BOX -->
+    <div class="cta-box">
+        <h3>R&eacute;serve ton audit gratuit</h3>
+        <p>30 minutes pour identifier les t&acirc;ches que tu peux automatiser dans ton business.</p>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="btn" target="_blank" rel="noopener">R&eacute;server mon audit gratuit &rarr;</a>
+        <p class="micro">30 min - Gratuit - Sans engagement</p>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-left">
+            &copy; 2026 Igor Sautier
+            <a href="../mentions-legales.html">Mentions l&eacute;gales</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://instagram.com/automatise_avec_igor" aria-label="Instagram" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://tiktok.com/@automatise_avec_igor" aria-label="TikTok" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.48a8.27 8.27 0 004.76 1.51v-3.45a4.85 4.85 0 01-1-.85z"/></svg>
+            </a>
+            <a href="https://youtube.com/@automatise_avec_igor" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 00.5 6.19 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.84.55 9.38.55 9.38.55s7.54 0 9.38-.55a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+            </a>
+            <a href="https://linkedin.com/in/igor-sautier" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.75 1.75 0 0024 22.27V1.73A1.75 1.75 0 0022.22 0z"/></svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function(){
+    var btn = document.getElementById('hamburgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', function(){
+        menu.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e){
+        if(!menu.contains(e.target) && !btn.contains(e.target)){
+            menu.classList.remove('open');
+        }
+    });
+})();
+</script>
+</body>
+</html>

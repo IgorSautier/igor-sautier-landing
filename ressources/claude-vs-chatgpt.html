@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude vs ChatGPT : le vrai comparatif | Igor Sautier</title>
+<meta name="description" content="Comparatif honn&ecirc;te entre Claude et ChatGPT. Pas de fanboys, juste des cas concrets pour choisir le bon outil selon tes besoins.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --accent:#BB111C;
+    --accent-hover:#a00f18;
+    --t1:#1a1a1a;
+    --t2:#6b6b6b;
+    --t3:#a3a3a3;
+    --bg:#f5f2ef;
+    --card:#ffffff;
+    --line:#ded9d3;
+    --sans:'Outfit',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:15px;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;line-height:1.7}
+::selection{background:rgba(187,17,28,0.12)}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* ---- NAV ---- */
+nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
+.nav-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.nav-avatar img{width:100%;height:100%;object-fit:cover}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:14px;color:var(--t2);font-weight:400;transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:8px 20px;border-radius:9999px;border:none;cursor:pointer;transition:background .15s}
+.nav-cta:hover{background:var(--accent-hover)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--t1);border-radius:1px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:16px 24px;z-index:99;flex-direction:column;gap:16px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;color:var(--t2);padding:4px 0}
+.mobile-menu .nav-cta{text-align:center;justify-content:center}
+
+/* ---- BACK LINK ---- */
+.back-bar{max-width:720px;margin:0 auto;padding:24px 24px 0}
+.back-bar a{font-size:14px;color:var(--t2);font-weight:500;transition:color .15s}
+.back-bar a:hover{color:var(--t1)}
+
+/* ---- ARTICLE ---- */
+.wrap{max-width:720px;margin:0 auto;padding:32px 24px 80px}
+.meta{font-size:12px;color:var(--t2);margin-bottom:10px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.cat{color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:1.5px}
+h1{font-size:40px;font-weight:800;line-height:1.1;margin-bottom:14px}
+.subtitle{font-size:17px;color:var(--t2);margin-bottom:40px;line-height:1.6}
+
+/* ---- TOC ---- */
+.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:40px}
+.toc-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--t3);margin-bottom:12px}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{margin-bottom:8px}
+.toc a{font-size:15px;color:var(--t2);font-weight:500;transition:color .15s}
+.toc a:hover{color:var(--accent)}
+
+/* ---- CONTENT ---- */
+.content h2{font-size:22px;font-weight:700;margin:36px 0 12px;line-height:1.3}
+.content p{font-size:16px;color:#444;margin-bottom:16px;line-height:1.7}
+.content strong{color:var(--t1)}
+.content ul{margin:0 0 16px 20px;color:#444}
+.content li{margin-bottom:8px;font-size:15px;line-height:1.6}
+.content li strong{color:var(--t1)}
+
+/* ---- SUMMARY TABLE ---- */
+.summary-table{width:100%;border-collapse:collapse;margin:20px 0 28px;font-size:14px}
+.summary-table th{text-align:left;padding:12px 16px;background:var(--card);border:1px solid var(--line);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;color:var(--t2)}
+.summary-table td{padding:12px 16px;border:1px solid var(--line);color:#444;line-height:1.5}
+.summary-table tr:nth-child(even) td{background:var(--card)}
+.summary-table .winner{color:var(--accent);font-weight:600}
+
+/* ---- PROMPT BLOCK ---- */
+.prompt-block{background:#1a1a1a;border-radius:12px;margin:20px 0 28px;overflow:hidden}
+.prompt-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.prompt-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.4)}
+.prompt-copy{background:none;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);font-size:12px;font-weight:600;padding:4px 14px;border-radius:6px;cursor:pointer;font-family:var(--sans);transition:all .15s}
+.prompt-copy:hover{border-color:rgba(255,255,255,0.3);color:#fff}
+.prompt-text{padding:20px;font-size:14px;color:rgba(255,255,255,0.88);line-height:1.7;white-space:pre-wrap;word-wrap:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+/* ---- TIP BOX ---- */
+.tip-box{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:20px 24px;margin:20px 0 28px}
+.tip-box p{font-size:15px;color:#444;line-height:1.7;margin:0}
+.tip-box strong{color:var(--t1)}
+
+/* ---- CONTINUE A LIRE ---- */
+.related{margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
+.related h2{font-size:20px;font-weight:700;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.related-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;transition:border-color .15s}
+.related-card:hover{border-color:var(--accent)}
+.related-card .rc-cat{font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.related-card .rc-title{font-size:15px;font-weight:700;line-height:1.3;margin-bottom:6px}
+.related-card .rc-desc{font-size:13px;color:var(--t2);line-height:1.5}
+
+/* ---- CTA BOX ---- */
+.cta-box{margin-top:48px;padding:32px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-align:center}
+.cta-box h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.cta-box p{font-size:14px;color:var(--t2);margin-bottom:16px}
+.cta-box a.btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 28px;border-radius:9999px;font-weight:600;font-size:14px;transition:background .15s}
+.cta-box a.btn:hover{background:var(--accent-hover)}
+.cta-box .micro{font-size:12px;color:var(--t3);margin-top:10px}
+
+/* ---- FOOTER ---- */
+footer{border-top:1px solid var(--line);padding:24px 0}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between}
+.footer-left{font-size:14px;color:var(--t2)}
+.footer-left a{margin-left:16px;text-decoration:underline;color:var(--t3)}
+.footer-left a:hover{color:var(--t1)}
+.footer-socials{display:flex;gap:16px}
+.footer-socials a{color:var(--t3);transition:color .15s}
+.footer-socials a:hover{color:var(--t1)}
+
+/* ---- MOBILE ---- */
+@media(max-width:768px){
+    .nav-inner{padding:0 20px}
+    .nav-links{display:none}
+    .nav-cta-desk{display:none}
+    .hamburger{display:flex}
+    h1{font-size:28px}
+    .wrap{padding:24px 20px 60px}
+    .back-bar{padding:16px 20px 0}
+    .related-grid{grid-template-columns:1fr}
+    .summary-table{font-size:13px}
+    .summary-table th,.summary-table td{padding:8px 10px}
+    .footer-inner{padding:0 20px;flex-direction:column;gap:16px;text-align:center}
+    .footer-left a{margin-left:0;display:block;margin-top:8px}
+    .prompt-text{font-size:13px;padding:16px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="../index.html" class="nav-brand">
+            <div class="nav-avatar"><img src="../igor.jpg" alt="Igor Sautier"></div>
+            Igor
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Accueil</a>
+            <a href="index.html">Ressources</a>
+            <a href="../a-propos.html">&Agrave; propos</a>
+        </div>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta nav-cta-desk" target="_blank" rel="noopener">R&eacute;server un appel</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Accueil</a>
+    <a href="index.html">Ressources</a>
+    <a href="../a-propos.html">&Agrave; propos</a>
+    <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta" target="_blank" rel="noopener">R&eacute;server un appel</a>
+</div>
+
+<div class="back-bar">
+    <a href="index.html">&#8592; Retour aux ressources</a>
+</div>
+
+<div class="wrap">
+    <div class="meta">
+        <span class="cat">COMPARATIF</span>
+        <span>10 min de lecture</span>
+        <span>27 sept. 2026</span>
+    </div>
+    <h1>Claude vs ChatGPT : le vrai comparatif</h1>
+    <p class="subtitle">Pas de d&eacute;bat de fanboys. Un comparatif honn&ecirc;te avec des cas concrets pour choisir le bon outil.</p>
+
+    <div class="toc">
+        <div class="toc-title">Sommaire</div>
+        <ul>
+            <li><a href="#essentiel">L'essentiel en 30 secondes</a></li>
+            <li><a href="#ecriture">&Eacute;criture et r&eacute;daction</a></li>
+            <li><a href="#code">Code et technique</a></li>
+            <li><a href="#analyse">Analyse de documents</a></li>
+            <li><a href="#creatif">T&acirc;ches cr&eacute;atives</a></li>
+            <li><a href="#prix">Prix et plans</a></li>
+            <li><a href="#verdict">Verdict : lequel choisir</a></li>
+            <li><a href="#action">Plan d'action</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+
+        <h2 id="essentiel">L'essentiel en 30 secondes</h2>
+
+        <p>Si tu n'as pas le temps de lire les 10 minutes de cet article, voici le r&eacute;sum&eacute;. Les deux outils sont excellents. Aucun des deux ne "gagne" sur toute la ligne. Ton choix d&eacute;pend de ce que tu fais avec.</p>
+
+        <table class="summary-table">
+            <tr>
+                <th>Crit&egrave;re</th>
+                <th>Claude</th>
+                <th>ChatGPT</th>
+            </tr>
+            <tr>
+                <td>&Eacute;criture longue</td>
+                <td class="winner">Avantage Claude</td>
+                <td>Correct</td>
+            </tr>
+            <tr>
+                <td>Code complexe</td>
+                <td class="winner">Avantage Claude</td>
+                <td>Solide</td>
+            </tr>
+            <tr>
+                <td>Analyse de documents</td>
+                <td class="winner">Avantage Claude</td>
+                <td>Limit&eacute;</td>
+            </tr>
+            <tr>
+                <td>G&eacute;n&eacute;ration d'images</td>
+                <td>Non disponible</td>
+                <td class="winner">Avantage ChatGPT</td>
+            </tr>
+            <tr>
+                <td>Recherche web</td>
+                <td>Basique</td>
+                <td class="winner">Avantage ChatGPT</td>
+            </tr>
+            <tr>
+                <td>Brainstorming</td>
+                <td>M&eacute;thodique</td>
+                <td class="winner">Avantage ChatGPT</td>
+            </tr>
+            <tr>
+                <td>Fiabilit&eacute;</td>
+                <td class="winner">Avantage Claude</td>
+                <td>Variable</td>
+            </tr>
+        </table>
+
+        <p>Maintenant, si tu veux comprendre le pourquoi derri&egrave;re chaque ligne de ce tableau, continue.</p>
+
+        <h2 id="ecriture">&Eacute;criture et r&eacute;daction</h2>
+
+        <p>C'est le terrain o&ugrave; la diff&eacute;rence est la plus nette. Claude produit des textes qui sonnent naturel. Quand tu lui demandes un article, une proposition commerciale ou un email long, le r&eacute;sultat est structur&eacute;, nuanc&eacute; et rarement r&eacute;p&eacute;titif. Il capte les consignes de ton et s'y tient sur la dur&eacute;e. Tu lui dis "professionnel mais d&eacute;contract&eacute;", et il comprend exactement ce que &ccedil;a veut dire. Pas de formules creuses du type "dans un monde en constante &eacute;volution" ou "il est important de noter que".</p>
+
+        <p>ChatGPT est plus rapide pour les t&acirc;ches courtes : reformuler une phrase, &eacute;crire un objet d'email, g&eacute;n&eacute;rer 10 variations d'un titre. Sur du format long, il a tendance &agrave; tourner en rond ou &agrave; placer des formulations g&eacute;n&eacute;riques que tu dois ensuite nettoyer. Si tu as besoin d'un premier jet rapide pour d&eacute;bloquer ta page blanche, ChatGPT fait le travail. Si tu veux un texte publiable avec moins de retouches, Claude prend l'avantage.</p>
+
+        <p>Pour illustrer la diff&eacute;rence, voici le m&ecirc;me prompt envoy&eacute; aux deux outils :</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 1 &middot; COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">&Eacute;cris un email de relance pour un prospect B2B qui n'a pas r&eacute;pondu depuis 10 jours.
+
+Contexte :
+- Mon entreprise : agence d'automatisation
+- Le prospect : directeur commercial d'une PME de 50 personnes
+- Premier &eacute;change : il &eacute;tait int&eacute;ress&eacute; par l'automatisation de son processus de prospection
+- Objectif : d&eacute;crocher un second appel
+
+R&egrave;gles :
+- Tutoiement
+- Maximum 80 mots
+- Pas de "j'esp&egrave;re que tu vas bien"
+- Apporte de la valeur (une stat ou un conseil rapide)
+- Un seul CTA clair</div>
+        </div>
+
+        <p>Teste ce prompt dans les deux outils. Tu verras que Claude produit un email plus naturel et plus direct, tandis que ChatGPT tend &agrave; &ecirc;tre un peu plus g&eacute;n&eacute;rique mais parfois plus punchy dans le hook d'ouverture. Les deux sont exploitables, mais Claude demande moins de retouches pour un usage professionnel.</p>
+
+        <h2 id="code">Code et technique</h2>
+
+        <p>Les deux sont solides en code. Claude brille sur les projets complexes : refactoring d'un gros codebase, debug d'une erreur obscure, g&eacute;n&eacute;ration de code propre et bien comment&eacute;. Il g&egrave;re particuli&egrave;rement bien Python, JavaScript et TypeScript. Sa capacit&eacute; &agrave; garder le contexte sur des fichiers longs est un vrai plus. Tu peux lui coller 3000 lignes de code et il comprend l'architecture globale avant de proposer une modification.</p>
+
+        <p>ChatGPT a l'avantage de l'&eacute;cosyst&egrave;me. Avec ses GPTs personnalis&eacute;s, tu peux cr&eacute;er des assistants sp&eacute;cialis&eacute;s pour tes projets sp&eacute;cifiques. Pour du prototypage rapide, des scripts utilitaires ou de petites automatisations, il est tr&egrave;s efficace. Il est aussi meilleur pour g&eacute;n&eacute;rer du code &agrave; partir de descriptions vagues, l&agrave; o&ugrave; Claude attend des sp&eacute;cifications plus pr&eacute;cises.</p>
+
+        <p>Voici un prompt pour tester les capacit&eacute;s techniques des deux outils sur un cas concret :</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 2 &middot; COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">&Eacute;cris un script Python qui :
+1. Lit un fichier CSV contenant des colonnes "nom", "email", "date_dernier_contact"
+2. Filtre les contacts dont le dernier contact date de plus de 30 jours
+3. G&eacute;n&egrave;re un email de relance personnalis&eacute; pour chacun
+4. Exporte le tout dans un nouveau CSV avec les colonnes "email", "objet", "corps"
+
+Utilise pandas. Code propre, avec commentaires.
+G&egrave;re les erreurs (fichier manquant, format de date invalide).
+Ajoute un if __name__ == "__main__" avec un exemple d'utilisation.</div>
+        </div>
+
+        <p>Au final, pour coder au quotidien, les deux font le travail. Ton choix d&eacute;pend de la complexit&eacute; de ton projet. Code simple et rapide : ChatGPT. Architecture complexe et refactoring : Claude.</p>
+
+        <h2 id="analyse">Analyse de documents</h2>
+
+        <p>C'est l&agrave; que Claude creuse un vrai &eacute;cart. Claude g&egrave;re jusqu'&agrave; 200 000 tokens de contexte. Concr&egrave;tement, tu peux lui envoyer un contrat de 150 pages, un rapport annuel complet ou un transcript de r&eacute;union d'une heure, et il va tout analyser d'un coup. Pas besoin de d&eacute;couper. Tu poses ta question, il te r&eacute;pond avec des r&eacute;f&eacute;rences pr&eacute;cises au contenu.</p>
+
+        <p>ChatGPT g&egrave;re des documents plus courts. Il fonctionne bien avec des fichiers de quelques pages, mais sur des documents longs, il peut perdre le fil ou oublier des passages en milieu de texte. Si tu travailles r&eacute;guli&egrave;rement avec des contrats, des cahiers des charges ou des rapports, Claude est clairement devant.</p>
+
+        <p>Un cas concret : tu re&ccedil;ois un contrat de 40 pages d'un fournisseur. Tu veux savoir si certaines clauses te sont d&eacute;favorables. Avec Claude, tu colles le contrat entier et tu demandes une analyse. Avec ChatGPT, tu devras probablement d&eacute;couper le document en morceaux, ce qui fait perdre du contexte entre les sections.</p>
+
+        <h2 id="creatif">T&acirc;ches cr&eacute;atives</h2>
+
+        <p>ChatGPT est souvent plus ludique. Il propose des angles inattendus, joue avec les mots, et g&eacute;n&egrave;re des id&eacute;es avec un c&ocirc;t&eacute; plus spontan&eacute;. Pour un brainstorming rapide, trouver un nom de produit, ou explorer des concepts de campagne marketing, il est efficace et surprenant.</p>
+
+        <p>Claude est plus m&eacute;thodique. Il va structurer ses propositions, expliquer pourquoi chaque id&eacute;e pourrait fonctionner, et te donner un cadre de r&eacute;flexion solide. Moins de surprises, mais des id&eacute;es plus exploitables et mieux argument&eacute;es. Pour un brainstorming structur&eacute; o&ugrave; tu veux &eacute;valuer la faisabilit&eacute; de chaque option, Claude est plus utile.</p>
+
+        <p>Et puis il y a la g&eacute;n&eacute;ration d'images. ChatGPT int&egrave;gre DALL-E directement dans l'interface. Tu d&eacute;cris une image et il la g&eacute;n&egrave;re. Claude ne fait pas &ccedil;a. Si tu as besoin de visuels dans ton workflow, c'est un point clair pour ChatGPT.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 3 &middot; COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Je lance un nouveau service de consulting en automatisation pour les PME.
+
+G&eacute;n&egrave;re 10 noms de marque potentiels.
+
+Pour chaque nom :
+- Le nom
+- Pourquoi il fonctionne (1 phrase)
+- Un slogan de 5 mots max
+- Un score de m&eacute;morabilit&eacute; sur 10
+
+Crit&egrave;res :
+- Facile &agrave; prononcer en fran&ccedil;ais
+- Disponible comme nom de domaine (.fr ou .com probable)
+- &Eacute;voque l'efficacit&eacute; ou la technologie sans &ecirc;tre trop technique
+- Pas de jeux de mots forc&eacute;s</div>
+        </div>
+
+        <p>Teste ce prompt dans les deux outils. ChatGPT va te proposer des noms plus cr&eacute;atifs et inattendus. Claude va te proposer des noms plus r&eacute;fl&eacute;chis avec des justifications plus solides. Les deux approches ont de la valeur selon ce que tu cherches.</p>
+
+        <h2 id="prix">Prix et plans</h2>
+
+        <p>Les deux proposent une version gratuite et un abonnement payant &agrave; 20 dollars par mois (environ 18 euros). Mais ce que tu obtiens pour ce prix n'est pas identique.</p>
+
+        <p><strong>Claude Pro (20 $/mois)</strong> te donne acc&egrave;s &agrave; Claude Opus (le mod&egrave;le le plus puissant), des limites d'utilisation plus &eacute;lev&eacute;es, et l'acc&egrave;s prioritaire aux nouvelles fonctionnalit&eacute;s. Tu n'as pas de g&eacute;n&eacute;ration d'images ni de plugins, mais la qualit&eacute; du mod&egrave;le de base est sup&eacute;rieure sur l'&eacute;criture et l'analyse.</p>
+
+        <p><strong>ChatGPT Plus (20 $/mois)</strong> te donne acc&egrave;s &agrave; GPT-4o, la g&eacute;n&eacute;ration d'images avec DALL-E, la recherche web, les GPTs personnalis&eacute;s, et l'analyse de donn&eacute;es avec Code Interpreter. L'&eacute;cosyst&egrave;me est plus large et plus polyvalent.</p>
+
+        <p>Si tu dois en choisir un seul et que ton travail est principalement de l'&eacute;criture, de l'analyse de documents ou du code : prends Claude. Si tu as besoin d'un couteau suisse avec images, recherche web et plugins : prends ChatGPT. Si tu peux te permettre les deux (40 $ au total), c'est la meilleure option.</p>
+
+        <h2 id="verdict">Verdict : lequel choisir</h2>
+
+        <p>Il n'y a pas de gagnant absolu. Les deux outils sont excellents, mais ils n'excellent pas aux m&ecirc;mes endroits. Voici comment je les utilise au quotidien :</p>
+
+        <ul>
+            <li><strong>Claude</strong> pour l'&eacute;criture longue, l'analyse de documents, le code complexe et le travail en profondeur qui demande de la nuance et du contexte.</li>
+            <li><strong>ChatGPT</strong> pour les t&acirc;ches rapides, la g&eacute;n&eacute;ration d'images, la recherche web en temps r&eacute;el, la voix et le brainstorming spontan&eacute;.</li>
+        </ul>
+
+        <p>Le vrai avantage comp&eacute;titif, ce n'est pas de choisir l'un ou l'autre. C'est de savoir lequel utiliser selon la t&acirc;che. Les professionnels qui ma&icirc;trisent les deux gagnent du temps sur tous les fronts. Conna&icirc;tre les forces de chaque outil te permet de toujours utiliser le bon au bon moment.</p>
+
+        <h2 id="action">Plan d'action</h2>
+
+        <p>Voici ce que je te recommande concr&egrave;tement :</p>
+
+        <ul>
+            <li><strong>Cette semaine :</strong> cr&eacute;e un compte gratuit sur les deux plateformes si ce n'est pas d&eacute;j&agrave; fait (claude.ai et chatgpt.com).</li>
+            <li><strong>Teste les deux</strong> sur une m&ecirc;me t&acirc;che r&eacute;elle de ton quotidien. Prends un email &agrave; &eacute;crire, un document &agrave; analyser ou un bout de code &agrave; g&eacute;n&eacute;rer. Compare les r&eacute;sultats.</li>
+            <li><strong>Choisis ton abonnement payant</strong> en fonction du r&eacute;sultat qui t'a le plus impressionn&eacute;. Utilise-le pendant un mois complet avant de d&eacute;cider si tu ajoutes le deuxi&egrave;me.</li>
+            <li><strong>Dans un mois :</strong> si tu te retrouves r&eacute;guli&egrave;rement &agrave; regretter de ne pas avoir l'autre outil, prends les deux. 40 $ par mois pour doubler ta productivit&eacute;, c'est un investissement qui se rembourse en quelques heures gagn&eacute;es.</li>
+        </ul>
+
+        <div class="tip-box">
+            <p><strong>Mon conseil :</strong> ne tombe pas dans le pi&egrave;ge du d&eacute;bat "quel est le meilleur". Les pros utilisent les deux. La vraie comp&eacute;tence, ce n'est pas de ma&icirc;triser un outil, c'est de savoir quand utiliser lequel.</p>
+        </div>
+
+    </div>
+
+    <!-- CONTINUE A LIRE -->
+    <div class="related">
+        <h2>Continue &agrave; lire</h2>
+        <div class="related-grid">
+            <a href="guide-chatgpt.html" class="related-card">
+                <div class="rc-cat">GUIDE</div>
+                <div class="rc-title">Le guide complet de ChatGPT</div>
+                <div class="rc-desc">Tout ce que tu dois savoir pour utiliser ChatGPT efficacement au quotidien.</div>
+            </a>
+            <a href="guide-claude.html" class="related-card">
+                <div class="rc-cat">GUIDE</div>
+                <div class="rc-title">Le guide complet de Claude</div>
+                <div class="rc-desc">D&eacute;couvre pourquoi Claude est devenu mon IA principale.</div>
+            </a>
+            <a href="codes-secrets-chatgpt.html" class="related-card">
+                <div class="rc-cat">PROMPTS</div>
+                <div class="rc-title">Les codes secrets de ChatGPT</div>
+                <div class="rc-desc">Les techniques avanc&eacute;es que les pros utilisent au quotidien.</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- CTA BOX -->
+    <div class="cta-box">
+        <h3>R&eacute;serve ton audit gratuit</h3>
+        <p>30 minutes pour identifier les t&acirc;ches que tu peux automatiser dans ton business.</p>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="btn" target="_blank" rel="noopener">R&eacute;server mon audit gratuit &rarr;</a>
+        <p class="micro">30 min - Gratuit - Sans engagement</p>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-left">
+            &copy; 2026 Igor Sautier
+            <a href="../mentions-legales.html">Mentions l&eacute;gales</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://instagram.com/automatise_avec_igor" aria-label="Instagram" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://tiktok.com/@automatise_avec_igor" aria-label="TikTok" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.48a8.27 8.27 0 004.76 1.51v-3.45a4.85 4.85 0 01-1-.85z"/></svg>
+            </a>
+            <a href="https://youtube.com/@automatise_avec_igor" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 00.5 6.19 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.84.55 9.38.55 9.38.55s7.54 0 9.38-.55a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+            </a>
+            <a href="https://linkedin.com/in/igor-sautier" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.75 1.75 0 0024 22.27V1.73A1.75 1.75 0 0022.22 0z"/></svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function(){
+    var btn = document.getElementById('hamburgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', function(){
+        menu.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e){
+        if(!menu.contains(e.target) && !btn.contains(e.target)){
+            menu.classList.remove('open');
+        }
+    });
+})();
+</script>
+</body>
+</html>

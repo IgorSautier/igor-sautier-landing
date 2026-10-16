@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 automatisations que tu peux copier ce week-end | Igor Sautier</title>
+<meta name="description" content="5 automatisations concr&egrave;tes &agrave; mettre en place en moins de 15 minutes chacune. Emails, contenu, r&eacute;unions, veille, rapports.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --accent:#BB111C;
+    --accent-hover:#a00f18;
+    --t1:#1a1a1a;
+    --t2:#6b6b6b;
+    --t3:#a3a3a3;
+    --bg:#f5f2ef;
+    --card:#ffffff;
+    --line:#ded9d3;
+    --sans:'Outfit',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:15px;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;line-height:1.7}
+::selection{background:rgba(187,17,28,0.12)}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* ---- NAV ---- */
+nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
+.nav-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.nav-avatar img{width:100%;height:100%;object-fit:cover}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:14px;color:var(--t2);font-weight:400;transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:8px 20px;border-radius:9999px;border:none;cursor:pointer;transition:background .15s}
+.nav-cta:hover{background:var(--accent-hover)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--t1);border-radius:1px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:16px 24px;z-index:99;flex-direction:column;gap:16px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;color:var(--t2);padding:4px 0}
+.mobile-menu .nav-cta{text-align:center;justify-content:center}
+
+/* ---- BACK LINK ---- */
+.back-bar{max-width:720px;margin:0 auto;padding:24px 24px 0}
+.back-bar a{font-size:14px;color:var(--t2);font-weight:500;transition:color .15s}
+.back-bar a:hover{color:var(--t1)}
+
+/* ---- ARTICLE ---- */
+.wrap{max-width:720px;margin:0 auto;padding:32px 24px 80px}
+.meta{font-size:12px;color:var(--t2);margin-bottom:10px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.cat{color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:1.5px}
+h1{font-size:40px;font-weight:800;line-height:1.1;margin-bottom:14px}
+.subtitle{font-size:17px;color:var(--t2);margin-bottom:40px;line-height:1.6}
+
+/* ---- TOC ---- */
+.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:40px}
+.toc-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--t3);margin-bottom:12px}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{margin-bottom:8px}
+.toc a{font-size:15px;color:var(--t2);font-weight:500;transition:color .15s}
+.toc a:hover{color:var(--accent)}
+
+/* ---- CONTENT ---- */
+.content h2{font-size:22px;font-weight:700;margin:36px 0 12px;line-height:1.3}
+.content p{font-size:16px;color:#444;margin-bottom:16px;line-height:1.7}
+.content strong{color:var(--t1)}
+.content ul{margin:0 0 16px 20px;color:#444}
+.content li{margin-bottom:8px;font-size:15px;line-height:1.6}
+
+/* ---- STEP BADGE ---- */
+.step-badge{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--accent);color:#fff;font-size:14px;font-weight:700;border-radius:50%;margin-right:10px;vertical-align:middle}
+
+/* ---- PROMPT BLOCK ---- */
+.prompt-block{background:#1a1a1a;border-radius:12px;margin:20px 0 28px;overflow:hidden}
+.prompt-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.prompt-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.4)}
+.prompt-copy{background:none;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);font-size:12px;font-weight:600;padding:4px 14px;border-radius:6px;cursor:pointer;font-family:var(--sans);transition:all .15s}
+.prompt-copy:hover{border-color:rgba(255,255,255,0.3);color:#fff}
+.prompt-text{padding:20px;font-size:14px;color:rgba(255,255,255,0.88);line-height:1.7;white-space:pre-wrap;word-wrap:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+/* ---- TIP BOX ---- */
+.tip-box{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:20px 24px;margin:20px 0 28px}
+.tip-box p{font-size:15px;color:#444;line-height:1.7;margin:0}
+.tip-box strong{color:var(--t1)}
+
+/* ---- CONTINUE A LIRE ---- */
+.related{margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
+.related h2{font-size:20px;font-weight:700;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.related-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;transition:border-color .15s}
+.related-card:hover{border-color:var(--accent)}
+.related-card .rc-cat{font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.related-card .rc-title{font-size:15px;font-weight:700;line-height:1.3;margin-bottom:6px}
+.related-card .rc-desc{font-size:13px;color:var(--t2);line-height:1.5}
+
+/* ---- CTA BOX ---- */
+.cta-box{margin-top:48px;padding:32px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-align:center}
+.cta-box h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.cta-box p{font-size:14px;color:var(--t2);margin-bottom:16px}
+.cta-box a.btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 28px;border-radius:9999px;font-weight:600;font-size:14px;transition:background .15s}
+.cta-box a.btn:hover{background:var(--accent-hover)}
+.cta-box .micro{font-size:12px;color:var(--t3);margin-top:10px}
+
+/* ---- FOOTER ---- */
+footer{border-top:1px solid var(--line);padding:24px 0}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between}
+.footer-left{font-size:14px;color:var(--t2)}
+.footer-left a{margin-left:16px;text-decoration:underline;color:var(--t3)}
+.footer-left a:hover{color:var(--t1)}
+.footer-socials{display:flex;gap:16px}
+.footer-socials a{color:var(--t3);transition:color .15s}
+.footer-socials a:hover{color:var(--t1)}
+
+/* ---- MOBILE ---- */
+@media(max-width:768px){
+    .nav-inner{padding:0 20px}
+    .nav-links{display:none}
+    .nav-cta-desk{display:none}
+    .hamburger{display:flex}
+    h1{font-size:28px}
+    .wrap{padding:24px 20px 60px}
+    .back-bar{padding:16px 20px 0}
+    .related-grid{grid-template-columns:1fr}
+    .footer-inner{padding:0 20px;flex-direction:column;gap:16px;text-align:center}
+    .footer-left a{margin-left:0;display:block;margin-top:8px}
+    .prompt-text{font-size:13px;padding:16px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="../index.html" class="nav-brand">
+            <div class="nav-avatar"><img src="../igor.jpg" alt="Igor Sautier"></div>
+            Igor
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Accueil</a>
+            <a href="index.html">Ressources</a>
+            <a href="../a-propos.html">&Agrave; propos</a>
+        </div>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta nav-cta-desk" target="_blank" rel="noopener">R&eacute;server un appel</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Accueil</a>
+    <a href="index.html">Ressources</a>
+    <a href="../a-propos.html">&Agrave; propos</a>
+    <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta" target="_blank" rel="noopener">R&eacute;server un appel</a>
+</div>
+
+<div class="back-bar">
+    <a href="index.html">&#8592; Retour aux ressources</a>
+</div>
+
+<div class="wrap">
+    <div class="meta">
+        <span class="cat">AUTOMATISATION</span>
+        <span>8 min de lecture</span>
+        <span>30 sept. 2026</span>
+    </div>
+    <h1>5 automatisations que tu peux copier ce week-end</h1>
+    <p class="subtitle">Chacune prend moins de 15 minutes. Tu gagnes des heures d&egrave;s la premi&egrave;re semaine.</p>
+
+    <div class="toc">
+        <div class="toc-title">Sommaire</div>
+        <ul>
+            <li><a href="#auto-1">1. Tri d'emails automatique</a></li>
+            <li><a href="#auto-2">2. Pipeline de contenu social media</a></li>
+            <li><a href="#auto-3">3. R&eacute;sum&eacute; de r&eacute;unions automatique</a></li>
+            <li><a href="#auto-4">4. Veille concurrentielle</a></li>
+            <li><a href="#auto-5">5. Rapport hebdomadaire automatique</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+
+        <p>Tu passes des heures chaque semaine sur des t&acirc;ches qui se ressemblent toutes. Trier des emails, reformater du contenu, &eacute;crire des comptes-rendus, surveiller la concurrence, compiler des chiffres. Ce sont des t&acirc;ches n&eacute;cessaires, mais elles ne demandent aucune r&eacute;flexion strat&eacute;gique. Elles suivent un sch&eacute;ma. Et tout ce qui suit un sch&eacute;ma peut &ecirc;tre automatis&eacute;.</p>
+
+        <p>Voici cinq automatisations concr&egrave;tes que tu peux mettre en place ce week-end. Chacune prend moins de quinze minutes &agrave; configurer. Aucune ne demande de comp&eacute;tences techniques avanc&eacute;es. Et chacune va te faire gagner entre 30 minutes et 2 heures par semaine, d&egrave;s la premi&egrave;re utilisation.</p>
+
+        <h2 id="auto-1"><span class="step-badge">1</span>Tri d'emails automatique</h2>
+
+        <p>Si tu es comme la plupart des professionnels, tu re&ccedil;ois entre 50 et 150 emails par jour. Et tu passes probablement 30 &agrave; 45 minutes rien qu'&agrave; les trier : ceux qui demandent une r&eacute;ponse urgente, ceux qui peuvent attendre, les newsletters, les notifications automatiques. Ce tri mental consomme de l'&eacute;nergie et te sort de ta concentration &agrave; chaque fois.</p>
+
+        <p>L'id&eacute;e est simple : utiliser un prompt d'IA pour analyser tes emails entrants et les classer automatiquement par priorit&eacute;. Tu copies le contenu de tes emails non lus dans Claude ou ChatGPT, et l'IA te sort une liste tri&eacute;e avec une action sugg&eacute;r&eacute;e pour chacun. Les urgences en haut, les notifications en bas. En deux minutes, tu sais exactement par o&ugrave; commencer ta journ&eacute;e.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 1 &middot; COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici mes emails non lus de ce matin :
+
+[colle ici le contenu de tes emails]
+
+Classe-les en 3 cat&eacute;gories :
+- URGENT : n&eacute;cessite une r&eacute;ponse dans les 2 heures
+- &Agrave; TRAITER : n&eacute;cessite une action aujourd'hui
+- ARCHIVE : newsletter, notification, rien &agrave; faire
+
+Pour chaque email, indique :
+- Exp&eacute;diteur
+- Sujet
+- Cat&eacute;gorie
+- Action sugg&eacute;r&eacute;e (1 phrase max)
+
+Trie par ordre de priorit&eacute;. Format tableau.</div>
+        </div>
+
+        <div class="tip-box">
+            <p><strong>Pour commencer :</strong> demain matin, avant d'ouvrir ta bo&icirc;te mail, copie les objets et les premi&egrave;res lignes de tes 10 derniers emails dans Claude. Teste le prompt une seule fois. Tu vas voir la diff&eacute;rence imm&eacute;diatement : au lieu de scroller sans fin, tu as une liste d'actions claire en 30 secondes.</p>
+        </div>
+
+        <h2 id="auto-2"><span class="step-badge">2</span>Pipeline de contenu social media</h2>
+
+        <p>Cr&eacute;er du contenu pour LinkedIn, Instagram et TikTok &agrave; partir de z&eacute;ro, c'est &eacute;puisant. Tu as une bonne id&eacute;e le lundi, tu &eacute;cris un post LinkedIn, et ensuite tu dois reformater cette m&ecirc;me id&eacute;e pour Instagram, &eacute;crire un script TikTok, pr&eacute;parer un tweet. Quatre formats diff&eacute;rents pour la m&ecirc;me id&eacute;e. &Ccedil;a prend facilement une heure, et la plupart du temps tu abandonnes apr&egrave;s le premier format.</p>
+
+        <p>La solution : produire un seul contenu (un post LinkedIn, un paragraphe de newsletter, une id&eacute;e brute) et le d&eacute;cliner automatiquement sur toutes les plateformes. Tu &eacute;cris une fois, et l'IA adapte le ton, le format et la longueur pour chaque canal. Le post LinkedIn devient un carrousel Instagram, un script vid&eacute;o de 30 secondes et un thread X en quelques secondes.</p>
+
+        <p>Avec un outil comme n8n, tu peux m&ecirc;me automatiser tout le pipeline : tu remplis une ligne dans un Google Sheet avec ton id&eacute;e, et le workflow g&eacute;n&egrave;re automatiquement les quatre versions. Mais m&ecirc;me sans n8n, le prompt seul te fait gagner un temps &eacute;norme.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 2 &middot; COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici mon contenu original (post LinkedIn) :
+
+[colle ton post ici]
+
+D&eacute;cline-le en 3 formats :
+
+1. CARROUSEL INSTAGRAM (5 slides)
+- Slide 1 : hook accrocheur (question ou affirmation choc)
+- Slides 2-4 : un point cl&eacute; par slide, phrases courtes
+- Slide 5 : appel &agrave; l'action (follow + commentaire)
+
+2. SCRIPT TIKTOK / REELS (30-45 secondes)
+- Hook dans les 3 premi&egrave;res secondes
+- 3 points max
+- CTA &agrave; la fin
+- Ton conversationnel, tutoiement
+
+3. THREAD X (4-5 tweets)
+- Premier tweet = hook autonome
+- Un tweet = une id&eacute;e
+- Dernier tweet = r&eacute;cap + CTA
+
+Garde le m&ecirc;me message, adapte le ton &agrave; chaque plateforme.</div>
+        </div>
+
+        <div class="tip-box">
+            <p><strong>Pour commencer :</strong> prends ton dernier post LinkedIn, colle-le dans Claude avec ce prompt. Tu auras trois contenus suppl&eacute;mentaires en moins de deux minutes. Si tu publies une fois par semaine sur LinkedIn, tu auras soudainement du contenu pour quatre plateformes sans effort suppl&eacute;mentaire.</p>
+        </div>
+
+        <h2 id="auto-3"><span class="step-badge">3</span>R&eacute;sum&eacute; de r&eacute;unions automatique</h2>
+
+        <p>Les r&eacute;unions, c'est n&eacute;cessaire. Les comptes-rendus, c'est p&eacute;nible. Tu sors d'un call d'une heure, tu as pris des notes en vrac dans un coin de ton &eacute;cran, et tu dois maintenant les transformer en un document structur&eacute; avec les d&eacute;cisions prises, les actions &agrave; mener et les deadlines. &Ccedil;a prend facilement 20 &agrave; 30 minutes. Multiplie par 3 ou 4 r&eacute;unions par semaine, et tu perds entre une et deux heures uniquement sur la r&eacute;daction de comptes-rendus.</p>
+
+        <p>La m&eacute;thode est simple : tu enregistres ta r&eacute;union (avec le consentement des participants, &eacute;videmment), tu r&eacute;cup&egrave;res la transcription via un outil comme Otter.ai, Fireflies ou la fonction transcription native de Zoom ou Google Meet, et tu passes le tout dans un prompt qui extrait les informations cl&eacute;s. En moins d'une minute, tu as un compte-rendu propre, structur&eacute; et pr&ecirc;t &agrave; envoyer &agrave; ton &eacute;quipe.</p>
+
+        <p>L'avantage, c'est que le compte-rendu est souvent plus complet que ce que tu aurais &eacute;crit toi-m&ecirc;me, parce que l'IA n'oublie rien. Elle capte les d&eacute;tails que tu aurais rat&eacute;s pendant que tu parlais ou que tu r&eacute;fl&eacute;chissais &agrave; ta prochaine intervention.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 3 &middot; COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici la transcription de ma r&eacute;union :
+
+[colle la transcription ici]
+
+G&eacute;n&egrave;re un compte-rendu structur&eacute; :
+
+1. CONTEXTE
+- Date et participants
+- Objectif de la r&eacute;union (1 phrase)
+
+2. D&Eacute;CISIONS PRISES
+- Liste num&eacute;rot&eacute;e des d&eacute;cisions valid&eacute;es
+
+3. ACTIONS &Agrave; MENER
+Format tableau : Action | Responsable | Deadline
+
+4. POINTS EN SUSPENS
+- Questions non r&eacute;solues ou sujets report&eacute;s
+
+5. PROCHAINE &Eacute;TAPE
+- Date et objectif de la prochaine r&eacute;union
+
+Maximum 300 mots. Ton professionnel, phrases directes.</div>
+        </div>
+
+        <div class="tip-box">
+            <p><strong>Pour commencer :</strong> active la transcription automatique sur ta prochaine r&eacute;union Zoom ou Google Meet. Apr&egrave;s le call, copie le transcript et teste le prompt. Tu n'auras plus jamais &agrave; &eacute;crire un compte-rendu manuellement. Envoie le r&eacute;sultat &agrave; ton &eacute;quipe dans les 5 minutes qui suivent la r&eacute;union.</p>
+        </div>
+
+        <h2 id="auto-4"><span class="step-badge">4</span>Veille concurrentielle</h2>
+
+        <p>Aller v&eacute;rifier manuellement les sites web, les r&eacute;seaux sociaux et les offres de tes concurrents, c'est le genre de t&acirc;che que tu repousses toujours. Tu sais que c'est important, mais &ccedil;a finit syst&eacute;matiquement en bas de ta liste de priorit&eacute;s. R&eacute;sultat : tu d&eacute;couvres les nouveaut&eacute;s de tes concurrents par hasard, souvent trop tard pour r&eacute;agir.</p>
+
+        <p>Avec un workflow n8n ou un simple prompt hebdomadaire, tu peux syst&eacute;matiser ta veille sans y penser. L'id&eacute;e est de d&eacute;finir une fois les informations que tu veux suivre (nouveaux produits, changements de prix, publications sur les r&eacute;seaux sociaux, offres d'emploi qui r&eacute;v&egrave;lent leur strat&eacute;gie), et de laisser l'IA analyser ces informations &agrave; ta place chaque semaine.</p>
+
+        <p>Si tu n'as pas n8n, tu peux commencer avec un prompt simple : chaque lundi, tu copies les pages "&Agrave; propos", "Tarifs" et les derniers posts LinkedIn de tes 3 principaux concurrents, et tu demandes &agrave; l'IA de d&eacute;tecter les changements et de t'en faire un r&eacute;sum&eacute;. &Ccedil;a prend 5 minutes au lieu de 45.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 4 &middot; COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Je fais une veille hebdomadaire sur mes concurrents.
+
+Voici les infos collect&eacute;es cette semaine :
+
+CONCURRENT 1 : [nom]
+- Page tarifs : [colle le contenu]
+- Derniers posts LinkedIn : [colle les titres/extraits]
+
+CONCURRENT 2 : [nom]
+- Page tarifs : [colle le contenu]
+- Derniers posts LinkedIn : [colle les titres/extraits]
+
+CONCURRENT 3 : [nom]
+- Page tarifs : [colle le contenu]
+- Derniers posts LinkedIn : [colle les titres/extraits]
+
+Analyse et fournis :
+1. CHANGEMENTS D&Eacute;TECT&Eacute;S (vs la semaine derni&egrave;re si tu as le contexte)
+2. TENDANCES : th&egrave;mes r&eacute;currents dans leur communication
+3. OPPORTUNIT&Eacute;S : angles qu'ils ne couvrent pas et que je pourrais exploiter
+4. MENACES : nouveaut&eacute;s qui pourraient impacter mon business
+
+Format bullet points. Sois factuel et concis.</div>
+        </div>
+
+        <div class="tip-box">
+            <p><strong>Pour commencer :</strong> identifie tes 3 principaux concurrents. Mets-les dans un document avec les liens vers leur page tarifs et leur profil LinkedIn. Chaque lundi matin, copie les infos fra&icirc;ches et lance le prompt. En 5 minutes, tu as un brief strat&eacute;gique que la plupart de tes concurrents n'ont m&ecirc;me pas.</p>
+        </div>
+
+        <h2 id="auto-5"><span class="step-badge">5</span>Rapport hebdomadaire automatique</h2>
+
+        <p>Chaque vendredi, c'est la m&ecirc;me corv&eacute;e. Tu dois compiler les chiffres de la semaine, r&eacute;diger un bilan pour ton &eacute;quipe ou ton manager, formuler les priorit&eacute;s de la semaine suivante, et tout mettre en forme pour que ce soit lisible. &Ccedil;a prend entre 30 minutes et une heure. Et tu finis souvent par envoyer le rapport le lundi parce que le vendredi tu n'avais plus le courage de le faire.</p>
+
+        <p>Le principe est le m&ecirc;me que pour les comptes-rendus de r&eacute;union : tu rassembles tes notes brutes (en vrac, sans mise en forme) et tu laisses l'IA structurer le tout en un email clair et professionnel. Tes notes peuvent &ecirc;tre un m&eacute;lange de bullet points, de chiffres, de commentaires en fran&ccedil;ais et en anglais. &Ccedil;a n'a pas d'importance. L'IA transforme le d&eacute;sordre en un rapport propre.</p>
+
+        <p>J'utilise cette m&eacute;thode chaque vendredi depuis six mois. Mon rapport part syst&eacute;matiquement avant 17h, il est toujours structur&eacute; de la m&ecirc;me fa&ccedil;on (ce que mon &eacute;quipe appr&eacute;cie), et il me prend moins de 5 minutes au lieu de 45. C'est probablement l'automatisation qui a eu le plus d'impact sur mon quotidien.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 5 &middot; COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici mes notes de la semaine (en vrac) :
+
+[colle tes notes ici]
+
+R&eacute;dige un rapport hebdomadaire professionnel.
+
+Structure :
+1. R&Eacute;SUM&Eacute; (3 phrases max)
+2. R&Eacute;SULTATS CL&Eacute;S (3-5 bullet points avec chiffres si disponibles)
+3. PRIORIT&Eacute;S SEMAINE PROCHAINE (3 bullet points)
+4. POINTS D'ATTENTION (risques, blocages, d&eacute;cisions &agrave; prendre)
+5. BESOIN D'AIDE SUR (questions ou demandes sp&eacute;cifiques)
+
+R&egrave;gles :
+- Maximum 250 mots
+- Ton professionnel mais direct
+- Utilise les chiffres quand ils sont disponibles
+- Ne commence pas par "Chers coll&egrave;gues" ou "Bonjour l'&eacute;quipe"
+- Phrases courtes, pas de jargon inutile</div>
+        </div>
+
+        <div class="tip-box">
+            <p><strong>Pour commencer :</strong> prends une note sur ton t&eacute;l&eacute;phone tout au long de la semaine. Chaque fois que tu termines une t&acirc;che importante, ajoute une ligne. Vendredi &agrave; 16h, colle tout dans Claude avec le prompt. Ton rapport part 5 minutes plus tard. Enregistre ce prompt dans tes favoris, tu vas l'utiliser chaque semaine.</p>
+        </div>
+
+        <h2>Plan d'action</h2>
+
+        <p>Ne cherche pas &agrave; tout mettre en place d'un coup. Choisis une seule automatisation dans cette liste, celle qui correspond au probl&egrave;me qui te fait perdre le plus de temps cette semaine. Configure-la ce week-end. Utilise-la pendant une semaine compl&egrave;te. Et quand elle fait partie de ta routine, passe &agrave; la suivante.</p>
+
+        <p>En un mois, tu auras cinq automatisations en place. Et tu te demanderas comment tu faisais avant.</p>
+
+    </div>
+
+    <!-- CONTINUE A LIRE -->
+    <div class="related">
+        <h2>Continue &agrave; lire</h2>
+        <div class="related-grid">
+            <a href="automatiser-n8n.html" class="related-card">
+                <div class="rc-cat">GUIDE</div>
+                <div class="rc-title">Automatiser ton business avec n8n</div>
+                <div class="rc-desc">Le guide complet pour cr&eacute;er tes premiers workflows d'automatisation.</div>
+            </a>
+            <a href="premier-workflow-ia.html" class="related-card">
+                <div class="rc-cat">TUTORIEL</div>
+                <div class="rc-title">Ton premier workflow IA</div>
+                <div class="rc-desc">Pas &agrave; pas : construire un workflow fonctionnel en 20 minutes.</div>
+            </a>
+            <a href="prompt-3h-semaine.html" class="related-card">
+                <div class="rc-cat">ASTUCE</div>
+                <div class="rc-title">Le prompt qui m'a fait gagner 3h par semaine</div>
+                <div class="rc-desc">Un seul prompt, bien construit, qui a chang&eacute; ma fa&ccedil;on de travailler.</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- CTA BOX -->
+    <div class="cta-box">
+        <h3>R&eacute;serve ton audit gratuit</h3>
+        <p>30 minutes pour identifier les t&acirc;ches que tu peux automatiser dans ton business.</p>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="btn" target="_blank" rel="noopener">R&eacute;server mon audit gratuit &rarr;</a>
+        <p class="micro">30 min - Gratuit - Sans engagement</p>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-left">
+            &copy; 2026 Igor Sautier
+            <a href="../mentions-legales.html">Mentions l&eacute;gales</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://instagram.com/automatise_avec_igor" aria-label="Instagram" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://tiktok.com/@automatise_avec_igor" aria-label="TikTok" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.48a8.27 8.27 0 004.76 1.51v-3.45a4.85 4.85 0 01-1-.85z"/></svg>
+            </a>
+            <a href="https://youtube.com/@automatise_avec_igor" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 00.5 6.19 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.84.55 9.38.55 9.38.55s7.54 0 9.38-.55a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+            </a>
+            <a href="https://linkedin.com/in/igor-sautier" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.75 1.75 0 0024 22.27V1.73A1.75 1.75 0 0022.22 0z"/></svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function(){
+    var btn = document.getElementById('hamburgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', function(){
+        menu.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e){
+        if(!menu.contains(e.target) && !btn.contains(e.target)){
+            menu.classList.remove('open');
+        }
+    });
+})();
+</script>
+</body>
+</html>

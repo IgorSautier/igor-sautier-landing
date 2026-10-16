@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="D&eacute;couvre le parcours d'Igor Sautier : ing&eacute;nieur, formateur IA et fondateur de Nevios. Formation, automatisation et contenu gratuit.">
+<title>&Agrave; propos d'Igor Sautier | Igor Sautier</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --accent:#BB111C;
+    --accent-hover:#a00f18;
+    --t1:#1a1a1a;
+    --t2:#6b6b6b;
+    --t3:#888;
+    --bg:#f5f2ef;
+    --line:#ded9d3;
+    --sans:'Outfit',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--bg);color:var(--t1);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
+.nav-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.nav-avatar img{width:100%;height:100%;object-fit:cover}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:14px;color:var(--t2);font-weight:400;transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:8px 20px;border-radius:9999px;border:none;cursor:pointer;transition:background .15s}
+.nav-cta:hover{background:var(--accent-hover)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--t1);border-radius:1px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:16px 24px;z-index:99;flex-direction:column;gap:16px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;color:var(--t2);padding:4px 0}
+.mobile-menu .nav-cta{text-align:center;justify-content:center}
+
+.wrap{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+h1{font-size:36px;font-weight:800;line-height:1.1;margin-bottom:24px}
+.photo-placeholder{width:160px;height:160px;border-radius:50%;background:#ded9d3;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;overflow:hidden}
+.photo-placeholder img{width:100%;height:100%;object-fit:cover}
+.content h2{font-size:22px;font-weight:700;margin:32px 0 12px}
+.content p{font-size:16px;color:#444;margin-bottom:16px;line-height:1.7}
+.content ul{margin:0 0 16px 20px;color:#444}
+.content li{margin-bottom:8px;font-size:15px;line-height:1.6}
+.cta-box{margin-top:48px;padding:32px;background:#fff;border:1px solid #ded9d3;border-radius:12px;text-align:center}
+.cta-box h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.cta-box p{font-size:14px;color:#6b6b6b;margin-bottom:16px}
+.cta-box a{display:inline-block;background:#BB111C;color:#fff;padding:12px 28px;border-radius:9999px;font-weight:600;font-size:14px}
+.cta-box a:hover{opacity:.9}
+.cta-box .micro{font-size:12px;color:#a3a3a3;margin-top:10px}
+footer{text-align:center;padding:24px;font-size:12px;color:#a3a3a3;border-top:1px solid #ded9d3}
+@media(max-width:768px){
+    .nav-inner{padding:0 20px}
+    .nav-links{display:none}
+    .nav-cta-desk{display:none}
+    .hamburger{display:flex}
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-avatar"><img src="igor.jpg" alt="Igor Sautier" loading="eager"></div>
+            Igor
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="ressources/index.html">Ressources</a>
+            <a href="a-propos.html">&Agrave; propos</a>
+        </div>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta nav-cta-desk" target="_blank" rel="noopener">R&eacute;server un appel</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Accueil</a>
+    <a href="ressources/index.html">Ressources</a>
+    <a href="a-propos.html">&Agrave; propos</a>
+    <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta" target="_blank" rel="noopener">R&eacute;server un appel</a>
+</div>
+<div class="wrap">
+<div class="photo-placeholder">
+<img src="igor.jpg" alt="Igor Sautier">
+</div>
+<h1 style="text-align:center">&Agrave; propos d'Igor Sautier</h1>
+<div class="content">
+
+<h2>D'o&ugrave; je viens</h2>
+<p>Sur les r&eacute;seaux, on voit des gars qui parlent d'IA depuis leur bureau, avec un beau micro, et on s'imagine que tout a toujours roul&eacute; pour eux.</p>
+<p>Moi, il n'y a pas si longtemps, je travaillais au McDo. Pas pour l'exp&eacute;rience. Pour me faire de l'argent. Pendant que je construisais tout le reste &agrave; c&ocirc;t&eacute;, il fallait bien payer les factures. Alors je prenais mes services, je rentrais, et le soir je bossais sur mes projets.</p>
+<p>Ce n'est pas que je ne tiens pas en place. C'est que j'adore apprendre. Quand un truc m'intrigue, il faut que je comprenne comment il marche, et la meilleure fa&ccedil;on que j'ai trouv&eacute;e pour comprendre, c'est de le faire moi-m&ecirc;me.</p>
+<p>C'est comme &ccedil;a que j'ai commenc&eacute; l'automatisation, il y a un peu plus de cinq ans. J'&eacute;tais en &eacute;cole d'ing&eacute;nieur, ChatGPT n'existait pas, et personne autour de moi n'en parlait. J'ai pris des petites missions en freelance &agrave; c&ocirc;t&eacute; des cours. Relier deux outils entre eux. Faire qu'un formulaire remplisse un tableau tout seul. Envoyer un mail automatiquement quand quelque chose se passe.</p>
+<p>Personne ne m'a form&eacute;. J'apprenais le soir sur YouTube, je testais, je cassais des trucs, je recommen&ccedil;ais.</p>
+<p>Et un jour, j'ai compris quelque chose qui guide encore tout ce que je fais : un client se fiche de l'outil. Il veut juste ne plus avoir &agrave; faire la t&acirc;che.</p>
+
+<h2>Ce qui a chang&eacute;</h2>
+<p>Puis l'IA est arriv&eacute;e, et les r&egrave;gles ont chang&eacute;. Lire un mail et y r&eacute;pondre, r&eacute;sumer un appel, trier des prospects : avant, c'&eacute;tait impossible &agrave; automatiser. Aujourd'hui, &ccedil;a se fait en un apr&egrave;s-midi.</p>
+<p>J'ai cr&eacute;&eacute; Nevios, mon agence, pour installer ces outils chez des ind&eacute;pendants et des entreprises.</p>
+<p>Mais je me suis rendu compte d'une chose. Ce qui me pla&icirc;t le plus, ce n'est pas seulement de construire. C'est le moment o&ugrave; la personne en face comprend. Quand elle voit que ce qu'elle croyait r&eacute;serv&eacute; aux d&eacute;veloppeurs, elle peut le faire elle-m&ecirc;me.</p>
+<p>Pendant des ann&eacute;es, j'ai pass&eacute; mes soir&eacute;es &agrave; apprendre seul. Aujourd'hui, j'ai envie de faire apprendre. C'est pour &ccedil;a que je partage tout ce que je teste sur TikTok, Instagram et YouTube, sous le nom @automatise_avec_igor. Et c'est pour &ccedil;a que cette newsletter existe.</p>
+<p>Sur les r&eacute;seaux, j'ai 60 secondes. Ici, j'ai le temps de te montrer comment &ccedil;a marche pour de vrai.</p>
+
+</div>
+<div class="cta-box">
+<h3>R&eacute;serve ton audit gratuit</h3>
+<p>30 minutes pour identifier les t&acirc;ches que tu peux automatiser dans ton business.</p>
+<a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" target="_blank" rel="noopener">R&eacute;server mon audit gratuit &rarr;</a>
+<p class="micro">30 min - Gratuit - Sans engagement</p>
+</div>
+</div>
+<footer style="border-top:1px solid #ded9d3;padding:20px 24px;max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#a3a3a3;flex-wrap:wrap;gap:8px">
+<span>&copy; 2026 Igor Sautier &middot; <a href="mentions-legales.html" style="color:#a3a3a3">Mentions l&eacute;gales</a></span>
+<div style="display:flex;gap:14px">
+<a href="https://instagram.com/automatise_avec_igor" target="_blank" rel="noopener" style="color:#a3a3a3" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></a>
+<a href="https://tiktok.com/@automatise_avec_igor" target="_blank" rel="noopener" style="color:#a3a3a3" aria-label="TikTok"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.48a8.27 8.27 0 004.76 1.51V7.54a4.83 4.83 0 01-1-.85z"/></svg></a>
+<a href="https://youtube.com/@automatise_avec_igor" target="_blank" rel="noopener" style="color:#a3a3a3" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31.4 31.4 0 000 12a31.4 31.4 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31.4 31.4 0 0024 12a31.4 31.4 0 00-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+<a href="https://linkedin.com/in/igor-sautier" target="_blank" rel="noopener" style="color:#a3a3a3" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.75 1.75 0 0024 22.27V1.73A1.75 1.75 0 0022.22 0z"/></svg></a>
+</div>
+</footer>
+<script>
+(function(){
+    var btn = document.getElementById('hamburgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', function(){
+        menu.classList.toggle('open');
+    });
+    var mlinks = menu.querySelectorAll('a');
+    for(var i=0;i<mlinks.length;i++){
+        mlinks[i].addEventListener('click', function(){ menu.classList.remove('open'); });
+    }
+})();
+</script>
+</body>
+</html>

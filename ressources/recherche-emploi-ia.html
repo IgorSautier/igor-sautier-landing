@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide de recherche d'emploi avec l'IA | Igor Sautier</title>
+<meta name="description" content="Am&eacute;liore ton CV, r&eacute;dige tes lettres de motivation et pr&eacute;pare tes entretiens avec l'IA. Guide complet avec prompts &agrave; copier.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --accent:#BB111C;
+    --accent-hover:#a00f18;
+    --t1:#1a1a1a;
+    --t2:#6b6b6b;
+    --t3:#a3a3a3;
+    --bg:#f5f2ef;
+    --card:#ffffff;
+    --line:#ded9d3;
+    --code-bg:#1a1a1a;
+    --sans:'Outfit',system-ui,sans-serif;
+    --serif:'Playfair Display',Georgia,serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:15px;font-weight:400;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;line-height:1.7}
+::selection{background:rgba(187,17,28,0.12)}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
+.nav-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.nav-avatar img{width:100%;height:100%;object-fit:cover}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:14px;color:var(--t2);font-weight:400;transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:8px 20px;border-radius:9999px;border:none;cursor:pointer;transition:background .15s}
+.nav-cta:hover{background:var(--accent-hover)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--t1);border-radius:1px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:16px 24px;z-index:99;flex-direction:column;gap:16px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;color:var(--t2);padding:4px 0}
+.mobile-menu .nav-cta{text-align:center;justify-content:center}
+
+/* BACK LINK */
+.back-bar{max-width:720px;margin:0 auto;padding:24px 24px 0}
+.back-bar a{font-size:14px;color:var(--t2);font-weight:500;transition:color .15s}
+.back-bar a:hover{color:var(--t1)}
+
+/* ARTICLE */
+.wrap{max-width:720px;margin:0 auto;padding:32px 24px 80px}
+.meta{font-size:12px;color:var(--t2);margin-bottom:12px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.cat{color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:1.5px}
+h1{font-size:40px;font-weight:800;line-height:1.1;margin-bottom:14px}
+.subtitle{font-size:17px;color:var(--t2);margin-bottom:40px;line-height:1.6}
+
+/* TOC */
+.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:40px}
+.toc-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:var(--t1)}
+.toc ul{list-style:none;padding:0;margin:0}
+.toc li{margin-bottom:6px}
+.toc a{font-size:14px;color:var(--t2);transition:color .15s}
+.toc a:hover{color:var(--accent)}
+
+/* PLAN CARD */
+.plan-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:32px}
+.plan-card-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;color:var(--accent)}
+.plan-card ol{padding-left:20px;margin:0}
+.plan-card li{font-size:14px;color:var(--t2);margin-bottom:6px;line-height:1.5}
+.plan-card li strong{color:var(--t1)}
+
+/* CONTENT */
+.content h2{font-size:22px;font-weight:700;margin:36px 0 14px;color:var(--t1)}
+.content p{font-size:16px;color:#444;margin-bottom:16px;line-height:1.7}
+.content ul,.content ol{margin:0 0 16px 20px;color:#444}
+.content li{margin-bottom:8px;font-size:15px;line-height:1.6}
+.content strong{color:var(--t1)}
+
+/* PROMPT BLOCK */
+.prompt-block{background:var(--code-bg);border-radius:16px;margin:20px 0 28px;overflow:hidden}
+.prompt-header{display:flex;justify-content:space-between;align-items:center;padding:12px 24px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.prompt-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.4)}
+.prompt-copy{background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.6);font-family:var(--sans);font-size:12px;font-weight:600;padding:4px 12px;border-radius:6px;cursor:pointer;transition:background .15s,color .15s}
+.prompt-copy:hover{background:rgba(255,255,255,0.18);color:#fff}
+.prompt-text{padding:20px 24px;font-size:14px;color:rgba(255,255,255,0.88);line-height:1.7;white-space:pre-wrap;word-wrap:break-word}
+
+/* TIP BOX */
+.tip-box{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:24px 28px;margin:28px 0}
+.tip-box p{font-size:15px;color:#444;line-height:1.7;margin:0}
+.tip-box strong{color:var(--t1)}
+
+/* CONTINUE A LIRE */
+.related{margin-top:48px;padding-top:40px;border-top:1px solid var(--line)}
+.related-title{font-size:18px;font-weight:700;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.related-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;transition:border-color .15s}
+.related-card:hover{border-color:var(--accent)}
+.related-card .rc-cat{font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.related-card .rc-title{font-size:15px;font-weight:600;line-height:1.3;margin-bottom:6px;color:var(--t1)}
+.related-card .rc-desc{font-size:13px;color:var(--t2);line-height:1.5}
+
+/* CTA BOX */
+.cta-box{margin-top:48px;padding:36px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-align:center}
+.cta-box h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.cta-box p{font-size:15px;color:var(--t2);margin-bottom:20px}
+.cta-box a.btn{display:inline-block;background:var(--accent);color:#fff;padding:14px 32px;border-radius:9999px;font-weight:600;font-size:15px;transition:background .15s}
+.cta-box a.btn:hover{background:var(--accent-hover)}
+.cta-box .micro{font-size:12px;color:var(--t3);margin-top:12px}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:24px 0}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between}
+.footer-left{font-size:14px;color:var(--t2)}
+.footer-left a{margin-left:16px;text-decoration:underline;color:var(--t3)}
+.footer-left a:hover{color:var(--t1)}
+.footer-socials{display:flex;gap:16px}
+.footer-socials a{color:var(--t3);transition:color .15s}
+.footer-socials a:hover{color:var(--t1)}
+
+/* MOBILE */
+@media(max-width:768px){
+    .nav-inner{padding:0 20px}
+    .nav-links{display:none}
+    .nav-cta-desk{display:none}
+    .hamburger{display:flex}
+    .back-bar{padding:16px 20px 0}
+    .wrap{padding:24px 20px 60px}
+    h1{font-size:30px}
+    .subtitle{font-size:15px}
+    .prompt-block .prompt-text{padding:16px 20px;font-size:13px}
+    .prompt-header{padding:10px 20px}
+    .related-grid{grid-template-columns:1fr}
+    .cta-box{padding:28px 20px}
+    .footer-inner{padding:0 20px;flex-direction:column;gap:16px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-inner">
+        <a href="../index.html" class="nav-brand">
+            <div class="nav-avatar"><img src="../igor.jpg" alt="Igor Sautier"></div>
+            Igor
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Accueil</a>
+            <a href="index.html">Ressources</a>
+            <a href="../a-propos.html">&Agrave; propos</a>
+        </div>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta nav-cta-desk" target="_blank" rel="noopener">R&eacute;server un appel</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Accueil</a>
+    <a href="index.html">Ressources</a>
+    <a href="../a-propos.html">&Agrave; propos</a>
+    <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta" target="_blank" rel="noopener">R&eacute;server un appel</a>
+</div>
+
+<!-- BACK LINK -->
+<div class="back-bar">
+    <a href="index.html">&#8592; Retour aux ressources</a>
+</div>
+
+<!-- ARTICLE -->
+<div class="wrap">
+    <div class="meta">
+        <span class="cat">GUIDE</span>
+        <span>8 min de lecture</span>
+        <span>Sept 2026</span>
+    </div>
+    <h1>Guide de recherche d'emploi avec l'IA</h1>
+    <p class="subtitle">Am&eacute;liore ton CV, r&eacute;dige tes lettres de motivation et pr&eacute;pare tes entretiens avec l'IA.</p>
+
+    <!-- TOC -->
+    <div class="toc">
+        <div class="toc-title">Sommaire</div>
+        <ul>
+            <li><a href="#cv">R&eacute;&eacute;cris ton CV</a></li>
+            <li><a href="#lettre">R&eacute;dige une lettre de motivation sur mesure</a></li>
+            <li><a href="#entretiens">Pr&eacute;pare tes entretiens</a></li>
+            <li><a href="#recherche">Recherche les entreprises</a></li>
+            <li><a href="#linkedin">Optimise ton LinkedIn</a></li>
+            <li><a href="#plan">Ton plan d'action</a></li>
+        </ul>
+    </div>
+
+    <!-- PLAN CARD -->
+    <div class="plan-card">
+        <div class="plan-card-title">Le plan en 4 &eacute;tapes</div>
+        <ol>
+            <li><strong>R&eacute;&eacute;cris ton CV</strong> pour mettre en avant les r&eacute;sultats, pas les responsabilit&eacute;s</li>
+            <li><strong>Personnalise chaque candidature</strong> avec une lettre de motivation sur mesure</li>
+            <li><strong>Pr&eacute;pare tes entretiens</strong> en simulant des questions avec l'IA</li>
+            <li><strong>Recherche les entreprises</strong> pour arriver mieux pr&eacute;par&eacute; que 90% des candidats</li>
+        </ol>
+    </div>
+
+    <div class="content">
+
+        <p>Chercher un emploi en 2026, c'est un travail &agrave; temps plein. Tu passes des heures &agrave; reformater ton CV, &agrave; &eacute;crire des lettres de motivation que personne ne lit, et &agrave; stresser avant chaque entretien. La bonne nouvelle : l'IA peut t'aider &agrave; chaque &eacute;tape. Pas pour mentir sur ton parcours, pas pour remplacer ta personnalit&eacute;, mais pour pr&eacute;senter le meilleur de toi-m&ecirc;me plus rapidement et plus efficacement.</p>
+
+        <p>Ce guide te donne les prompts exacts &agrave; utiliser. Copie-les, remplis les variables, et gagne des heures sur chaque candidature. Tu peux utiliser ChatGPT, Claude ou n'importe quel assistant IA. Les techniques fonctionnent avec tous.</p>
+
+        <!-- SECTION 1 -->
+        <h2 id="cv">R&eacute;&eacute;cris ton CV avec l'IA</h2>
+
+        <p>Le probl&egrave;me num&eacute;ro un des CV : ils listent des responsabilit&eacute;s. "Gestion d'une &eacute;quipe de 5 personnes." "Suivi des KPIs." "Participation aux r&eacute;unions hebdomadaires." Le recruteur lit &ccedil;a et se dit : "OK, et alors ? Qu'est-ce que &ccedil;a a donn&eacute; concr&egrave;tement ?"</p>
+
+        <p>Les recruteurs veulent des r&eacute;sultats. Des chiffres. Des preuves d'impact. Le prompt suivant transforme chaque point de ton CV en un r&eacute;sultat mesurable. Si un chiffre manque, l'IA te sugg&egrave;re ce que tu pourrais ajouter en fonction de ton poste.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 1 · COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici mon CV actuel :
+[colle ton CV ici]
+
+R&eacute;&eacute;cris chaque point en appliquant ces r&egrave;gles :
+1. Commence par un verbe d'action fort (pilote, optimise, d&eacute;ploie, r&eacute;duit, g&eacute;n&egrave;re)
+2. Mets en avant le r&eacute;sultat concret, pas la responsabilit&eacute;
+3. Ajoute un chiffre ou un pourcentage &agrave; chaque point
+4. Si un chiffre manque, sugg&egrave;re une m&eacute;trique r&eacute;aliste que je pourrais ajouter
+5. Garde un format de 1 &agrave; 2 lignes par point
+
+Exemple de transformation :
+Avant : "Gestion d'une &eacute;quipe de 5 personnes"
+Apr&egrave;s : "Pilotage d'une &eacute;quipe de 5 collaborateurs, r&eacute;duction de 20% du turnover en 12 mois gr&acirc;ce &agrave; un programme de mentorat interne"</div>
+        </div>
+
+        <p>Le r&eacute;sultat est un CV orient&eacute; impact. Chaque ligne montre ce que tu as accompli, pas ce que tu &eacute;tais cens&eacute; faire. Et en 2 minutes, tu as une version bien meilleure que celle sur laquelle tu as pass&eacute; 3 heures ce week-end.</p>
+
+        <div class="tip-box">
+            <p><strong>Astuce :</strong> envoie aussi l'offre d'emploi &agrave; l'IA. Demande-lui d'adapter l'ordre de tes exp&eacute;riences et tes mots-cl&eacute;s pour matcher les crit&egrave;res du poste. Les logiciels ATS (Applicant Tracking Systems) utilisent ces mots-cl&eacute;s pour filtrer les CV. Sans eux, ton CV n'arrive peut-&ecirc;tre m&ecirc;me pas sur le bureau du recruteur.</p>
+        </div>
+
+        <!-- SECTION 2 -->
+        <h2 id="lettre">R&eacute;dige une lettre de motivation sur mesure</h2>
+
+        <p>La lettre g&eacute;n&eacute;rique envoy&eacute;e &agrave; 50 entreprises ne fonctionne plus. Les recruteurs le rep&egrave;rent en 5 secondes. Mais &eacute;crire une lettre personnalis&eacute;e pour chaque candidature, &ccedil;a prend 30 minutes. C'est l&agrave; que l'IA change tout.</p>
+
+        <p>En donnant &agrave; l'IA ton CV et l'offre d'emploi, tu obtiens une lettre qui fait le lien entre ton parcours et les besoins sp&eacute;cifiques de l'entreprise. Le tout en moins de 2 minutes. Tu relis, tu ajustes le ton pour que &ccedil;a sonne comme toi, et c'est envoy&eacute;.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 2 · COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici mon CV :
+[colle ton CV]
+
+Voici l'offre d'emploi :
+[colle l'offre]
+
+R&eacute;dige une lettre de motivation qui respecte ces r&egrave;gles :
+- Fais le lien entre mon exp&eacute;rience et les besoins d&eacute;crits dans l'offre
+- Mentionne 1 ou 2 r&eacute;alisations concr&egrave;tes de mon CV qui correspondent au poste
+- Montre que j'ai compris les enjeux de l'entreprise
+- Ton professionnel mais humain, pas corporate
+- 250 mots maximum, 3 paragraphes
+- Ne commence pas par "Je me permets de vous &eacute;crire" ou "Madame, Monsieur"
+- Termine par une phrase d'ouverture vers un &eacute;change, pas par une formule de politesse pompeuse</div>
+        </div>
+
+        <p>Le secret d'une bonne lettre de motivation, c'est la sp&eacute;cificit&eacute;. Si tu peux remplacer le nom de l'entreprise par un autre et que la lettre marche toujours, elle n'est pas assez personnalis&eacute;e. V&eacute;rifie toujours ce point avant d'envoyer.</p>
+
+        <!-- SECTION 3 -->
+        <h2 id="entretiens">Pr&eacute;pare tes entretiens</h2>
+
+        <p>C'est l&agrave; que l'IA brille vraiment. Tu peux transformer ChatGPT ou Claude en simulateur d'entretien qui te pose des questions, &eacute;value tes r&eacute;ponses et te donne du feedback. C'est comme avoir un coach de recrutement disponible 24h/24, gratuitement.</p>
+
+        <p>Le prompt suivant cr&eacute;e un entretien d'embauche complet. L'IA joue le r&ocirc;le du recruteur, pose des questions adapt&eacute;es au poste, et te donne des retours constructifs sur tes r&eacute;ponses. L'id&eacute;al : r&eacute;ponds &agrave; voix haute (pas par &eacute;crit) pour simuler les conditions r&eacute;elles.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 3 · COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Tu es un recruteur senior qui fait passer un entretien pour le poste suivant :
+[colle l'offre d'emploi]
+
+Mon profil :
+[r&eacute;sum&eacute; de ton parcours en 3-4 lignes]
+
+D&eacute;roulement :
+1. Pose-moi les questions une par une. Attends ma r&eacute;ponse avant de passer &agrave; la suivante.
+2. Commence par 2 questions classiques (parcours, motivation)
+3. Continue avec 3 questions techniques ou li&eacute;es au poste
+4. Termine par 2 questions pi&egrave;ges (d&eacute;fauts, &eacute;checs, situation difficile)
+5. Apr&egrave;s chaque r&eacute;ponse, donne-moi un feedback honn&ecirc;te : ce qui &eacute;tait bien, ce qui manquait, et comment am&eacute;liorer ma r&eacute;ponse
+6. &Agrave; la fin, donne-moi une note sur 10 avec un bilan global
+
+Sois exigeant. Le but n'est pas de me rassurer, mais de me pr&eacute;parer.</div>
+        </div>
+
+        <p>Fais cet exercice au moins 3 fois avant chaque entretien important. La premi&egrave;re fois, tu vas gal&eacute;rer dans tes r&eacute;ponses et c'est normal. &Agrave; la troisi&egrave;me, tu seras tellement pr&eacute;par&eacute; que l'entretien r&eacute;el te para&icirc;tra facile.</p>
+
+        <p>N'oublie pas de pr&eacute;parer aussi les questions que tu vas poser au recruteur. Les candidats qui posent des questions pertinentes se d&eacute;marquent imm&eacute;diatement. Demande &agrave; l'IA : "Donne-moi 5 questions intelligentes &agrave; poser &agrave; la fin d'un entretien pour le poste de [poste] chez [entreprise]."</p>
+
+        <!-- SECTION 4 -->
+        <h2 id="recherche">Recherche les entreprises</h2>
+
+        <p>Arriver &agrave; un entretien sans conna&icirc;tre l'entreprise, c'est comme passer un examen sans avoir lu le cours. Pourtant, 70% des candidats ne font qu'un survol rapide du site web. L'IA peut te donner un briefing complet en 30 secondes.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 4 · COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Fais-moi un briefing complet sur l'entreprise [nom de l'entreprise] pour pr&eacute;parer un entretien d'embauche.
+
+Inclus :
+1. Activit&eacute; principale et positionnement sur le march&eacute;
+2. Chiffres cl&eacute;s (CA, nombre d'employ&eacute;s, croissance)
+3. Actualit&eacute;s r&eacute;centes (lev&eacute;es de fonds, lancements, acquisitions)
+4. Culture d'entreprise et valeurs affich&eacute;es
+5. Concurrents principaux et diff&eacute;rences
+6. D&eacute;fis ou enjeux actuels du secteur
+7. 3 points que je peux mentionner en entretien pour montrer que j'ai fait mes recherches
+
+Format : bullet points, concis, factuel.</div>
+        </div>
+
+        <p>Avec ce briefing, tu arrives &agrave; l'entretien mieux pr&eacute;par&eacute; que la majorit&eacute; des candidats. Et quand le recruteur demande "Qu'est-ce que vous savez de nous ?", tu as une r&eacute;ponse qui montre que tu as fait tes devoirs, pas que tu as lu les deux premi&egrave;res lignes de leur page "&Agrave; propos".</p>
+
+        <!-- SECTION 5 -->
+        <h2 id="linkedin">Optimise ton profil LinkedIn</h2>
+
+        <p>Ton profil LinkedIn est souvent le premier contact avec un recruteur. Avant m&ecirc;me d'ouvrir ton CV, il tape ton nom sur Google, et LinkedIn sort en premier r&eacute;sultat. Si ton profil dit "Chef de projet chez X", tu ressembles &agrave; 10 000 autres profils. Si ton profil dit "J'aide les &eacute;quipes produit &agrave; livrer 2x plus vite avec des processus lean", tu te d&eacute;marques imm&eacute;diatement.</p>
+
+        <p>Demande &agrave; l'IA de r&eacute;&eacute;crire trois &eacute;l&eacute;ments cl&eacute;s : ton titre (la ligne sous ton nom), ta section "Info" (le r&eacute;sum&eacute;), et ta headline d'exp&eacute;rience actuelle. Donne-lui ton CV et le type de poste que tu vises. L'objectif : parler de la valeur que tu apportes, pas juste de ton intitul&eacute; de poste.</p>
+
+        <p>Pense aussi aux mots-cl&eacute;s. Les recruteurs utilisent la recherche LinkedIn avec des termes pr&eacute;cis. Si tu vises un poste de "Product Manager", ce terme doit appara&icirc;tre dans ton titre, ta description et tes exp&eacute;riences. Sans ces mots-cl&eacute;s, tu es invisible, m&ecirc;me si ton profil est excellent.</p>
+
+        <!-- SECTION 6 -->
+        <h2 id="plan">Ton plan d'action</h2>
+
+        <p>Voici ce que tu fais cette semaine :</p>
+        <ol>
+            <li><strong>Jour 1 :</strong> R&eacute;&eacute;cris ton CV avec le prompt 1. Concentre-toi sur les 5 derni&egrave;res ann&eacute;es. Ajoute des chiffres &agrave; chaque point.</li>
+            <li><strong>Jour 2 :</strong> Identifie 3 offres qui t'int&eacute;ressent. Pour chacune, g&eacute;n&egrave;re une lettre de motivation personnalis&eacute;e avec le prompt 2.</li>
+            <li><strong>Jour 3 :</strong> Fais une simulation d'entretien avec le prompt 3. R&eacute;ponds &agrave; voix haute. Note les questions o&ugrave; tu as gal&eacute;r&eacute; et travaille tes r&eacute;ponses.</li>
+            <li><strong>Jour 4 :</strong> Utilise le prompt 4 pour briefer sur les entreprises vis&eacute;es. Pr&eacute;pare 3 questions &agrave; poser au recruteur pour chacune.</li>
+            <li><strong>Jour 5 :</strong> Optimise ton LinkedIn. Nouveau titre, nouvelle section Info, mots-cl&eacute;s du secteur vis&eacute;.</li>
+        </ol>
+
+        <div class="tip-box">
+            <p><strong>Le conseil le plus important :</strong> l'IA t'aide &agrave; aller plus vite, mais ne la laisse pas parler &agrave; ta place. Relis tout. Adapte le ton &agrave; ta personnalit&eacute;. Assure-toi que chaque mot sonne comme toi. Un recruteur rep&egrave;re imm&eacute;diatement un texte 100% g&eacute;n&eacute;r&eacute; par IA. Utilise l'IA comme point de d&eacute;part, pas comme produit fini. C'est ta voix qui fait la diff&eacute;rence, pas celle de la machine.</p>
+        </div>
+
+        <!-- CONTINUE A LIRE -->
+        <div class="related">
+            <div class="related-title">Continue &agrave; lire</div>
+            <div class="related-grid">
+                <a href="guide-chatgpt.html" class="related-card">
+                    <div class="rc-cat">GUIDE</div>
+                    <div class="rc-title">Le guide complet de ChatGPT</div>
+                    <div class="rc-desc">Tout ce que tu dois savoir pour utiliser ChatGPT comme un pro.</div>
+                </a>
+                <a href="guide-claude.html" class="related-card">
+                    <div class="rc-cat">GUIDE</div>
+                    <div class="rc-title">Le guide complet de Claude</div>
+                    <div class="rc-desc">D&eacute;couvre pourquoi Claude est devenu mon IA principale.</div>
+                </a>
+                <a href="prompt-3h-semaine.html" class="related-card">
+                    <div class="rc-cat">ASTUCE</div>
+                    <div class="rc-title">Le prompt qui m'a fait gagner 3h par semaine</div>
+                    <div class="rc-desc">Un seul prompt bien construit peut transformer ta productivit&eacute;.</div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CTA BOX -->
+    <div class="cta-box">
+        <h3>R&eacute;serve ton audit gratuit.</h3>
+        <p>30 minutes pour identifier les t&acirc;ches que tu peux automatiser dans ton business.</p>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="btn" target="_blank" rel="noopener">R&eacute;server mon audit gratuit &rarr;</a>
+        <p class="micro">30 min - Gratuit - Sans engagement</p>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-left">
+            &copy; 2026 Igor Sautier
+            <a href="../mentions-legales.html">Mentions l&eacute;gales</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://instagram.com/automatise_avec_igor" aria-label="Instagram" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://tiktok.com/@automatise_avec_igor" aria-label="TikTok" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.48a8.27 8.27 0 004.76 1.51v-3.45a4.85 4.85 0 01-1-.85z"/></svg>
+            </a>
+            <a href="https://youtube.com/@automatise_avec_igor" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 00.5 6.19 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.84.55 9.38.55 9.38.55s7.54 0 9.38-.55a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+            </a>
+            <a href="https://linkedin.com/in/igor-sautier" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.75 1.75 0 0024 22.27V1.73A1.75 1.75 0 0022.22 0z"/></svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function(){
+    var btn = document.getElementById('hamburgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', function(){
+        menu.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e){
+        if(!menu.contains(e.target) && !btn.contains(e.target)){
+            menu.classList.remove('open');
+        }
+    });
+})();
+</script>
+</body>
+</html>

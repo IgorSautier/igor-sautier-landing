@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cr&eacute;e ton premier workflow IA | Igor Sautier</title>
+<meta name="description" content="Le setup, les outils et les prompts pour construire ton premier workflow d'automatisation. Tuto pas &agrave; pas avec n8n.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --accent:#BB111C;
+    --accent-hover:#a00f18;
+    --t1:#1a1a1a;
+    --t2:#6b6b6b;
+    --t3:#a3a3a3;
+    --bg:#f5f2ef;
+    --card:#ffffff;
+    --line:#ded9d3;
+    --code-bg:#1a1a1a;
+    --sans:'Outfit',system-ui,sans-serif;
+    --serif:'Playfair Display',Georgia,serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:15px;font-weight:400;background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;line-height:1.7}
+::selection{background:rgba(187,17,28,0.12)}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
+.nav-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.nav-avatar img{width:100%;height:100%;object-fit:cover}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:14px;color:var(--t2);font-weight:400;transition:color .15s}
+.nav-links a:hover{color:var(--t1)}
+.nav-cta{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:8px 20px;border-radius:9999px;border:none;cursor:pointer;transition:background .15s}
+.nav-cta:hover{background:var(--accent-hover)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--t1);border-radius:1px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:16px 24px;z-index:99;flex-direction:column;gap:16px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;color:var(--t2);padding:4px 0}
+.mobile-menu .nav-cta{text-align:center;justify-content:center}
+
+/* BACK LINK */
+.back-bar{max-width:720px;margin:0 auto;padding:24px 24px 0}
+.back-bar a{font-size:14px;color:var(--t2);font-weight:500;transition:color .15s}
+.back-bar a:hover{color:var(--t1)}
+
+/* ARTICLE */
+.wrap{max-width:720px;margin:0 auto;padding:32px 24px 80px}
+.meta{font-size:12px;color:var(--t2);margin-bottom:12px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.cat{color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:1.5px}
+h1{font-size:40px;font-weight:800;line-height:1.1;margin-bottom:14px}
+.subtitle{font-size:17px;color:var(--t2);margin-bottom:40px;line-height:1.6}
+
+/* TOC */
+.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:40px}
+.toc-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:var(--t1)}
+.toc ul{list-style:none;padding:0;margin:0}
+.toc li{margin-bottom:6px}
+.toc a{font-size:14px;color:var(--t2);transition:color .15s}
+.toc a:hover{color:var(--accent)}
+
+/* PLAN CARD */
+.plan-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:32px}
+.plan-card-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;color:var(--accent)}
+.plan-card ol{padding-left:20px;margin:0}
+.plan-card li{font-size:14px;color:var(--t2);margin-bottom:6px;line-height:1.5}
+.plan-card li strong{color:var(--t1)}
+
+/* CONTENT */
+.content h2{font-size:22px;font-weight:700;margin:36px 0 14px;color:var(--t1)}
+.content h3{font-size:18px;font-weight:600;margin:24px 0 10px;color:var(--t1)}
+.content p{font-size:16px;color:#444;margin-bottom:16px;line-height:1.7}
+.content ul,.content ol{margin:0 0 16px 20px;color:#444}
+.content li{margin-bottom:8px;font-size:15px;line-height:1.6}
+.content strong{color:var(--t1)}
+
+/* COMPARISON TABLE */
+.compare-table{width:100%;border-collapse:collapse;margin:20px 0 28px;font-size:14px}
+.compare-table th{text-align:left;padding:12px 16px;background:var(--card);border:1px solid var(--line);font-weight:600;color:var(--t1)}
+.compare-table td{padding:12px 16px;border:1px solid var(--line);color:var(--t2);line-height:1.5}
+.compare-table tr:nth-child(even) td{background:var(--card)}
+
+/* PROMPT BLOCK */
+.prompt-block{background:var(--code-bg);border-radius:16px;margin:20px 0 28px;overflow:hidden}
+.prompt-header{display:flex;justify-content:space-between;align-items:center;padding:12px 24px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.prompt-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.4)}
+.prompt-copy{background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.6);font-family:var(--sans);font-size:12px;font-weight:600;padding:4px 12px;border-radius:6px;cursor:pointer;transition:background .15s,color .15s}
+.prompt-copy:hover{background:rgba(255,255,255,0.18);color:#fff}
+.prompt-text{padding:20px 24px;font-size:14px;color:rgba(255,255,255,0.88);line-height:1.7;white-space:pre-wrap;word-wrap:break-word}
+
+/* TIP BOX */
+.tip-box{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:24px 28px;margin:28px 0}
+.tip-box p{font-size:15px;color:#444;line-height:1.7;margin:0}
+.tip-box strong{color:var(--t1)}
+
+/* CONTINUE A LIRE */
+.related{margin-top:48px;padding-top:40px;border-top:1px solid var(--line)}
+.related-title{font-size:18px;font-weight:700;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.related-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;transition:border-color .15s}
+.related-card:hover{border-color:var(--accent)}
+.related-card .rc-cat{font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.related-card .rc-title{font-size:15px;font-weight:600;line-height:1.3;margin-bottom:6px;color:var(--t1)}
+.related-card .rc-desc{font-size:13px;color:var(--t2);line-height:1.5}
+
+/* CTA BOX */
+.cta-box{margin-top:48px;padding:36px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-align:center}
+.cta-box h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.cta-box p{font-size:15px;color:var(--t2);margin-bottom:20px}
+.cta-box a.btn{display:inline-block;background:var(--accent);color:#fff;padding:14px 32px;border-radius:9999px;font-weight:600;font-size:15px;transition:background .15s}
+.cta-box a.btn:hover{background:var(--accent-hover)}
+.cta-box .micro{font-size:12px;color:var(--t3);margin-top:12px}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:24px 0}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between}
+.footer-left{font-size:14px;color:var(--t2)}
+.footer-left a{margin-left:16px;text-decoration:underline;color:var(--t3)}
+.footer-left a:hover{color:var(--t1)}
+.footer-socials{display:flex;gap:16px}
+.footer-socials a{color:var(--t3);transition:color .15s}
+.footer-socials a:hover{color:var(--t1)}
+
+/* MOBILE */
+@media(max-width:768px){
+    .nav-inner{padding:0 20px}
+    .nav-links{display:none}
+    .nav-cta-desk{display:none}
+    .hamburger{display:flex}
+    .back-bar{padding:16px 20px 0}
+    .wrap{padding:24px 20px 60px}
+    h1{font-size:30px}
+    .subtitle{font-size:15px}
+    .prompt-block .prompt-text{padding:16px 20px;font-size:13px}
+    .prompt-header{padding:10px 20px}
+    .compare-table{font-size:13px}
+    .compare-table th,.compare-table td{padding:8px 10px}
+    .related-grid{grid-template-columns:1fr}
+    .cta-box{padding:28px 20px}
+    .footer-inner{padding:0 20px;flex-direction:column;gap:16px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-inner">
+        <a href="../index.html" class="nav-brand">
+            <div class="nav-avatar"><img src="../igor.jpg" alt="Igor Sautier"></div>
+            Igor
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Accueil</a>
+            <a href="index.html">Ressources</a>
+            <a href="../a-propos.html">&Agrave; propos</a>
+        </div>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta nav-cta-desk" target="_blank" rel="noopener">R&eacute;server un appel</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Accueil</a>
+    <a href="index.html">Ressources</a>
+    <a href="../a-propos.html">&Agrave; propos</a>
+    <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="nav-cta" target="_blank" rel="noopener">R&eacute;server un appel</a>
+</div>
+
+<!-- BACK LINK -->
+<div class="back-bar">
+    <a href="index.html">&#8592; Retour aux ressources</a>
+</div>
+
+<!-- ARTICLE -->
+<div class="wrap">
+    <div class="meta">
+        <span class="cat">TUTO</span>
+        <span>10 min de lecture</span>
+        <span>Sept 2026</span>
+    </div>
+    <h1>Cr&eacute;e ton premier workflow IA</h1>
+    <p class="subtitle">Le setup, les outils et les prompts pour construire ton premier workflow d'automatisation.</p>
+
+    <!-- TOC -->
+    <div class="toc">
+        <div class="toc-title">Sommaire</div>
+        <ul>
+            <li><a href="#outil">Choisis ton outil</a></li>
+            <li><a href="#compte">Cr&eacute;e ton compte n8n</a></li>
+            <li><a href="#connecte">Connecte tes premiers outils</a></li>
+            <li><a href="#workflow">Ton premier workflow : r&eacute;sum&eacute; d'emails</a></li>
+            <li><a href="#teste">Teste et am&eacute;liore</a></li>
+            <li><a href="#idees">Id&eacute;es pour aller plus loin</a></li>
+            <li><a href="#plan">Ton plan d'action</a></li>
+        </ul>
+    </div>
+
+    <!-- PLAN CARD -->
+    <div class="plan-card">
+        <div class="plan-card-title">Le plan en 5 &eacute;tapes</div>
+        <ol>
+            <li><strong>Choisis ton outil</strong> d'automatisation (n8n ou Make)</li>
+            <li><strong>Cr&eacute;e ton compte</strong> et d&eacute;couvre l'interface</li>
+            <li><strong>Connecte tes outils</strong> (Gmail, Slack, Google Sheets)</li>
+            <li><strong>Construis ton premier workflow</strong> de r&eacute;sum&eacute; d'emails</li>
+            <li><strong>Teste, ajuste et d&eacute;ploie</strong> en production</li>
+        </ol>
+    </div>
+
+    <div class="content">
+
+        <p>Tu veux automatiser des t&acirc;ches avec l'IA mais tu ne sais pas par o&ugrave; commencer ? Tu as entendu parler de n8n, de Make, de workflows, de noeuds, mais tout &ccedil;a te semble flou ? Ce tuto est fait pour toi. En 30 minutes, tu vas construire un workflow fonctionnel qui r&eacute;sume automatiquement tes emails et t'envoie l'essentiel dans Slack ou Google Sheets.</p>
+
+        <p>Pas besoin de savoir coder. Pas besoin d'&ecirc;tre technique. Si tu sais utiliser Google Sheets et envoyer un email, tu as les comp&eacute;tences n&eacute;cessaires. On y va.</p>
+
+        <!-- SECTION 1 -->
+        <h2 id="outil">&Eacute;tape 1 : choisis ton outil</h2>
+
+        <p>Deux outils dominent le march&eacute; de l'automatisation no-code en 2026. Chacun a ses forces. Voici un comparatif honn&ecirc;te pour t'aider &agrave; choisir.</p>
+
+        <table class="compare-table">
+            <tr>
+                <th>Crit&egrave;re</th>
+                <th>n8n</th>
+                <th>Make</th>
+            </tr>
+            <tr>
+                <td><strong>Prix</strong></td>
+                <td>Gratuit en self-hosted, cloud d&egrave;s 20 euros/mois</td>
+                <td>Plan gratuit (1 000 op&eacute;rations/mois), puis 9 euros/mois</td>
+            </tr>
+            <tr>
+                <td><strong>Open-source</strong></td>
+                <td>Oui, code accessible sur GitHub</td>
+                <td>Non, solution propri&eacute;taire</td>
+            </tr>
+            <tr>
+                <td><strong>Interface</strong></td>
+                <td>&Eacute;diteur visuel en canvas, flexible</td>
+                <td>&Eacute;diteur visuel en cercles, intuitif</td>
+            </tr>
+            <tr>
+                <td><strong>Noeuds IA</strong></td>
+                <td>Excellents (ChatGPT, Claude, agents IA)</td>
+                <td>Bons (modules OpenAI, int&eacute;grations IA)</td>
+            </tr>
+            <tr>
+                <td><strong>Flexibilit&eacute;</strong></td>
+                <td>Tr&egrave;s haute, code JavaScript/Python possible</td>
+                <td>Moyenne, limit&eacute;e aux modules existants</td>
+            </tr>
+            <tr>
+                <td><strong>Id&eacute;al pour</strong></td>
+                <td>Workflows complexes, contr&ocirc;le total</td>
+                <td>D&eacute;butants, workflows simples et rapides</td>
+            </tr>
+        </table>
+
+        <p><strong>Ma recommandation :</strong> si tu d&eacute;butes et que tu veux un r&eacute;sultat rapide sans rien installer, commence avec Make. Si tu veux aller plus loin et garder le contr&ocirc;le, passe &agrave; n8n. Pour ce tuto, je vais utiliser n8n parce que c'est l'outil que j'utilise au quotidien et qu'il te donnera le plus de flexibilit&eacute; &agrave; terme.</p>
+
+        <!-- SECTION 2 -->
+        <h2 id="compte">&Eacute;tape 2 : cr&eacute;e ton compte n8n</h2>
+
+        <p>Le plus rapide : cr&eacute;e un compte gratuit sur <strong>n8n.io</strong>. Clique sur "Get started free", remplis le formulaire, et tu arrives directement dans l'&eacute;diteur. Pas besoin de carte bancaire. Pas besoin d'installer quoi que ce soit. Tu as un &eacute;diteur de workflows pr&ecirc;t &agrave; l'emploi en moins de 2 minutes.</p>
+
+        <p>Si tu pr&eacute;f&egrave;res installer n8n en local (pour garder tes donn&eacute;es chez toi), tu peux le faire avec Docker en une seule commande. Mais pour ton premier workflow, la version cloud est parfaite. Ne te complique pas la vie maintenant, tu pourras migrer plus tard.</p>
+
+        <p>Une fois connect&eacute;, tu arrives sur un canvas vide avec un noeud "Start". C'est ton point de d&eacute;part. Tout workflow commence ici. La logique est simple : tu ajoutes des noeuds de gauche &agrave; droite, chaque noeud fait une action, et les donn&eacute;es circulent d'un noeud &agrave; l'autre.</p>
+
+        <!-- SECTION 3 -->
+        <h2 id="connecte">&Eacute;tape 3 : connecte tes premiers outils</h2>
+
+        <p>Avant de construire ton workflow, tu dois connecter les services que tu vas utiliser. Pour notre workflow de r&eacute;sum&eacute; d'emails, tu as besoin de trois choses :</p>
+
+        <ul>
+            <li><strong>Gmail</strong> (ou Outlook) : pour r&eacute;cup&eacute;rer tes emails entrants</li>
+            <li><strong>Une API d'IA</strong> (OpenAI ou Anthropic) : pour analyser et r&eacute;sumer le contenu</li>
+            <li><strong>Slack ou Google Sheets</strong> : pour recevoir le r&eacute;sum&eacute;</li>
+        </ul>
+
+        <p>Pour connecter Gmail : clique sur "Credentials" dans le menu de gauche, puis "New credential", cherche "Gmail", et suis le processus d'authentification Google. C'est un OAuth classique, tu autorises n8n &agrave; lire tes emails.</p>
+
+        <p>Pour l'API OpenAI : cr&eacute;e un compte sur platform.openai.com, g&eacute;n&egrave;re une cl&eacute; API dans "API keys", et colle-la dans les credentials n8n. Le co&ucirc;t est minime : environ 0.01 &agrave; 0.03 euros par email r&eacute;sum&eacute;. Si tu pr&eacute;f&egrave;res utiliser Claude, le processus est identique sur console.anthropic.com.</p>
+
+        <div class="tip-box">
+            <p><strong>Astuce budget :</strong> pour un usage personnel (20 &agrave; 30 emails r&eacute;sum&eacute;s par jour), &ccedil;a te co&ucirc;tera entre 5 et 10 euros par mois maximum. C'est le prix d'un caf&eacute; par semaine pour des heures gagn&eacute;es chaque jour. Et tu peux fixer un plafond de d&eacute;penses dans ton compte OpenAI pour &eacute;viter les surprises.</p>
+        </div>
+
+        <!-- SECTION 4 -->
+        <h2 id="workflow">&Eacute;tape 4 : ton premier workflow, r&eacute;sum&eacute; d'emails</h2>
+
+        <p>On va construire un workflow concret et utile : &agrave; chaque fois qu'un email arrive dans ta bo&icirc;te, l'IA le r&eacute;sume en 3 points, identifie s'il y a une action requise de ta part, et envoie le tout dans un canal Slack (ou un Google Sheet). En 4 noeuds, c'est fait.</p>
+
+        <h3>Noeud 1 : Gmail Trigger</h3>
+        <p>Ajoute un noeud "Gmail Trigger". Configure-le pour se d&eacute;clencher &agrave; chaque nouvel email re&ccedil;u. S&eacute;lectionne ton compte Gmail dans les credentials. Tu peux aussi filtrer par label (par exemple, surveiller uniquement la bo&icirc;te de r&eacute;ception, pas le spam ni les promotions).</p>
+
+        <h3>Noeud 2 : Filtre</h3>
+        <p>Ajoute un noeud "IF" pour filtrer les emails que tu veux traiter. Condition : le corps de l'email contient plus de 50 caract&egrave;res. &Ccedil;a &eacute;vite de gaspiller des tokens d'API sur des emails vides, des accus&eacute;s de r&eacute;ception ou des notifications automatiques.</p>
+
+        <h3>Noeud 3 : IA (r&eacute;sum&eacute;)</h3>
+        <p>Ajoute un noeud "OpenAI" (ou "HTTP Request" si tu utilises Claude). C'est ici que la magie op&egrave;re. Tu envoies le contenu de l'email &agrave; l'API avec le prompt suivant :</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 1 · COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Tu es un assistant de tri d'emails. Analyse l'email suivant et r&eacute;ponds en fran&ccedil;ais avec ce format exact :
+
+EXP&Eacute;DITEUR : [nom et email de l'exp&eacute;diteur]
+R&Eacute;SUM&Eacute; : [r&eacute;sum&eacute; en 2-3 phrases maximum]
+ACTION REQUISE : [Oui/Non + description de l'action si oui]
+PRIORIT&Eacute; : [Haute/Moyenne/Basse]
+DEADLINE : [date si mentionn&eacute;e, sinon "Aucune"]
+
+Sois concis. Ne reformule pas ce qui est d&eacute;j&agrave; clair. Si l'email est un spam, une newsletter ou une notification automatique, indique "Ignorable" dans le r&eacute;sum&eacute;.
+
+Email &agrave; analyser :
+{{ $json.body }}</div>
+        </div>
+
+        <h3>Noeud 4 : Slack (ou Google Sheets)</h3>
+        <p>Ajoute un noeud "Slack" configur&eacute; pour poster dans un canal d&eacute;di&eacute; (par exemple #emails-resumes). Le message contient la sortie du noeud IA. Tu peux aussi utiliser un noeud Google Sheets pour ajouter une ligne dans un tableur, avec une colonne par champ (exp&eacute;diteur, r&eacute;sum&eacute;, action, priorit&eacute;).</p>
+
+        <p>Et voil&agrave;. Quatre noeuds. Ton premier workflow IA est en place. &Agrave; chaque email re&ccedil;u, tu obtiens un r&eacute;sum&eacute; clair et structur&eacute;, avec l'indication de ce qui n&eacute;cessite ton attention. Tu ne lis plus chaque email en entier, tu scannes les r&eacute;sum&eacute;s et tu te concentres sur ce qui compte.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 2 · COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici les r&eacute;sum&eacute;s de mes emails de la journ&eacute;e :
+[colle les r&eacute;sum&eacute;s ici]
+
+G&eacute;n&egrave;re un r&eacute;cap quotidien structur&eacute; comme suit :
+1. URGENT (actions &agrave; faire aujourd'hui)
+2. &Agrave; TRAITER (cette semaine)
+3. POUR INFO (pas d'action requise)
+4. IGNORABLE (spam, newsletters, notifications)
+
+Pour chaque item, une ligne maximum. Classe par priorit&eacute; d&eacute;croissante dans chaque cat&eacute;gorie.</div>
+        </div>
+
+        <!-- SECTION 5 -->
+        <h2 id="teste">&Eacute;tape 5 : teste et am&eacute;liore</h2>
+
+        <p>Avant d'activer ton workflow en production, teste-le. n8n te permet d'ex&eacute;cuter chaque noeud individuellement et de voir les donn&eacute;es qui transitent. Envoie-toi un email test, lance le workflow manuellement, et v&eacute;rifie que le r&eacute;sum&eacute; est correct.</p>
+
+        <p>Les erreurs courantes &agrave; &eacute;viter :</p>
+        <ul>
+            <li><strong>Emails trop longs :</strong> si un email fait 5 000 mots (newsletter, rapport), il peut d&eacute;passer la limite de tokens. Ajoute un noeud "Code" qui tronque le texte &agrave; 3 000 caract&egrave;res avant de l'envoyer &agrave; l'IA.</li>
+            <li><strong>Emails en HTML :</strong> les emails arrivent souvent en HTML brut. Utilise un noeud qui extrait le texte pur (strip HTML) avant l'analyse. Sinon, l'IA va r&eacute;sumer les balises HTML, pas le contenu.</li>
+            <li><strong>Pas de gestion d'erreur :</strong> si l'API d'IA est indisponible ou si ton quota est d&eacute;pass&eacute;, le workflow plante silencieusement. Ajoute un noeud "Error Trigger" qui t'envoie une notification si quelque chose &eacute;choue.</li>
+            <li><strong>Trop de bruit :</strong> affine tes filtres. Exclus les emails automatiques (no-reply@), les notifications (notifications@github.com) et les newsletters pour ne garder que les emails qui comptent.</li>
+        </ul>
+
+        <p>Une fois que tout fonctionne en test, active le workflow. Il tournera en arri&egrave;re-plan, 24h/24, sans que tu l&egrave;ves le petit doigt. Laisse-le tourner une semaine, puis reviens voir les r&eacute;sultats. Tu ajusteras le prompt en fonction de ce que tu observes.</p>
+
+        <div class="prompt-block">
+            <div class="prompt-header">
+                <span class="prompt-label">PROMPT 3 · COPIER</span>
+                <button class="prompt-copy" onclick="navigator.clipboard.writeText(this.closest('.prompt-block').querySelector('.prompt-text').textContent);var b=this;b.textContent='Copie !';setTimeout(function(){b.textContent='Copier'},1500)">Copier</button>
+            </div>
+            <div class="prompt-text">Voici 10 r&eacute;sum&eacute;s d'emails g&eacute;n&eacute;r&eacute;s par mon workflow :
+[colle les r&eacute;sum&eacute;s ici]
+
+Analyse la qualit&eacute; de ces r&eacute;sum&eacute;s :
+1. Quels r&eacute;sum&eacute;s sont trop vagues ou manquent d'information utile ?
+2. Quels r&eacute;sum&eacute;s sont trop longs ?
+3. La classification de priorit&eacute; est-elle coh&eacute;rente ?
+4. Y a-t-il des emails qui auraient d&ucirc; &ecirc;tre ignor&eacute;s mais ne l'ont pas &eacute;t&eacute; ?
+
+Propose une version am&eacute;lior&eacute;e du prompt de r&eacute;sum&eacute; en tenant compte de ces observations.</div>
+        </div>
+
+        <!-- SECTION 6 -->
+        <h2 id="idees">Id&eacute;es pour aller plus loin</h2>
+
+        <p>Ton premier workflow tourne. Maintenant, tu vas avoir des id&eacute;es. C'est normal, c'est le d&eacute;but de l'automatisation. Voici 5 workflows que tu peux construire avec la m&ecirc;me logique :</p>
+
+        <ul>
+            <li><strong>R&eacute;sum&eacute; de r&eacute;unions :</strong> connecte Zoom ou Google Meet &agrave; l'IA via n8n. Apr&egrave;s chaque appel, le transcript est automatiquement r&eacute;sum&eacute; avec les d&eacute;cisions prises et les actions &agrave; mener. Fini les comptes-rendus manuels.</li>
+            <li><strong>Classification de leads :</strong> quand un prospect remplit un formulaire (Typeform, Tally), l'IA analyse sa r&eacute;ponse, le classe en "chaud", "ti&egrave;de" ou "froid", et l'ajoute dans ton CRM avec le bon tag.</li>
+            <li><strong>Pipeline de contenu :</strong> tu &eacute;cris un article de blog, n8n prend le texte, g&eacute;n&egrave;re un post LinkedIn, un thread X, une l&eacute;gende Instagram et un email newsletter. Tout en une seule ex&eacute;cution.</li>
+            <li><strong>Veille concurrentielle :</strong> un workflow qui surveille les sites de tes concurrents chaque jour, d&eacute;tecte les changements (nouvelle page, nouveau prix, nouveau produit) et t'envoie un rapport r&eacute;sum&eacute;.</li>
+            <li><strong>Rapport hebdomadaire automatique :</strong> chaque vendredi, n8n collecte les donn&eacute;es de tes outils (CRM, analytics, comptabilit&eacute;), g&eacute;n&egrave;re un rapport de synth&egrave;se avec l'IA, et l'envoie &agrave; ton &eacute;quipe par email.</li>
+        </ul>
+
+        <p>Chaque workflow suit la m&ecirc;me structure : un d&eacute;clencheur, un traitement IA, une sortie. Tu changes les outils connect&eacute;s et le prompt, mais la logique reste identique. Une fois que tu comprends cette logique, tu peux automatiser presque n'importe quoi.</p>
+
+        <!-- SECTION 7 -->
+        <h2 id="plan">Ton plan d'action</h2>
+
+        <p>Voici ce que tu fais ce week-end :</p>
+        <ol>
+            <li><strong>Samedi matin (30 min) :</strong> cr&eacute;e ton compte n8n cloud. Explore l'interface. Familiarise-toi avec le canvas, les noeuds et les credentials.</li>
+            <li><strong>Samedi apr&egrave;s-midi (30 min) :</strong> connecte Gmail et OpenAI (ou Claude). Teste que les connexions fonctionnent en ex&eacute;cutant un noeud manuellement.</li>
+            <li><strong>Dimanche matin (45 min) :</strong> construis le workflow de r&eacute;sum&eacute; d'emails complet (4 noeuds). Envoie-toi 3 emails test et v&eacute;rifie les r&eacute;sultats.</li>
+            <li><strong>Dimanche apr&egrave;s-midi (15 min) :</strong> affine le prompt, ajoute les filtres pour exclure le spam et les notifications, et active le workflow en production.</li>
+        </ol>
+
+        <div class="tip-box">
+            <p><strong>Conseil :</strong> ne cherche pas &agrave; tout automatiser d'un coup. Un seul workflow bien construit vaut mieux que dix workflows fragiles. Fais tourner celui-ci pendant 2 semaines, comprends la logique, puis passe au suivant. L'automatisation, c'est un marathon, pas un sprint.</p>
+        </div>
+
+        <!-- CONTINUE A LIRE -->
+        <div class="related">
+            <div class="related-title">Continue &agrave; lire</div>
+            <div class="related-grid">
+                <a href="automatiser-n8n.html" class="related-card">
+                    <div class="rc-cat">AUTOMATISATION</div>
+                    <div class="rc-title">Automatise tes t&acirc;ches avec n8n</div>
+                    <div class="rc-desc">Le guide pour connecter tes outils et gagner des heures chaque semaine.</div>
+                </a>
+                <a href="5-automatisations.html" class="related-card">
+                    <div class="rc-cat">AUTOMATISATION</div>
+                    <div class="rc-title">5 automatisations que tu peux copier ce week-end</div>
+                    <div class="rc-desc">Chacune prend moins de 15 minutes et te fait gagner des heures.</div>
+                </a>
+                <a href="guide-chatgpt.html" class="related-card">
+                    <div class="rc-cat">GUIDE</div>
+                    <div class="rc-title">Le guide complet de ChatGPT</div>
+                    <div class="rc-desc">Tout ce que tu dois savoir pour utiliser ChatGPT comme un pro.</div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CTA BOX -->
+    <div class="cta-box">
+        <h3>R&eacute;serve ton audit gratuit.</h3>
+        <p>30 minutes pour identifier les t&acirc;ches que tu peux automatiser dans ton business.</p>
+        <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="btn" target="_blank" rel="noopener">R&eacute;server mon audit gratuit &rarr;</a>
+        <p class="micro">30 min - Gratuit - Sans engagement</p>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-left">
+            &copy; 2026 Igor Sautier
+            <a href="../mentions-legales.html">Mentions l&eacute;gales</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://instagram.com/automatise_avec_igor" aria-label="Instagram" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://tiktok.com/@automatise_avec_igor" aria-label="TikTok" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.48a8.27 8.27 0 004.76 1.51v-3.45a4.85 4.85 0 01-1-.85z"/></svg>
+            </a>
+            <a href="https://youtube.com/@automatise_avec_igor" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 00.5 6.19 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.84.55 9.38.55 9.38.55s7.54 0 9.38-.55a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+            </a>
+            <a href="https://linkedin.com/in/igor-sautier" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.75 1.75 0 0024 22.27V1.73A1.75 1.75 0 0022.22 0z"/></svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function(){
+    var btn = document.getElementById('hamburgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', function(){
+        menu.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e){
+        if(!menu.contains(e.target) && !btn.contains(e.target)){
+            menu.classList.remove('open');
+        }
+    });
+})();
+</script>
+</body>
+</html>
