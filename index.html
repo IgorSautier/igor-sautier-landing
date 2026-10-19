@@ -74,13 +74,17 @@
         .hero-small a:hover{color:var(--accent)}
 
         /* Hero photo side */
-        .hero-photo-wrap{position:relative;display:flex;justify-content:center;align-items:flex-start;padding-top:40px}
-        .hero-photo{width:100%;max-width:280px;aspect-ratio:3/4;border-radius:16px;object-fit:cover;object-position:center top;position:relative;z-index:1;display:block;background:var(--line);box-shadow:0 24px 48px -12px rgba(0,0,0,0.15)}
-        .annotation{position:absolute;z-index:2;font-family:var(--serif);font-style:italic;color:var(--accent);font-size:22px;white-space:nowrap;pointer-events:none;line-height:1.2}
-        .annotation svg{display:inline-block;vertical-align:middle}
-        .ann-1{top:-10px;left:-20px;transform:translate(-100%,-100%)}
-        .ann-2{top:35%;right:-20px;transform:translateX(100%)}
-        .ann-3{bottom:-10px;left:20%;transform:translateY(100%)}
+        .hero-photo-wrap{position:relative;width:300px;padding:60px 0;margin:0 auto}
+        .hero-photo{width:100%;border-radius:16px;object-fit:cover;object-position:center top;display:block;background:var(--line);box-shadow:0 24px 48px -12px rgba(0,0,0,0.15)}
+        .annotation{position:absolute;z-index:2;pointer-events:none}
+        .annotation span{font-family:var(--serif);font-style:italic;color:var(--accent);font-size:22px;white-space:nowrap;display:inline-block}
+        .annotation svg{display:block}
+        .ann-1{top:-4px;left:-96px;width:220px}
+        .ann-1 span{transform:rotate(-5deg)}
+        .ann-2{top:-12px;right:0}
+        .ann-2 span{transform:rotate(-4deg)}
+        .ann-3{bottom:-8px;left:-32px;width:280px}
+        .ann-3 span{transform:rotate(-3deg)}
 
         /* ---- GUIDES ---- */
         .guides-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px}
@@ -300,16 +304,16 @@
             <div class="hero-photo-wrap">
                 <img src="igor.jpg" alt="Igor Sautier" class="hero-photo" loading="eager">
                 <div class="annotation ann-1">
-                    21,8K abonn&eacute;s
-                    <svg width="60" height="45" viewBox="0 0 60 45" fill="none" style="margin-left:8px"><path d="M5 5 C15 5, 30 10, 40 20 C50 30, 52 38, 55 42" stroke="#BB111C" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M51 40 L56 44 L56 37" stroke="#BB111C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span>21,8K abonn&eacute;s</span>
+                    <svg width="120" height="50" viewBox="0 0 120 50" fill="none"><path d="M60 10 C80 12, 100 20, 110 40" stroke="#BB111C" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M106 37 L112 43 L113 35" stroke="#BB111C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
                 <div class="annotation ann-2">
-                    <svg width="50" height="35" viewBox="0 0 50 35" fill="none" style="margin-right:6px"><path d="M45 5 C35 8, 20 12, 10 20 C5 25, 3 30, 2 33" stroke="#BB111C" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M5 30 L1 35 L8 33" stroke="#BB111C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    3,5M+ vues totales
+                    <span>3,5M+ vues totales</span>
+                    <svg width="100" height="50" viewBox="0 0 100 50" fill="none"><path d="M40 10 C20 15, 5 25, 2 42" stroke="#BB111C" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M5 38 L1 45 L8 42" stroke="#BB111C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
                 <div class="annotation ann-3">
-                    <svg width="45" height="50" viewBox="0 0 45 50" fill="none" style="margin-right:6px"><path d="M25 45 C20 35, 15 20, 18 10 C20 5, 25 2, 30 2" stroke="#BB111C" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M27 5 L32 1 L32 8" stroke="#BB111C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    1 guide gratuit / semaine
+                    <svg width="60" height="50" viewBox="0 0 60 50" fill="none"><path d="M30 42 C35 25, 40 15, 50 5" stroke="#BB111C" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M47 8 L52 3 L53 12" stroke="#BB111C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span>1 guide gratuit / semaine</span>
                 </div>
             </div>
         </div>
