@@ -294,7 +294,7 @@
     <div class="mm-links">
         <a href="#hero" class="mm-link active"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg> Accueil</a>
         <a href="ressources/index.html" class="mm-link"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Ressources</a>
-        <a href="#newsletter-sub" class="mm-link"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> Newsletter</a>
+        <a href="#guides" class="mm-link"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> Guides gratuits</a>
         <a href="a-propos.html" class="mm-link"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg> &Agrave; propos</a>
     </div>
     <div class="mm-bottom">
@@ -317,7 +317,11 @@
                 <p class="hero-cta-micro">30 min - Gratuit - Sans engagement</p>
                 <div class="hero-proof"><strong>Rejoins 1 000+ lecteurs</strong></div>
                 <p class="hero-proof-sub">Guides, prompts et automatisations chaque semaine.</p>
-                <a href="#newsletter-sub" class="hero-outline">Rejoindre la newsletter gratuite &rarr;</a>
+                <form name="newsletter-hero" method="POST" data-netlify="true" action="/merci.html" class="hero-email-form" style="display:flex;gap:10px;max-width:400px;margin-bottom:16px">
+                    <input type="hidden" name="form-name" value="newsletter-hero">
+                    <input type="email" name="email" required placeholder="Ton adresse email" style="flex:1;padding:0 14px;height:44px;border:1px solid var(--line);border-radius:6px;font-family:var(--sans);font-size:14px;background:var(--bg);color:var(--t1);outline:none">
+                    <button type="submit" style="background:var(--accent);color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;padding:0 20px;height:44px;border:none;border-radius:9999px;cursor:pointer">S'inscrire</button>
+                </form>
                 <p class="hero-small">Ou <a href="#guides">parcourir les guides gratuits</a>.</p>
             </div>
             <div class="hero-photo-wrap">
@@ -549,19 +553,6 @@ MA SITUATION :
     </div>
 </section>
 
-<!-- NEWSLETTER SUBSCRIBE -->
-<section class="sec sec-border" id="newsletter-sub" style="text-align:center;padding:72px 0">
-    <div class="w" style="max-width:560px">
-        <h2 style="margin-top:12px">Re&ccedil;ois le prochain num&eacute;ro.</h2>
-        <p style="font-size:16px;color:var(--t2);margin-top:8px;margin-bottom:24px">Guides IA, prompts pr&ecirc;ts &agrave; l'emploi et astuces automatisation. Chaque semaine dans ta bo&icirc;te mail.</p>
-        <form name="newsletter" method="POST" data-netlify="true" action="/merci.html" style="display:flex;gap:12px;max-width:460px;margin:0 auto">
-            <input type="hidden" name="form-name" value="newsletter">
-            <input type="email" name="email" required placeholder="Ton adresse email" style="flex:1;padding:0 16px;height:48px;border:1px solid var(--line);border-radius:6px;font-family:var(--sans);font-size:15px;background:var(--bg);color:var(--t1);outline:none">
-            <button type="submit" style="background:var(--accent);color:#fff;font-family:var(--sans);font-size:15px;font-weight:600;padding:0 24px;height:48px;border:none;border-radius:9999px;cursor:pointer">S'inscrire</button>
-        </form>
-        <p style="font-size:13px;color:var(--t3);margin-top:10px">Gratuit. D&eacute;sinscription en un clic.</p>
-    </div>
-</section>
 
 <!-- CTA AUDIT -->
 <section class="sec sec-border nlcta" id="newsletter-cta">
