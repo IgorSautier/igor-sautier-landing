@@ -194,9 +194,9 @@
         .footer-socials a:hover{color:var(--t1)}
 
         /* ---- MOBILE MENU ---- */
-        .mobile-overlay{display:none;position:fixed;inset:0;z-index:98;background:rgba(0,0,0,0.3)}
+        .mobile-overlay{display:none;position:fixed;inset:0;z-index:150;background:rgba(0,0,0,0.3)}
         .mobile-overlay.open{display:block}
-        .mobile-menu{display:none;position:fixed;top:0;left:0;bottom:0;width:85%;max-width:380px;background:var(--bg);z-index:99;flex-direction:column;overflow-y:auto;box-shadow:4px 0 24px rgba(0,0,0,0.1)}
+        .mobile-menu{display:none;position:fixed;top:0;left:0;bottom:0;width:85%;max-width:380px;background:var(--bg);z-index:200;flex-direction:column;overflow-y:auto;box-shadow:4px 0 24px rgba(0,0,0,0.1)}
         .mobile-menu.open{display:flex}
         .mm-close{position:absolute;top:16px;right:16px;background:none;border:1px solid var(--line);border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--t2)}
         .mm-profile{text-align:center;padding:64px 24px 24px;border-bottom:1px solid var(--line)}
@@ -239,7 +239,6 @@
             .hero h1{font-size:44px;text-align:center}
             .sec h2,.guides-header h2,.prompts-header h2,.nlcta h2{background-image:none;display:block;padding:0}
             .hero-tagline{font-size:17px;text-align:center}
-            .nav-avatar{display:none}
             .hero-desc{display:none}
             .hero-cta-btn{max-width:360px;justify-content:center;margin:0 auto}
             .hero-proof{display:none}
@@ -271,7 +270,7 @@
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">
             <div class="nav-avatar"><img src="igor.jpg" alt="Igor Sautier" loading="eager"></div>
-            Igor
+            Igor Sautier
         </a>
         <div class="nav-links">
             <a href="#hero">Accueil</a>
