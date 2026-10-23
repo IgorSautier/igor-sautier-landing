@@ -259,7 +259,11 @@
             .guides-grid{grid-template-columns:1fr}
             .guide-item:nth-child(even){padding-left:0;border-left:none}
             .guide-item{padding:20px 0}
-            .prompt-tabs{grid-template-columns:1fr}
+            .prompt-tabs{grid-template-columns:repeat(3,1fr);gap:8px}
+            .prompt-tab{padding:12px 8px;font-size:13px}
+            .prompt-tab-desc{display:none}
+            .prompt-copy{width:100%;justify-content:center;background:var(--accent);color:#fff;border-color:var(--accent);padding:14px 20px;font-size:15px;font-weight:600}
+            .prompt-copy:hover{background:var(--accent);color:#fff;opacity:0.9}
             .nl-grid{grid-template-columns:1fr}
             .tools-grid{grid-template-columns:1fr 1fr}
             .tools-grid-row2{grid-template-columns:1fr 1fr;max-width:100%}
