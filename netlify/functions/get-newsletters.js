@@ -14,7 +14,7 @@ exports.handler = async function(event, context) {
   return new Promise(function(resolve) {
     var options = {
       hostname: 'api.brevo.com',
-      path: '/v3/emailCampaigns?type=classic&status=sent&limit=3&sort=desc',
+      path: '/v3/emailCampaigns?type=classic&limit=3&sort=desc&excludeHtmlContent=true',
       method: 'GET',
       headers: {
         'api-key': apiKey,
