@@ -271,13 +271,14 @@
             .prompts-header h2{font-size:22px}
             .nl-grid{grid-template-columns:1fr}
             .tools-grid,.tools-grid-row2{grid-template-columns:1fr;gap:0;margin-bottom:0}
-            .tool-card{border-radius:0;border-left:none;border-right:none;border-top:none;padding:16px 0;display:flex;flex-direction:row;align-items:center;gap:14px}
-            .tool-card:first-child{border-top:1px solid var(--line)}
-            .tool-icon{margin-bottom:0}
+            .tool-card{border-radius:12px;border:1px solid var(--line);padding:16px 20px;display:flex;flex-direction:row;align-items:center;gap:14px;margin-bottom:8px}
+            .tool-icon{margin-bottom:0;width:44px;height:44px;flex-shrink:0}
+            .tool-icon img,.tool-icon svg{width:44px;height:44px}
+            .tool-info{flex:1;min-width:0}
             .tool-name{font-size:15px}
             .tool-desc{font-size:13px}
             .tool-link{display:none}
-            .tool-card::after{content:'\2197';font-size:16px;color:var(--t3);margin-left:auto;flex-shrink:0}
+            .tool-card::after{content:'\2197';font-size:16px;color:var(--t3);flex-shrink:0}
             .sec{padding:48px 0}
             .guides-header{flex-direction:column;gap:8px}
             .nl-top{flex-direction:column;gap:8px}
@@ -524,44 +525,32 @@ MA SITUATION :
         <p class="tools-disc">Certains liens sont des liens affili&eacute;s. &Ccedil;a ne change rien pour toi, mais &ccedil;a m'aide &agrave; continuer &agrave; cr&eacute;er du contenu gratuit.</p>
 
         <div class="tools-grid">
-            <div class="tool-card">
-                <div class="tool-icon" style="background:transparent"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/n8n-color.svg" alt="n8n" width="44" height="44" style="border-radius:10px"></div>
-                <div class="tool-name">n8n</div>
-                <div class="tool-desc">Mon moteur d'automatisation. Tout passe par l&agrave;.</div>
-                <a href="https://n8n.io" class="tool-link" target="_blank" rel="noopener">Essayer n8n</a>
-            </div>
-            <div class="tool-card">
-                <div class="tool-icon" style="background:transparent"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/claude-color.svg" alt="Claude" width="44" height="44"></div>
-                <div class="tool-name">Claude</div>
-                <div class="tool-desc">Mon IA pour &eacute;crire, analyser et coder.</div>
-                <a href="https://claude.ai" class="tool-link" target="_blank" rel="noopener">Essayer Claude</a>
-            </div>
-            <div class="tool-card">
-                <div class="tool-icon" style="background:transparent"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/openai.svg" alt="ChatGPT" width="44" height="44"></div>
-                <div class="tool-name">ChatGPT</div>
-                <div class="tool-desc">Le plus polyvalent pour le quotidien.</div>
-                <a href="https://chatgpt.com" class="tool-link" target="_blank" rel="noopener">Essayer ChatGPT</a>
-            </div>
-            <div class="tool-card">
-                <div class="tool-icon" style="background:transparent"><img src="https://cdn.simpleicons.org/notion/000000" alt="Notion" width="44" height="44"></div>
-                <div class="tool-name">Notion</div>
-                <div class="tool-desc">Ma base de connaissances et mon CRM.</div>
-                <a href="https://notion.so" class="tool-link" target="_blank" rel="noopener">Essayer Notion</a>
-            </div>
+            <a href="https://n8n.io" target="_blank" rel="noopener" class="tool-card">
+                <div class="tool-icon"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/n8n-color.svg" alt="n8n" width="44" height="44" style="border-radius:10px"></div>
+                <div class="tool-info"><div class="tool-name">n8n</div><div class="tool-desc">Mon moteur d'automatisation. Tout passe par l&agrave;.</div></div>
+            </a>
+            <a href="https://claude.ai" target="_blank" rel="noopener" class="tool-card">
+                <div class="tool-icon"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/claude-color.svg" alt="Claude" width="44" height="44"></div>
+                <div class="tool-info"><div class="tool-name">Claude</div><div class="tool-desc">Mon IA pour &eacute;crire, analyser et coder.</div></div>
+            </a>
+            <a href="https://chatgpt.com" target="_blank" rel="noopener" class="tool-card">
+                <div class="tool-icon"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/openai.svg" alt="ChatGPT" width="44" height="44"></div>
+                <div class="tool-info"><div class="tool-name">ChatGPT</div><div class="tool-desc">Le plus polyvalent pour le quotidien.</div></div>
+            </a>
+            <a href="https://notion.so" target="_blank" rel="noopener" class="tool-card">
+                <div class="tool-icon"><img src="https://cdn.simpleicons.org/notion/000000" alt="Notion" width="44" height="44"></div>
+                <div class="tool-info"><div class="tool-name">Notion</div><div class="tool-desc">Ma base de connaissances et mon CRM.</div></div>
+            </a>
         </div>
         <div class="tools-grid-row2">
-            <div class="tool-card">
-                <div class="tool-icon" style="background:transparent"><img src="canva-icon.png" alt="Canva" width="44" height="44" style="border-radius:10px"></div>
-                <div class="tool-name">Canva</div>
-                <div class="tool-desc">Pour mes visuels, carrousels et miniatures.</div>
-                <a href="https://canva.com" class="tool-link" target="_blank" rel="noopener">Essayer Canva</a>
-            </div>
-            <div class="tool-card">
-                <div class="tool-icon" style="background:transparent"><img src="higgsfield-icon.png" alt="Higgsfield" width="44" height="44" style="border-radius:10px"></div>
-                <div class="tool-name">Higgsfield</div>
-                <div class="tool-desc">Mon g&eacute;n&eacute;rateur d'images et de vid&eacute;o IA.</div>
-                <a href="https://higgsfield.ai" class="tool-link" target="_blank" rel="noopener">Essayer Higgsfield</a>
-            </div>
+            <a href="https://canva.com" target="_blank" rel="noopener" class="tool-card">
+                <div class="tool-icon"><img src="canva-icon.png" alt="Canva" width="44" height="44" style="border-radius:10px"></div>
+                <div class="tool-info"><div class="tool-name">Canva</div><div class="tool-desc">Pour mes visuels, carrousels et miniatures.</div></div>
+            </a>
+            <a href="https://higgsfield.ai" target="_blank" rel="noopener" class="tool-card">
+                <div class="tool-icon"><img src="higgsfield-icon.png" alt="Higgsfield" width="44" height="44" style="border-radius:10px"></div>
+                <div class="tool-info"><div class="tool-name">Higgsfield</div><div class="tool-desc">Mon g&eacute;n&eacute;rateur d'images et de vid&eacute;o IA.</div></div>
+            </a>
         </div>
 
         <a href="ressources/index.html" class="tools-more">Voir tous les outils que j'utilise &rarr;</a>
