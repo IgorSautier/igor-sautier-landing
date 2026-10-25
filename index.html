@@ -233,6 +233,8 @@
 
         @media(max-width:1050px){
             .hero-photo-wrap{display:none}
+            /* Below 1050px the big photo is hidden: the round one takes over, so there is always a photo */
+            .hero-avatar-mobile{display:block;width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:center top;margin:0 auto 16px;box-shadow:0 8px 24px rgba(0,0,0,0.1)}
             .hero-grid{grid-template-columns:1fr}
             .hero{text-align:center}
             .hero-eyebrow{text-align:center}
@@ -265,7 +267,6 @@
             .hero-outline{max-width:360px;justify-content:center;text-align:center;margin:0 auto}
             .hero-small{text-align:center}
             .hero-photo-wrap{display:none}
-            .hero-avatar-mobile{display:block;width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:center top;margin:0 auto 16px;box-shadow:0 8px 24px rgba(0,0,0,0.1)}
             .guides-grid{grid-template-columns:1fr}
             .guide-item:nth-child(even){padding-left:0;border-left:none}
             .guide-item{padding:20px 0}
