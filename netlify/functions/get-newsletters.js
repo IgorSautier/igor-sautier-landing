@@ -46,10 +46,16 @@ exports.handler = async function(event, context) {
           var data = JSON.parse(body);
           console.log('Campaigns count:', (data.campaigns || []).length);
           var campaigns = (data.campaigns || []).map(function(c) {
+            var subj = c.subject || '';
+            subj = subj.replace(/\{\{[^}]*\}\},?\s*/g, '').trim();
+            if (subj.startsWith(',')) subj = subj.substring(1).trim();
+            subj = subj.charAt(0).toUpperCase() + subj.slice(1);
             return {
-              subject: c.subject,
+              subject: subj,
+              previewText: c.previewText || '',
               date: c.sentDate || c.scheduledAt || c.createdAt,
-              id: c.id
+              id: c.id,
+              shareLink: c.shareLink || ''
             };
           });
           resolve({
