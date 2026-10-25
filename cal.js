@@ -25,7 +25,7 @@
   })(window, 'https://app.cal.com/embed/embed.js', 'init');
 
   Cal('init', 'audit', { origin: 'https://cal.com' });
-  Cal.ns.audit('ui', { layout: 'month_view', cssVarsPerTheme: { light: { 'cal-brand': '#BB111C' } } });
+  Cal.ns.audit('ui', { theme: 'light', layout: 'month_view', cssVarsPerTheme: { light: { 'cal-brand': '#BB111C' } } });
 
   for (var i = 0; i < links.length; i++) {
     links[i].addEventListener('click', function (e) {
