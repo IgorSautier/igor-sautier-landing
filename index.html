@@ -5,7 +5,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Igor Sautier | Formateur IA & Automatisation</title>
-    <meta name="description" content="Igor Sautier, formateur IA et automatisation. Je t'aide &agrave; comprendre et utiliser l'intelligence artificielle dans ton business. Guides gratuits, prompts pr&ecirc;ts &agrave; l'emploi et astuces automatisation chaque semaine.">
+    <meta name="description" content="Igor Sautier, formateur IA et automatisation. Guides gratuits, prompts pr&ecirc;ts &agrave; l'emploi et astuces pour utiliser l'IA dans ton business.">
 <link rel="canonical" href="https://nevios.fr/">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://nevios.fr/#igor","name":"Igor Sautier","alternateName":"@automatise_avec_igor","url":"https://nevios.fr/","image":"https://nevios.fr/igor-avatar.jpg","jobTitle":"Formateur IA et automatisation","description":"Formateur IA et automatisation. Il aide les indépendants et les entreprises à utiliser l'IA (ChatGPT, Claude, n8n) pour automatiser leurs tâches.","knowsAbout":["Intelligence artificielle","Automatisation","ChatGPT","Claude","n8n","Prompt engineering"],"worksFor":{"@type":"Organization","name":"Nevios","url":"https://nevios.fr/"},"sameAs":["https://instagram.com/automatise_avec_igor","https://tiktok.com/@automatise_avec_igor","https://youtube.com/@automatise_avec_igor","https://linkedin.com/in/igor-sautier"]},{"@type":"WebSite","@id":"https://nevios.fr/#website","url":"https://nevios.fr/","name":"Igor Sautier","inLanguage":"fr-FR","publisher":{"@id":"https://nevios.fr/#igor"}},{"@type":"WebPage","@id":"https://nevios.fr/#page","url":"https://nevios.fr/","name":"Igor Sautier | Formateur IA & Automatisation","description":"Igor Sautier, formateur IA et automatisation. Je t'aide à comprendre et utiliser l'intelligence artificielle dans ton business. Guides gratuits, prompts prêts à l'emploi et astuces automatisation chaque semaine.","inLanguage":"fr-FR","about":{"@id":"https://nevios.fr/#igor"},"isPartOf":{"@id":"https://nevios.fr/#website"}}]}</script>
     <meta property="og:title" content="Igor Sautier | Formateur IA &amp; Automatisation">
@@ -55,7 +55,7 @@
         .nav-links a:hover{color:var(--t1)}
         .nav-cta{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:8px 20px;border-radius:9999px;border:none;cursor:pointer;transition:background .15s}
         .nav-cta:hover{background:var(--accent-hover)}
-        .hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
+        .hamburger{display:none;background:none;border:none;cursor:pointer;padding:12px 10px;margin-right:-10px;min-width:44px;min-height:44px;flex-direction:column;align-items:center;justify-content:center;gap:5px}
         .hamburger span{display:block;width:20px;height:1.5px;background:var(--t1);border-radius:1px;transition:background .15s}
         .hamburger:hover span{background:var(--accent)}
 
@@ -162,7 +162,7 @@
         .about-link:hover{text-decoration:underline}
 
         /* ---- TOOLS ---- */
-        .tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:32px}
+        .tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:32px}
         .tools-grid-row2{display:none}
         .tool-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;transition:border-color .15s}
         .tool-card:hover{border-color:var(--accent)}
@@ -298,7 +298,14 @@
             .tools-grid{grid-template-columns:1fr}
             .tools-grid-row2{grid-template-columns:1fr}
         }
-    </style>
+    
+/* Phones: 44px touch targets on small links and buttons, without moving the layout */
+@media(max-width:768px){
+.prompt-link,.about-link,.tools-more,.links a,.guides-header>a,.nl-top>a,.back,a[href="index.html"]:not([class]){display:inline-block;padding-block:11px;margin-block:-11px}
+.back-link{padding-block:11px;margin-top:13px;margin-bottom:13px}
+.prompt-copy{min-height:36px}
+}
+</style>
 </head>
 <body>
 
@@ -339,8 +346,9 @@
     <div class="mm-bottom">
         <p>Rejoins 1 000+ lecteurs</p>
         <div class="mm-sub">Chaque semaine. Pas de spam.</div>
-        <form name="newsletter" method="POST" data-netlify="true" action="/merci.html" style="margin-bottom:0">
+        <form name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci.html" style="margin-bottom:0">
             <input type="hidden" name="form-name" value="newsletter">
+            <p hidden><label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
             <input type="email" name="email" required placeholder="Ton email" style="width:100%;padding:0 14px;height:42px;border:1px solid var(--line);border-radius:6px;font-family:var(--sans);font-size:14px;background:var(--bg);color:var(--t1);outline:none;margin-bottom:8px">
             <button type="submit" class="mm-cta">S'inscrire gratuitement</button>
         </form>
@@ -369,8 +377,9 @@
                 <p class="hero-cta-micro">30 min - Gratuit - Sans engagement</p>
                 <div class="hero-proof"><strong>Rejoins 1 000+ lecteurs</strong></div>
                 <p class="hero-proof-sub">Guides, prompts et automatisations chaque semaine.</p>
-                <form name="newsletter" method="POST" data-netlify="true" action="/merci.html" class="hero-email-form" style="display:flex;gap:10px;max-width:400px;margin-bottom:16px">
+                <form name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci.html" class="hero-email-form" style="display:flex;gap:10px;max-width:400px;margin-bottom:16px">
                     <input type="hidden" name="form-name" value="newsletter">
+            <p hidden><label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
                     <input type="email" name="email" required placeholder="Ton adresse email" style="flex:1;padding:0 14px;height:44px;border:1px solid var(--line);border-radius:6px;font-family:var(--sans);font-size:14px;background:var(--bg);color:var(--t1);outline:none">
                     <button type="submit" style="background:var(--accent);color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;padding:0 20px;height:44px;border:none;border-radius:9999px;cursor:pointer">S'inscrire</button>
                 </form>
@@ -569,7 +578,7 @@ MA SITUATION :
             </a>
         </div>
 
-        <a href="ressources/index.html" class="tools-more">Voir tous les outils que j'utilise &rarr;</a>
+        <a href="ressources/index.html" class="tools-more">Voir les guides sur ces outils &rarr;</a>
     </div>
 </section>
 

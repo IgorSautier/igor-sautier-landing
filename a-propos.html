@@ -48,7 +48,7 @@ nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px sol
 .nav-links a:hover{color:var(--t1)}
 .nav-cta{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:8px 20px;border-radius:9999px;border:none;cursor:pointer;transition:background .15s}
 .nav-cta:hover{background:var(--accent-hover)}
-.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:12px 10px;margin-right:-10px;min-width:44px;min-height:44px;flex-direction:column;align-items:center;justify-content:center;gap:5px}
 .hamburger span{display:block;width:20px;height:1.5px;background:var(--t1);border-radius:1px}
 .mobile-overlay{display:none;position:fixed;inset:0;z-index:150;background:rgba(0,0,0,0.3)}
 .mobile-overlay.open{display:block}
@@ -90,6 +90,13 @@ footer{text-align:center;padding:24px;font-size:12px;color:#6e6e6e;border-top:1p
     .nav-links{display:none}
     .nav-cta-desk{display:none}
     .hamburger{display:flex}
+}
+
+/* Phones: 44px touch targets on small links and buttons, without moving the layout */
+@media(max-width:768px){
+.prompt-link,.about-link,.tools-more,.links a,.guides-header>a,.nl-top>a,.back,a[href="index.html"]:not([class]){display:inline-block;padding-block:11px;margin-block:-11px}
+.back-link{padding-block:11px;margin-top:13px;margin-bottom:13px}
+.prompt-copy{min-height:36px}
 }
 </style>
 </head>

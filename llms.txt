@@ -6,7 +6,7 @@ Il propose un audit gratuit de 30 minutes pour identifier les tâches automatisa
 
 ## Pages principales
 
-- [Igor Sautier | Formateur IA & Automatisation](https://nevios.fr/): Igor Sautier, formateur IA et automatisation. Je t'aide à comprendre et utiliser l'intelligence artificielle dans ton business. Guides gratuits, prompts prêts à l'emploi et astuces automatisation chaque semaine.
+- [Igor Sautier | Formateur IA & Automatisation](https://nevios.fr/): Igor Sautier, formateur IA et automatisation. Guides gratuits, prompts prêts à l'emploi et astuces pour utiliser l'IA dans ton business.
 - [À propos d'Igor Sautier](https://nevios.fr/a-propos.html): Découvre le parcours d'Igor Sautier : ingénieur, formateur IA et fondateur de Nevios. Formation, automatisation et contenu gratuit.
 - [Mentions légales](https://nevios.fr/mentions-legales.html): Mentions légales du site d'Igor Sautier. Éditeur, hébergement, propriété intellectuelle, données personnelles et cookies.
 - [Ressources gratuites](https://nevios.fr/ressources/index.html): Tous les guides, prompts et ressources IA gratuits d'Igor Sautier. ChatGPT, Claude, n8n, automatisation.

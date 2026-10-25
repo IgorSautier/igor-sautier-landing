@@ -24,6 +24,13 @@ p{font-size:17px;color:var(--t2);max-width:460px;line-height:1.6;margin-bottom:2
 .links a{color:var(--t2);transition:color .15s}
 .links a:hover{color:var(--accent)}
 @media(max-width:768px){h1{font-size:30px}}
+
+/* Phones: 44px touch targets on small links and buttons, without moving the layout */
+@media(max-width:768px){
+.prompt-link,.about-link,.tools-more,.links a,.guides-header>a,.nl-top>a,.back,a[href="index.html"]:not([class]){display:inline-block;padding-block:11px;margin-block:-11px}
+.back-link{padding-block:11px;margin-top:13px;margin-bottom:13px}
+.prompt-copy{min-height:36px}
+}
 </style>
 </head>
 <body>
