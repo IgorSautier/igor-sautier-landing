@@ -76,6 +76,11 @@ const RESTYLE_EMAIL = `<script>(function(){
       if (parseFloat(cs['border' + s + 'Width']) > 0 && b && lum(b) < 0.45) el.style.setProperty('border-' + s.toLowerCase() + '-color', '#ded9d3', 'important');
     });
   });
+  // Small square photos (signature avatar) are round JPGs with dark corners: crop them to the circle
+  [].slice.call(d.images).forEach(function(img){
+    var wd = img.width, ht = img.height;
+    if (wd && wd <= 120 && Math.abs(wd - ht) <= 4) img.style.setProperty('border-radius', '50%', 'important');
+  });
   // 2. Text: light text on what is now a light background becomes dark; red becomes the site red
   function bgOf(el){
     for (; el && el !== d.documentElement; el = el.parentElement) { var c = rgba(w.getComputedStyle(el).backgroundColor); if (c && c.a > 0) return c; }
