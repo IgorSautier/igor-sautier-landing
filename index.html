@@ -75,6 +75,10 @@
         .hero-tagline{font-size:18px;font-weight:500;color:var(--t1);margin-bottom:12px}
         .hero-desc{font-size:16px;color:var(--t2);line-height:1.6;margin-bottom:28px}
         .hero-avatar-mobile{display:none}
+        .form-legal{font-size:12px;color:var(--t3);margin:-6px 0 14px}
+        .form-legal a{color:var(--t3);text-decoration:underline}
+        .form-legal a:hover{color:var(--accent)}
+        .mm-bottom .form-legal{margin:10px 0 0;text-align:center}
         .hero-cta-btn{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-family:var(--sans);font-size:17px;font-weight:600;padding:16px 36px;border:none;border-radius:9999px;cursor:pointer;white-space:nowrap;transition:background .15s}
         .hero-cta-btn:hover{background:var(--accent-hover)}
         .hero-cta-micro{font-size:14px;color:var(--t3);margin-top:12px;margin-bottom:24px}
@@ -352,6 +356,7 @@
             <input type="email" name="email" required placeholder="Ton email" style="width:100%;padding:0 14px;height:42px;border:1px solid var(--line);border-radius:6px;font-family:var(--sans);font-size:14px;background:var(--bg);color:var(--t1);outline:none;margin-bottom:8px">
             <button type="submit" class="mm-cta">S'inscrire gratuitement</button>
         </form>
+        <p class="form-legal">Gratuit, d&eacute;sinscription en un clic. <a href="/mentions-legales#donnees">Tes donn&eacute;es</a></p>
     </div>
     <div class="mm-find">
         <div class="mm-find-label">ME TROUVER</div>
@@ -383,6 +388,7 @@
                     <input type="email" name="email" required placeholder="Ton adresse email" style="flex:1;padding:0 14px;height:44px;border:1px solid var(--line);border-radius:6px;font-family:var(--sans);font-size:14px;background:var(--bg);color:var(--t1);outline:none">
                     <button type="submit" style="background:var(--accent);color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;padding:0 20px;height:44px;border:none;border-radius:9999px;cursor:pointer">S'inscrire</button>
                 </form>
+                <p class="form-legal">Gratuit, d&eacute;sinscription en un clic. <a href="/mentions-legales#donnees">Tes donn&eacute;es</a></p>
                 <p class="hero-small">Ou <a href="#guides">parcourir les guides gratuits</a>.</p>
             </div>
             <div class="hero-photo-wrap">
@@ -758,5 +764,6 @@ MA SITUATION :
 })();
 </script>
 
+<script src="/cal.js" defer></script>
 </body>
 </html>

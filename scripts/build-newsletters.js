@@ -216,6 +216,10 @@ h1{font-size:40px;font-weight:800;line-height:1.15;margin-bottom:16px}
 .sub-form input:focus{border-color:var(--accent)}
 .sub-form button{height:44px;padding:0 22px;border:none;border-radius:9999px;background:var(--accent);color:#fff;font-family:var(--sans);font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
 .sub-form button:hover{background:var(--accent-hover)}
+.form-legal{font-size:12px;color:var(--t3);margin-top:10px}
+.form-legal a{color:var(--t3);text-decoration:underline}
+.form-legal a:hover{color:var(--accent)}
+.end-box .form-legal{text-align:center}
 .email-card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .end-box{text-align:center;margin-top:40px}
 .end-box h2{font-size:22px;font-weight:700;margin-bottom:14px}
@@ -262,7 +266,8 @@ function subForm(cta) {
   <p hidden><label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
   <input type="email" name="email" required placeholder="Ton adresse email" aria-label="Ton adresse email">
   <button type="submit">${cta}</button>
-</form>`;
+</form>
+<p class="form-legal">Gratuit, d&eacute;sinscription en un clic. <a href="/mentions-legales#donnees">Tes donn&eacute;es</a></p>`;
 }
 
 function page({ title, description, canonical, body, schema = '', scripts = '' }) {
@@ -376,6 +381,7 @@ ${body}
 })();
 </script>
 ${scripts}
+<script src="/cal.js" defer></script>
 </body>
 </html>
 `;
@@ -461,7 +467,7 @@ function archivePage(items) {
   <h1>Toutes les newsletters.</h1>
   <p class="lead">Ce qui a vraiment chang&eacute; dans l'IA, ce que &ccedil;a change pour toi, et un truc &agrave; faire tout de suite. Chaque mardi.</p>
   <div class="sub-box" id="subscribe">
-    <p>Rejoins 1 000+ lecteurs. Gratuit, d&eacute;sinscription en un clic.</p>
+    <p>Rejoins 1 000+ lecteurs. Chaque mardi dans ta bo&icirc;te mail.</p>
     ${subForm('S\'inscrire gratuitement')}
   </div>
   <div class="nl-list">
