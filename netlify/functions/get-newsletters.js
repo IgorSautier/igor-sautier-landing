@@ -54,7 +54,7 @@ exports.handler = async function(event, context) {
           });
           resolve({
             statusCode: 200,
-            headers: {"Content-Type":"application/json","Access-Control-Allow-Origin":"*","Cache-Control":"public, max-age=86400"},
+            headers: {"Content-Type":"application/json","Access-Control-Allow-Origin":"*","Cache-Control":"no-cache"},
             body: JSON.stringify(campaigns)
           });
         } catch(e) {
