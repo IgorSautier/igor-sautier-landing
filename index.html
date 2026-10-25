@@ -196,6 +196,12 @@
         .footer-socials a{color:var(--t3);transition:color .15s}
         .footer-socials a:hover{color:var(--t1)}
 
+        /* ---- TOAST ---- */
+        .toast{position:fixed;right:24px;bottom:24px;z-index:300;display:flex;align-items:center;gap:12px;max-width:380px;padding:18px 22px;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.08);font-size:15px;font-weight:600;color:var(--t1);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .25s,transform .25s}
+        .toast.show{opacity:1;transform:translateY(0)}
+        .toast-check{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        @media(max-width:768px){.toast{left:16px;right:16px;bottom:16px;max-width:none}}
+
         /* ---- MOBILE MENU ---- */
         .mobile-overlay{display:none;position:fixed;inset:0;z-index:150;background:rgba(0,0,0,0.3)}
         .mobile-overlay.open{display:block}
@@ -327,8 +333,8 @@
     <div class="mm-bottom">
         <p>Rejoins 1 000+ lecteurs</p>
         <div class="mm-sub">Chaque semaine. Pas de spam.</div>
-        <form name="newsletter-menu" method="POST" data-netlify="true" action="/merci.html" style="margin-bottom:0">
-            <input type="hidden" name="form-name" value="newsletter-menu">
+        <form name="newsletter" method="POST" data-netlify="true" action="/merci.html" style="margin-bottom:0">
+            <input type="hidden" name="form-name" value="newsletter">
             <input type="email" name="email" required placeholder="Ton email" style="width:100%;padding:0 14px;height:42px;border:1px solid var(--line);border-radius:6px;font-family:var(--sans);font-size:14px;background:var(--bg);color:var(--t1);outline:none;margin-bottom:8px">
             <button type="submit" class="mm-cta">S'inscrire gratuitement</button>
         </form>
@@ -357,8 +363,8 @@
                 <p class="hero-cta-micro">30 min - Gratuit - Sans engagement</p>
                 <div class="hero-proof"><strong>Rejoins 1 000+ lecteurs</strong></div>
                 <p class="hero-proof-sub">Guides, prompts et automatisations chaque semaine.</p>
-                <form name="newsletter-hero" method="POST" data-netlify="true" action="/merci.html" class="hero-email-form" style="display:flex;gap:10px;max-width:400px;margin-bottom:16px">
-                    <input type="hidden" name="form-name" value="newsletter-hero">
+                <form name="newsletter" method="POST" data-netlify="true" action="/merci.html" class="hero-email-form" style="display:flex;gap:10px;max-width:400px;margin-bottom:16px">
+                    <input type="hidden" name="form-name" value="newsletter">
                     <input type="email" name="email" required placeholder="Ton adresse email" style="flex:1;padding:0 14px;height:44px;border:1px solid var(--line);border-radius:6px;font-family:var(--sans);font-size:14px;background:var(--bg);color:var(--t1);outline:none">
                     <button type="submit" style="background:var(--accent);color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;padding:0 20px;height:44px;border:none;border-radius:9999px;cursor:pointer">S'inscrire</button>
                 </form>
@@ -610,6 +616,40 @@ MA SITUATION :
     var mlinks = menu.querySelectorAll('a');
     for(var i=0;i<mlinks.length;i++){
         mlinks[i].addEventListener('click', closeMenu);
+    }
+
+    // Newsletter forms: submit in background, then show a toast
+    var toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.setAttribute('role', 'status');
+    document.body.appendChild(toast);
+    var toastTimer;
+    function showToast(msg, isError){
+        toast.innerHTML = (isError ? '' : '<span class="toast-check"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>') + msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 4500);
+    }
+    var nlForms = document.querySelectorAll('form[data-netlify]');
+    for(var f=0;f<nlForms.length;f++){
+        nlForms[f].addEventListener('submit', function(e){
+            e.preventDefault();
+            var form = this;
+            var submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            fetch('/', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: new URLSearchParams(new FormData(form)).toString()
+            }).then(function(r){
+                if(!r.ok) throw new Error(r.status);
+                form.reset();
+                closeMenu();
+                showToast('Tu es inscrit. Rendez-vous mardi dans ta boîte mail.');
+            }).catch(function(){
+                showToast('Oups, ça n\'a pas marché. Réessaie dans un instant.', true);
+            }).then(function(){ submitBtn.disabled = false; });
+        });
     }
 
     // Prompt tab switching
