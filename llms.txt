@@ -7,21 +7,21 @@ Il propose un audit gratuit de 30 minutes pour identifier les tâches automatisa
 ## Pages principales
 
 - [Igor Sautier | Formateur IA & Automatisation](https://nevios.fr/): Igor Sautier, formateur IA et automatisation. Guides gratuits, prompts prêts à l'emploi et astuces pour utiliser l'IA dans ton business.
-- [À propos d'Igor Sautier](https://nevios.fr/a-propos.html): Découvre le parcours d'Igor Sautier : ingénieur, formateur IA et fondateur de Nevios. Formation, automatisation et contenu gratuit.
-- [Mentions légales](https://nevios.fr/mentions-legales.html): Mentions légales du site d'Igor Sautier. Éditeur, hébergement, propriété intellectuelle, données personnelles et cookies.
-- [Ressources gratuites](https://nevios.fr/ressources/index.html): Tous les guides, prompts et ressources IA gratuits d'Igor Sautier. ChatGPT, Claude, n8n, automatisation.
+- [À propos d'Igor Sautier](https://nevios.fr/a-propos): Découvre le parcours d'Igor Sautier : ingénieur, formateur IA et fondateur de Nevios. Formation, automatisation et contenu gratuit.
+- [Mentions légales](https://nevios.fr/mentions-legales): Mentions légales du site d'Igor Sautier. Éditeur, hébergement, propriété intellectuelle, données personnelles et cookies.
+- [Ressources gratuites](https://nevios.fr/ressources/): Tous les guides, prompts et ressources IA gratuits d'Igor Sautier. ChatGPT, Claude, n8n, automatisation.
 
 ## Guides gratuits
 
-- [5 automatisations que tu peux copier ce week-end](https://nevios.fr/ressources/5-automatisations.html): 5 automatisations concrètes à mettre en place en moins de 15 minutes chacune. Emails, contenu, réunions, veille, rapports.
-- [Automatise tes tâches avec n8n](https://nevios.fr/ressources/automatiser-n8n.html): Le guide pour connecter tes outils et gagner des heures chaque semaine avec n8n.
-- [Claude vs ChatGPT : le vrai comparatif](https://nevios.fr/ressources/claude-vs-chatgpt.html): Comparatif honnête entre Claude et ChatGPT. Pas de fanboys, juste des cas concrets pour choisir le bon outil selon tes besoins.
-- [Les codes secrets de ChatGPT](https://nevios.fr/ressources/codes-secrets-chatgpt.html): 15 techniques avancées pour obtenir des résultats que 99% des utilisateurs ne connaissent pas. Prompts à copier, astuces de pro.
-- [Le guide complet de ChatGPT](https://nevios.fr/ressources/guide-chatgpt.html): Chaque modèle, chaque fonctionnalité, chaque astuce pour utiliser ChatGPT comme un pro en 2026.
-- [Le guide complet de Claude](https://nevios.fr/ressources/guide-claude.html): Tout ce que tu dois savoir sur Claude par Anthropic : modèles, fonctionnalités et cas d'usage.
-- [Crée ton premier workflow IA](https://nevios.fr/ressources/premier-workflow-ia.html): Le setup, les outils et les prompts pour construire ton premier workflow d'automatisation. Tuto pas à pas avec n8n.
-- [Le prompt qui m'a fait gagner 3h par semaine](https://nevios.fr/ressources/prompt-3h-semaine.html): Un seul prompt bien construit peut transformer ta productivité. Découvre celui qui m'a fait gagner 3 heures par semaine et comment l'adapter à ton métier.
-- [Guide de recherche d'emploi avec l'IA](https://nevios.fr/ressources/recherche-emploi-ia.html): Améliore ton CV, rédige tes lettres de motivation et prépare tes entretiens avec l'IA. Guide complet avec prompts à copier.
+- [5 automatisations que tu peux copier ce week-end](https://nevios.fr/ressources/5-automatisations): 5 automatisations concrètes à mettre en place en moins de 15 minutes chacune. Emails, contenu, réunions, veille, rapports.
+- [Automatise tes tâches avec n8n](https://nevios.fr/ressources/automatiser-n8n): Le guide pour connecter tes outils et gagner des heures chaque semaine avec n8n.
+- [Claude vs ChatGPT : le vrai comparatif](https://nevios.fr/ressources/claude-vs-chatgpt): Comparatif honnête entre Claude et ChatGPT. Pas de fanboys, juste des cas concrets pour choisir le bon outil selon tes besoins.
+- [Les codes secrets de ChatGPT](https://nevios.fr/ressources/codes-secrets-chatgpt): 15 techniques avancées pour obtenir des résultats que 99% des utilisateurs ne connaissent pas. Prompts à copier, astuces de pro.
+- [Le guide complet de ChatGPT](https://nevios.fr/ressources/guide-chatgpt): Chaque modèle, chaque fonctionnalité, chaque astuce pour utiliser ChatGPT comme un pro en 2026.
+- [Le guide complet de Claude](https://nevios.fr/ressources/guide-claude): Tout ce que tu dois savoir sur Claude par Anthropic : modèles, fonctionnalités et cas d'usage.
+- [Crée ton premier workflow IA](https://nevios.fr/ressources/premier-workflow-ia): Le setup, les outils et les prompts pour construire ton premier workflow d'automatisation. Tuto pas à pas avec n8n.
+- [Le prompt qui m'a fait gagner 3h par semaine](https://nevios.fr/ressources/prompt-3h-semaine): Un seul prompt bien construit peut transformer ta productivité. Découvre celui qui m'a fait gagner 3 heures par semaine et comment l'adapter à ton métier.
+- [Guide de recherche d'emploi avec l'IA](https://nevios.fr/ressources/recherche-emploi-ia): Améliore ton CV, rédige tes lettres de motivation et prépare tes entretiens avec l'IA. Guide complet avec prompts à copier.
 
 ## Newsletter du mardi
 

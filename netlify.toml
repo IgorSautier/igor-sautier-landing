@@ -16,13 +16,74 @@
 [functions."weekly-newsletter-rebuild"]
   schedule = "0 6 * * 3"
 
-# SAMEORIGIN (not DENY): newsletter pages show the email in a same-site iframe
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
+    X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
     # Everything is served from nevios.fr; inline styles/scripts are part of the pages. Blocks any foreign script.
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+
+# Pages are served without ".html" (Netlify Pretty URLs): send old .html addresses to the clean one
+[[redirects]]
+  from = "/a-propos.html"
+  to = "/a-propos"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/mentions-legales.html"
+  to = "/mentions-legales"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/ressources/5-automatisations.html"
+  to = "/ressources/5-automatisations"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/ressources/automatiser-n8n.html"
+  to = "/ressources/automatiser-n8n"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/ressources/claude-vs-chatgpt.html"
+  to = "/ressources/claude-vs-chatgpt"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/ressources/codes-secrets-chatgpt.html"
+  to = "/ressources/codes-secrets-chatgpt"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/ressources/guide-chatgpt.html"
+  to = "/ressources/guide-chatgpt"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/ressources/guide-claude.html"
+  to = "/ressources/guide-claude"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/ressources/index.html"
+  to = "/ressources/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/ressources/premier-workflow-ia.html"
+  to = "/ressources/premier-workflow-ia"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/ressources/prompt-3h-semaine.html"
+  to = "/ressources/prompt-3h-semaine"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/ressources/recherche-emploi-ia.html"
+  to = "/ressources/recherche-emploi-ia"
+  status = 301
+  force = true
