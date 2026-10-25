@@ -97,6 +97,22 @@ const RESTYLE_EMAIL = `<script>(function(){
   });
 })();</script>`;
 
+// Brevo serves full-size JPEGs (~150 KB for a header). Route them through Netlify's image CDN,
+// sized to twice their displayed width and converted to WebP/AVIF; lazy-load all but the first.
+// The allowed source domain is declared under [images] in netlify.toml.
+function optimizeImages(html) {
+  let index = 0;
+  return html.replace(/<img\b[^>]*>/gi, tag => {
+    const first = index++ === 0;
+    tag = tag.replace(/\ssrc="(https:\/\/img\.mailinblue\.com\/[^"]+\.(?:jpe?g|png))"/i, (m, url) => {
+      const width = Number((tag.match(/\swidth="(\d+)"/i) || [])[1]) || 600;
+      return ` src="/.netlify/images?url=${encodeURIComponent(url)}&w=${Math.min(width * 2, 1200)}&q=80"`;
+    });
+    if (!first && !/\sloading=/i.test(tag)) tag = tag.replace(/^<img/i, '<img loading="lazy" decoding="async"');
+    return tag;
+  });
+}
+
 function cleanEmail(html) {
   let out = String(html || '');
   // A sentence built around the unsubscribe link ("P.S. ... clique ici") makes no sense without it: drop the paragraph
@@ -109,6 +125,7 @@ function cleanEmail(html) {
   out = out.replace(/\(prefers-color-scheme:\s*dark\)/gi, '(max-width:0px)')
            .replace(/color-scheme\s*:\s*light\s+dark/gi, 'color-scheme:light')
            .replace(/<meta[^>]*color-scheme[^>]*>/gi, '');
+  out = optimizeImages(out);
   const headExtra = '<meta name="robots" content="noindex"><meta name="color-scheme" content="light"><base target="_blank">' +
     '<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">' +
     '<style>:root{color-scheme:light!important}html,body{background:transparent!important;overflow:hidden}</style>';
@@ -247,18 +264,19 @@ function page({ title, description, canonical, body }) {
 <link rel="canonical" href="${canonical}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
-<meta property="og:image" content="${SITE}/og-image.png">
+<meta property="og:image" content="${SITE}/og-image.jpg">
 <meta property="og:url" content="${canonical}">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="@automatise_avec_igor">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>${CSS}</style>
 </head>
 <body>
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-brand"><div class="nav-avatar"><img src="/igor.jpg" alt="Igor Sautier"></div>Igor Sautier</a>
+    <a href="/" class="nav-brand"><div class="nav-avatar"><img src="/igor-avatar.jpg" alt="Igor Sautier"></div>Igor Sautier</a>
     <div class="nav-links">
       <a href="/">Accueil</a>
       <a href="/ressources/index.html">Ressources</a>
@@ -273,7 +291,7 @@ function page({ title, description, canonical, body }) {
 <div class="mobile-menu" id="mobileMenu">
   <button class="mm-close" id="mmClose" aria-label="Fermer">&times;</button>
   <div class="mm-profile">
-    <div class="mm-avatar"><img src="/igor.jpg" alt="Igor Sautier"></div>
+    <div class="mm-avatar"><img src="/igor-avatar.jpg" alt="Igor Sautier"></div>
     <div class="mm-name">Igor Sautier</div>
     <div class="mm-title">Formateur IA &amp; Automatisation</div>
   </div>

@@ -5,6 +5,10 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Newsletter email images are resized and converted through Netlify's image CDN
+[images]
+  remote_images = ["https://img\\.mailinblue\\.com/.*"]
+
 [functions]
   directory = "netlify/functions"
 

@@ -7,7 +7,7 @@
     <meta name="description" content="Igor Sautier, formateur IA et automatisation. Je t'aide &agrave; comprendre et utiliser l'intelligence artificielle dans ton business. Guides gratuits, prompts pr&ecirc;ts &agrave; l'emploi et astuces automatisation chaque semaine.">
     <meta property="og:title" content="Igor Sautier | Formateur IA &amp; Automatisation">
     <meta property="og:description" content="Je rends l'IA simple. Guides gratuits, prompts et automatisation chaque semaine. Rejoins + de 25K abonn&eacute;s.">
-    <meta property="og:image" content="https://nevios.fr/og-image.png">
+    <meta property="og:image" content="https://nevios.fr/og-image.jpg">
     <meta property="og:image:alt" content="Igor Sautier - Formateur IA et automatisation">
     <meta property="og:url" content="https://nevios.fr">
     <meta property="og:type" content="website">
@@ -15,7 +15,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Igor Sautier | Formateur IA &amp; Automatisation">
     <meta name="twitter:description" content="Je rends l'IA simple. Guides gratuits, prompts et automatisation chaque semaine. Rejoins + de 25K abonn&eacute;s.">
-    <meta name="twitter:image" content="https://nevios.fr/og-image.png">
+    <meta name="twitter:image" content="https://nevios.fr/og-image.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
@@ -304,7 +304,7 @@
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="nav-brand">
-            <div class="nav-avatar"><img src="igor.jpg" alt="Igor Sautier" loading="eager"></div>
+            <div class="nav-avatar"><img src="igor-avatar.jpg" alt="Igor Sautier" loading="eager"></div>
             Igor Sautier
         </a>
         <div class="nav-links">
@@ -322,7 +322,7 @@
 <div class="mobile-menu" id="mobileMenu">
     <button class="mm-close" id="mmClose" aria-label="Fermer">&times;</button>
     <div class="mm-profile">
-        <div class="mm-avatar"><img src="igor.jpg" alt="Igor Sautier"></div>
+        <div class="mm-avatar"><img src="igor-avatar.jpg" alt="Igor Sautier"></div>
         <div class="mm-name">Igor Sautier</div>
         <div class="mm-title">Formateur IA &amp; Automatisation</div>
     </div>
@@ -359,7 +359,7 @@
                 <div class="hero-eyebrow">FORMATEUR IA &amp; AUTOMATISATION</div>
                 <h1>Salut, moi c'est&nbsp;Igor.</h1>
                 <p class="hero-tagline">Je rends l'IA simple. Pour toi, ton &eacute;quipe, ton business.</p>
-                <img src="igor.jpg" alt="Igor Sautier" class="hero-avatar-mobile">
+                <img src="igor-avatar.jpg" alt="Igor Sautier" class="hero-avatar-mobile">
                 <p class="hero-desc">Chaque semaine, je t'envoie des guides, des prompts et des astuces automatisation. Gratuit.</p>
                 <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="hero-cta-btn" target="_blank" rel="noopener">R&eacute;server mon audit gratuit &rarr;</a>
                 <p class="hero-cta-micro">30 min - Gratuit - Sans engagement</p>
@@ -373,7 +373,12 @@
                 <p class="hero-small">Ou <a href="#guides">parcourir les guides gratuits</a>.</p>
             </div>
             <div class="hero-photo-wrap">
-                <img src="hero-photo.png" alt="Igor Sautier - + de 25K abonn&eacute;s, 3,5M+ vues, 1 guide par semaine" loading="eager" style="width:100%;max-width:480px;height:auto;border-radius:0;display:block;margin:0 auto">
+                <picture>
+                    <!-- Hidden below 1050px: an empty image there so phones skip the download -->
+                    <source media="(max-width:1050px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+                    <source srcset="hero-photo.webp" type="image/webp">
+                    <img src="hero-photo.png" alt="Igor Sautier - + de 25K abonn&eacute;s, 3,5M+ vues, 1 guide par semaine" width="560" height="610" fetchpriority="high" style="width:100%;max-width:480px;height:auto;border-radius:0;display:block;margin:0 auto">
+                </picture>
             </div>
         </div>
     </div>
