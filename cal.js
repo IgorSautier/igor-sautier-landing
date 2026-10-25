@@ -31,7 +31,7 @@
     links[i].addEventListener('click', function (e) {
       e.preventDefault();
       var href = this.href;
-      Cal.ns.audit('modal', { calLink: LINK, config: { layout: 'month_view' } });
+      Cal.ns.audit('modal', { calLink: LINK, config: { layout: 'month_view', theme: 'light' } });
       // Fallback: no popup after 2.5 s means the embed couldn't load, go to Cal.com directly
       setTimeout(function () { if (!document.querySelector('cal-modal-box')) location.href = href; }, 2500);
     });
