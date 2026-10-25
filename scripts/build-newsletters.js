@@ -1,8 +1,8 @@
-// Generates the public newsletter pages from Brevo at deploy time:
+// Runs at every Netlify deploy (build command). Generates the newsletter pages from Brevo and the site indexes:
 //   newsletter/index.html           archive of every newsletter sent
 //   newsletter/<slug>/index.html    one page per newsletter
-//   newsletter/<slug>/email.html    the cleaned email, shown in an iframe
 //   newsletters.json                latest newsletters, read by the homepage
+//   sitemap.xml, llms.txt           every page of the site, for Google and AI assistants
 // Needs BREVO_API_KEY. NEWSLETTER_FIXTURE=path.json uses local data instead (for testing).
 // Any Brevo error fails the build on purpose, so Netlify keeps the previous deploy live.
 
@@ -11,7 +11,7 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'newsletter');
-const SITE = 'https://nevios.fr';
+const { SITE, FONT_HEAD, jsonLd } = require('./site');
 const LIST_ID = Number(process.env.NEWSLETTER_LIST_ID || 4);
 const CAL = 'https://cal.com/igor-sautier/audit-des-taches-automatisables';
 
@@ -49,27 +49,29 @@ function resolveTags(str) {
     .trim();
 }
 
-// Runs inside email.html so any email template (light or dark) takes the site's look:
+// Runs on the page once the email is in its shadow root, so any template (light or dark) takes the site's look:
 // white background, dark text, Outfit font, site red. Buttons and badges keep their colours.
 const RESTYLE_EMAIL = `<script>(function(){
-  var w = window, d = document;
+  var w = window, host = document.getElementById('emailHost');
+  var root = host && host.shadowRoot; if (!root) return;
+  var top = root.querySelector('.email-root');
   function rgba(s){ var m = s.match(/[\\d.]+/g); return m ? {r:+m[0], g:+m[1], b:+m[2], a: m.length > 3 ? +m[3] : 1} : null; }
   function lum(c){ return (0.299*c.r + 0.587*c.g + 0.114*c.b) / 255; }
   function sat(c){ return Math.max(c.r,c.g,c.b) - Math.min(c.r,c.g,c.b); }
-  var els = [d.body].concat([].slice.call(d.body.querySelectorAll('*')));
+  var els = [top].concat([].slice.call(top.querySelectorAll('*')));
   var cardW = 0;
   els.forEach(function(el){ var r = el.getBoundingClientRect(); if (r.width <= 640 && r.width > cardW && w.getComputedStyle(el).backgroundColor !== 'rgba(0, 0, 0, 0)') cardW = r.width; });
-  if (!cardW) cardW = Math.min(600, d.body.clientWidth);
+  if (!cardW) cardW = Math.min(600, top.clientWidth);
   // 1. Backgrounds: page and card become transparent (the site card is white), big dark boxes become cream
   els.forEach(function(el){
     var cs = w.getComputedStyle(el), c = rgba(cs.backgroundColor), wd = el.getBoundingClientRect().width;
-    var big = el === d.body || wd >= 200;
+    var big = el === top || wd >= 200;
     if (!big) return;
     el.removeAttribute('background');
     if (cs.backgroundImage !== 'none') el.style.setProperty('background-image', 'none', 'important');
     if (c && c.a > 0 && lum(c) < 0.45) {
       el.removeAttribute('bgcolor');
-      el.style.setProperty('background-color', wd >= cardW * 0.95 || el === d.body ? 'transparent' : '#f5f2ef', 'important');
+      el.style.setProperty('background-color', wd >= cardW * 0.95 || el === top ? 'transparent' : '#f5f2ef', 'important');
     }
     ['Top','Right','Bottom','Left'].forEach(function(s){
       var b = rgba(cs['border' + s + 'Color']);
@@ -77,13 +79,13 @@ const RESTYLE_EMAIL = `<script>(function(){
     });
   });
   // Small square photos (signature avatar) are round JPGs with dark corners: crop them to the circle
-  [].slice.call(d.images).forEach(function(img){
+  [].slice.call(top.querySelectorAll('img')).forEach(function(img){
     var wd = img.width, ht = img.height;
     if (wd && wd <= 120 && Math.abs(wd - ht) <= 4) img.style.setProperty('border-radius', '50%', 'important');
   });
   // 2. Text: light text on what is now a light background becomes dark; red becomes the site red
   function bgOf(el){
-    for (; el && el !== d.documentElement; el = el.parentElement) { var c = rgba(w.getComputedStyle(el).backgroundColor); if (c && c.a > 0) return c; }
+    for (; el && el !== host; el = el.parentElement) { var c = rgba(w.getComputedStyle(el).backgroundColor); if (c && c.a > 0) return c; }
     return {r:255, g:255, b:255, a:1};
   }
   els.forEach(function(el){
@@ -126,12 +128,21 @@ function cleanEmail(html) {
            .replace(/color-scheme\s*:\s*light\s+dark/gi, 'color-scheme:light')
            .replace(/<meta[^>]*color-scheme[^>]*>/gi, '');
   out = optimizeImages(out);
-  const headExtra = '<meta name="robots" content="noindex"><meta name="color-scheme" content="light"><base target="_blank">' +
-    '<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">' +
-    '<style>:root{color-scheme:light!important}html,body{background:transparent!important;overflow:hidden}</style>';
-  out = /<head[^>]*>/i.test(out) ? out.replace(/<head[^>]*>/i, m => m + headExtra) : headExtra + out;
-  out = /<\/body>/i.test(out) ? out.replace(/<\/body>/i, RESTYLE_EMAIL + '</body>') : out + RESTYLE_EMAIL;
+  // Links in the email open in a new tab, like they would from a mail client
+  out = out.replace(/<a\b(?![^>]*\starget=)([^>]*\shref="https?:)/gi, '<a target="_blank" rel="noopener"$1');
   return out;
+}
+
+// The email goes straight into the page inside a declarative shadow root: its styles stay isolated
+// from the site, and its text is in the page source, readable by Google and AI assistants.
+function emailBlock(html) {
+  const styles = (html.match(/<style\b[^>]*>[\s\S]*?<\/style>/gi) || []).join('');
+  const bodyMatch = html.match(/<body\b([^>]*)>([\s\S]*?)<\/body>/i);
+  const bodyStyle = bodyMatch && (bodyMatch[1].match(/\sstyle="([^"]*)"/i) || [])[1];
+  const content = bodyMatch ? bodyMatch[2] : html.replace(/<head\b[\s\S]*?<\/head>/i, '').replace(/<\/?(?:html|body|!doctype)[^>]*>/gi, '');
+  return `<div class="email-card"><div id="emailHost"><template shadowrootmode="open">${styles}` +
+    `<style>:host{display:block}.email-root{color:#222;line-height:1.5}</style>` +
+    `<div class="email-root"${bodyStyle ? ` style="${bodyStyle}"` : ''}>${content}</div></template></div></div>`;
 }
 
 function slugify(str) {
@@ -206,7 +217,6 @@ h1{font-size:40px;font-weight:800;line-height:1.15;margin-bottom:16px}
 .sub-form button{height:44px;padding:0 22px;border:none;border-radius:9999px;background:var(--accent);color:#fff;font-family:var(--sans);font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
 .sub-form button:hover{background:var(--accent-hover)}
 .email-card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.email-card iframe{display:block;width:100%;height:1200px;border:0}
 .end-box{text-align:center;margin-top:40px}
 .end-box h2{font-size:22px;font-weight:700;margin-bottom:14px}
 .end-box .sub-form{max-width:460px;margin:0 auto}
@@ -253,7 +263,7 @@ function subForm(cta) {
 </form>`;
 }
 
-function page({ title, description, canonical, body }) {
+function page({ title, description, canonical, body, schema = '', scripts = '' }) {
   return `<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -270,9 +280,13 @@ function page({ title, description, canonical, body }) {
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="@automatise_avec_igor">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta property="og:image:alt" content="Igor Sautier, formateur IA et automatisation">
+<meta name="twitter:title" content="${esc(title)}">
+<meta name="twitter:description" content="${esc(description)}">
+<meta name="twitter:image" content="${SITE}/og-image.jpg">
+${FONT_HEAD}
 <style>${CSS}</style>
+${schema}
 </head>
 <body>
 <nav>
@@ -357,17 +371,9 @@ ${body}
     navigator.clipboard.writeText(location.href).then(function(){ showToast('Lien copi\\u00e9. Tu peux le partager.'); });
   });
 
-  var frame = document.getElementById('emailFrame');
-  // offsetHeight is the email's own height (scrollHeight never drops below the iframe's)
-  function fit(){ try { frame.style.height = Math.ceil(frame.contentDocument.documentElement.getBoundingClientRect().height) + 'px'; } catch(e){} }
-  if(frame){
-    frame.addEventListener('load', function(){
-      fit();
-      if(window.ResizeObserver) new ResizeObserver(fit).observe(frame.contentDocument.body);
-    });
-  }
 })();
 </script>
+${scripts}
 </body>
 </html>
 `;
@@ -382,6 +388,21 @@ function newsletterPage(n) {
     title: `${n.subject} | La newsletter d'Igor`,
     description: n.previewText || n.subject,
     canonical,
+    schema: jsonLd({
+      '@type': 'BlogPosting',
+      '@id': `${canonical}#article`,
+      headline: n.subject,
+      description: n.previewText || n.subject,
+      datePublished: n.date,
+      inLanguage: 'fr-FR',
+      url: canonical,
+      mainEntityOfPage: canonical,
+      image: `${SITE}/og-image.jpg`,
+      author: { '@id': `${SITE}/#igor` },
+      publisher: { '@id': `${SITE}/#igor` },
+      isPartOf: { '@type': 'Blog', name: 'La newsletter du mardi', url: `${SITE}/newsletter/` }
+    }),
+    scripts: RESTYLE_EMAIL,
     body: `<main class="wrap">
   <a href="/newsletter/" class="back">${ARROW} Toutes les newsletters</a>
   <div class="nl-date">${esc(frDate(n.date, true))}</div>
@@ -391,7 +412,7 @@ function newsletterPage(n) {
     <p>Abonne-toi pour la recevoir chaque mardi dans ta bo&icirc;te mail.</p>
     ${subForm('S\'inscrire gratuitement')}
   </div>
-  <div class="email-card"><iframe id="emailFrame" src="/newsletter/${n.slug}/email.html" title="${esc(n.subject)}" scrolling="no" loading="eager"></iframe></div>
+  ${emailBlock(cleanEmail(n.html))}
   <div class="end-box">
     <h2>&Ccedil;a t'a plu ? Re&ccedil;ois la prochaine directement dans ta bo&icirc;te mail.</h2>
     ${subForm('S\'inscrire gratuitement')}
@@ -415,6 +436,15 @@ function archivePage(items) {
     title: 'La newsletter du mardi | Igor Sautier',
     description: "Toutes les newsletters d'Igor Sautier : l'actu IA qui compte vraiment, un prompt à tester et une automatisation à copier. Chaque mardi, gratuit.",
     canonical: `${SITE}/newsletter/`,
+    schema: jsonLd({
+      '@type': 'CollectionPage',
+      '@id': `${SITE}/newsletter/#page`,
+      name: 'La newsletter du mardi',
+      url: `${SITE}/newsletter/`,
+      inLanguage: 'fr-FR',
+      about: { '@id': `${SITE}/#igor` },
+      hasPart: items.map(n => ({ '@type': 'BlogPosting', headline: n.subject, url: `${SITE}/newsletter/${n.slug}/`, datePublished: n.date }))
+    }),
     body: `<main class="wrap">
   <div class="eyebrow">La newsletter du mardi</div>
   <h1>Toutes les newsletters.</h1>
@@ -428,6 +458,64 @@ function archivePage(items) {
   </div>
 </main>`
   });
+}
+
+// ---------- sitemap.xml and llms.txt: hand-written pages + generated newsletters ----------
+
+const NOT_LISTED = new Set(['merci.html', '404.html']);
+const ENTITIES = { amp: '&', quot: '"', apos: "'", lt: '<', gt: '>', nbsp: ' ', rarr: '→', middot: '·', eacute: 'é', egrave: 'è', ecirc: 'ê', euml: 'ë', agrave: 'à', acirc: 'â', ccedil: 'ç', icirc: 'î', iuml: 'ï', ocirc: 'ô', ugrave: 'ù', ucirc: 'û', Eacute: 'É', Agrave: 'À', Ccedil: 'Ç', rsquo: '’', hellip: '…' };
+const decode = s => s.replace(/&([a-zA-Z]+);/g, (m, e) => ENTITIES[e] || m).replace(/&#(\d+);/g, (m, c) => String.fromCharCode(c));
+
+function staticPages() {
+  const files = fs.readdirSync(ROOT).filter(f => f.endsWith('.html'))
+    .concat(fs.readdirSync(path.join(ROOT, 'ressources')).filter(f => f.endsWith('.html')).map(f => 'ressources/' + f));
+  return files.filter(f => !NOT_LISTED.has(f)).sort((a, b) => (b === 'index.html') - (a === 'index.html')).map(file => {
+    const html = fs.readFileSync(path.join(ROOT, file), 'utf8');
+    const title = decode((html.match(/<title>([^<]*)<\/title>/i) || [])[1] || file).replace(/\s*\|\s*Igor Sautier$/, '');
+    const description = decode((html.match(/<meta name="description" content="([^"]*)"/i) || [])[1] || '');
+    return { url: file === 'index.html' ? `${SITE}/` : `${SITE}/${file}`, file, title, description };
+  });
+}
+
+function writeSiteIndexes(items) {
+  const pages = staticPages();
+  const nlUrls = [{ url: `${SITE}/newsletter/`, lastmod: items[0] && items[0].date }]
+    .concat(items.map(n => ({ url: `${SITE}/newsletter/${n.slug}/`, lastmod: n.date })));
+  const urls = pages.map(p => ({ url: p.url })).concat(nlUrls);
+  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(u => `  <url><loc>${u.url}</loc>${u.lastmod ? `<lastmod>${new Date(u.lastmod).toISOString().slice(0, 10)}</lastmod>` : ''}</url>`).join('\n')}
+</urlset>
+`);
+
+  const line = p => `- [${p.title}](${p.url})${p.description ? `: ${p.description}` : ''}`;
+  const guides = pages.filter(p => p.file.startsWith('ressources/') && p.file !== 'ressources/index.html');
+  const main = pages.filter(p => !p.file.startsWith('ressources/') || p.file === 'ressources/index.html');
+  fs.writeFileSync(path.join(ROOT, 'llms.txt'), `# Igor Sautier (@automatise_avec_igor)
+
+> Igor Sautier est formateur IA et automatisation, fondateur de Nevios (Le Vésinet, France). Il aide les indépendants et les entreprises à utiliser l'IA (ChatGPT, Claude, n8n) pour gagner du temps. Plus de 25 000 abonnés sur Instagram, TikTok et YouTube. Contenu en français.
+
+Il propose un audit gratuit de 30 minutes pour identifier les tâches automatisables : https://cal.com/igor-sautier/audit-des-taches-automatisables
+
+## Pages principales
+
+${main.map(line).join('\n')}
+
+## Guides gratuits
+
+${guides.map(line).join('\n')}
+
+## Newsletter du mardi
+
+${items.map(n => `- [${n.subject}](${SITE}/newsletter/${n.slug}/) (${new Date(n.date).toISOString().slice(0, 10)})${n.previewText ? `: ${n.previewText}` : ''}`).join('\n') || '- Aucune newsletter publiée pour le moment.'}
+
+## Réseaux
+
+- Instagram : https://instagram.com/automatise_avec_igor
+- TikTok : https://tiktok.com/@automatise_avec_igor
+- YouTube : https://youtube.com/@automatise_avec_igor
+- LinkedIn : https://linkedin.com/in/igor-sautier
+`);
 }
 
 async function main() {
@@ -456,11 +544,11 @@ async function main() {
     const dir = path.join(OUT, n.slug);
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, 'index.html'), newsletterPage(n));
-    fs.writeFileSync(path.join(dir, 'email.html'), cleanEmail(n.html));
   }
   fs.writeFileSync(path.join(OUT, 'index.html'), archivePage(items));
   fs.writeFileSync(path.join(ROOT, 'newsletters.json'), JSON.stringify(
     items.map(({ subject, previewText, date, slug }) => ({ subject, previewText, date, url: `/newsletter/${slug}/` })), null, 2) + '\n');
+  writeSiteIndexes(items);
 
   console.log(`Newsletter pages built: ${items.length} newsletter(s)`);
   items.forEach(n => console.log(`  /newsletter/${n.slug}/`));

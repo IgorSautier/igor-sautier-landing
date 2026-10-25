@@ -1,0 +1,5 @@
+# Every crawler is welcome, AI assistants included (ChatGPT, Claude, Perplexity...)
+User-agent: *
+Allow: /
+
+Sitemap: https://nevios.fr/sitemap.xml
