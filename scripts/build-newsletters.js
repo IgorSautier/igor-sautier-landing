@@ -49,17 +49,66 @@ function resolveTags(str) {
     .trim();
 }
 
+// Runs inside email.html so any email template (light or dark) takes the site's look:
+// white background, dark text, Outfit font, site red. Buttons and badges keep their colours.
+const RESTYLE_EMAIL = `<script>(function(){
+  var w = window, d = document;
+  function rgba(s){ var m = s.match(/[\\d.]+/g); return m ? {r:+m[0], g:+m[1], b:+m[2], a: m.length > 3 ? +m[3] : 1} : null; }
+  function lum(c){ return (0.299*c.r + 0.587*c.g + 0.114*c.b) / 255; }
+  function sat(c){ return Math.max(c.r,c.g,c.b) - Math.min(c.r,c.g,c.b); }
+  var els = [d.body].concat([].slice.call(d.body.querySelectorAll('*')));
+  var cardW = 0;
+  els.forEach(function(el){ var r = el.getBoundingClientRect(); if (r.width <= 640 && r.width > cardW && w.getComputedStyle(el).backgroundColor !== 'rgba(0, 0, 0, 0)') cardW = r.width; });
+  if (!cardW) cardW = Math.min(600, d.body.clientWidth);
+  // 1. Backgrounds: page and card become transparent (the site card is white), big dark boxes become cream
+  els.forEach(function(el){
+    var cs = w.getComputedStyle(el), c = rgba(cs.backgroundColor), wd = el.getBoundingClientRect().width;
+    var big = el === d.body || wd >= 200;
+    if (!big) return;
+    el.removeAttribute('background');
+    if (cs.backgroundImage !== 'none') el.style.setProperty('background-image', 'none', 'important');
+    if (c && c.a > 0 && lum(c) < 0.45) {
+      el.removeAttribute('bgcolor');
+      el.style.setProperty('background-color', wd >= cardW * 0.95 || el === d.body ? 'transparent' : '#f5f2ef', 'important');
+    }
+    ['Top','Right','Bottom','Left'].forEach(function(s){
+      var b = rgba(cs['border' + s + 'Color']);
+      if (parseFloat(cs['border' + s + 'Width']) > 0 && b && lum(b) < 0.45) el.style.setProperty('border-' + s.toLowerCase() + '-color', '#ded9d3', 'important');
+    });
+  });
+  // 2. Text: light text on what is now a light background becomes dark; red becomes the site red
+  function bgOf(el){
+    for (; el && el !== d.documentElement; el = el.parentElement) { var c = rgba(w.getComputedStyle(el).backgroundColor); if (c && c.a > 0) return c; }
+    return {r:255, g:255, b:255, a:1};
+  }
+  els.forEach(function(el){
+    var cs = w.getComputedStyle(el), c = rgba(cs.color);
+    if (!/courier|mono/i.test(cs.fontFamily)) el.style.setProperty('font-family', "'Outfit', system-ui, sans-serif", 'important');
+    if (!c) return;
+    if (c.r > 180 && c.g < 80 && c.b < 80) { el.style.setProperty('color', '#BB111C', 'important'); return; }
+    if (lum(c) <= 0.6 || lum(bgOf(el)) <= 0.6) return;
+    var col = sat(c) > 60 ? 'rgb(' + Math.round(c.r*0.6) + ',' + Math.round(c.g*0.6) + ',' + Math.round(c.b*0.6) + ')' : lum(c) > 0.85 ? '#1a1a1a' : '#6b6b6b';
+    el.style.setProperty('color', col, 'important');
+  });
+})();</script>`;
+
 function cleanEmail(html) {
   let out = String(html || '');
-  // Drop the unsubscribe / profile / mirror links and the separator before them
-  out = out.replace(/\s*(?:·|&middot;|·)?\s*<a\b[^>]*href="\{\{\s*(?:unsubscribe|update_profile|mirror)\s*\}\}"[^>]*>[\s\S]*?<\/a>/gi, '');
+  // A sentence built around the unsubscribe link ("P.S. ... clique ici") makes no sense without it: drop the paragraph
+  out = out.replace(/<p\b[^>]*>(?:(?!<\/p>)[\s\S])*?href="\{\{\s*unsubscribe\s*\}\}"[\s\S]*?<\/p>/gi, '');
+  // Elsewhere (footer), drop the unsubscribe / profile / mirror links and the separator before them
+  const gap = '(?:\\s|&nbsp;|&#160;)*';
+  out = out.replace(new RegExp(gap + '(?:·|&middot;|&#183;)?' + gap + '<a\\b[^>]*href="\\{\\{\\s*(?:unsubscribe|update_profile|mirror)\\s*\\}\\}"[^>]*>[\\s\\S]*?<\\/a>', 'gi'), '');
   out = resolveTags(out);
   // Keep the light version: the site is light, dark-mode email styles would clash
   out = out.replace(/\(prefers-color-scheme:\s*dark\)/gi, '(max-width:0px)')
+           .replace(/color-scheme\s*:\s*light\s+dark/gi, 'color-scheme:light')
            .replace(/<meta[^>]*color-scheme[^>]*>/gi, '');
   const headExtra = '<meta name="robots" content="noindex"><meta name="color-scheme" content="light"><base target="_blank">' +
-    '<style>html,body{background:transparent!important}</style>';
+    '<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">' +
+    '<style>:root{color-scheme:light!important}html,body{background:transparent!important;overflow:hidden}</style>';
   out = /<head[^>]*>/i.test(out) ? out.replace(/<head[^>]*>/i, m => m + headExtra) : headExtra + out;
+  out = /<\/body>/i.test(out) ? out.replace(/<\/body>/i, RESTYLE_EMAIL + '</body>') : out + RESTYLE_EMAIL;
   return out;
 }
 
@@ -286,7 +335,7 @@ ${body}
 
   var frame = document.getElementById('emailFrame');
   // offsetHeight is the email's own height (scrollHeight never drops below the iframe's)
-  function fit(){ try { frame.style.height = frame.contentDocument.documentElement.offsetHeight + 'px'; } catch(e){} }
+  function fit(){ try { frame.style.height = Math.ceil(frame.contentDocument.documentElement.getBoundingClientRect().height) + 'px'; } catch(e){} }
   if(frame){
     frame.addEventListener('load', function(){
       fit();
@@ -318,7 +367,7 @@ function newsletterPage(n) {
     <p>Abonne-toi pour la recevoir chaque mardi dans ta bo&icirc;te mail.</p>
     ${subForm('S\'inscrire gratuitement')}
   </div>
-  <div class="email-card"><iframe id="emailFrame" src="/newsletter/${n.slug}/email.html" title="${esc(n.subject)}" loading="eager"></iframe></div>
+  <div class="email-card"><iframe id="emailFrame" src="/newsletter/${n.slug}/email.html" title="${esc(n.subject)}" scrolling="no" loading="eager"></iframe></div>
   <div class="end-box">
     <h2>&Ccedil;a t'a plu ? Re&ccedil;ois la prochaine directement dans ta bo&icirc;te mail.</h2>
     ${subForm('S\'inscrire gratuitement')}
