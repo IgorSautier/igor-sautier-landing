@@ -658,7 +658,7 @@ MA SITUATION :
 
 // Load newsletters from Brevo via Netlify Function
 (function(){
-    fetch('/.netlify/functions/get-newsletters')
+    fetch('/newsletters.json')
         .then(function(r){ return r.json(); })
         .then(function(campaigns){
             if(!campaigns || !campaigns.length) return;
