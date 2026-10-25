@@ -165,7 +165,7 @@ function frDate(iso, withWeekday) {
 
 const CSS = `
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--accent:#BB111C;--accent-hover:#a00f18;--t1:#1a1a1a;--t2:#6b6b6b;--t3:#888;--bg:#f5f2ef;--card:#fff;--line:#ded9d3;--sans:'Outfit',system-ui,sans-serif}
+:root{--accent:#BB111C;--accent-hover:#a00f18;--t1:#1a1a1a;--t2:#6b6b6b;--t3:#6e6e6e;--bg:#f5f2ef;--card:#fff;--line:#ded9d3;--sans:'Outfit',system-ui,sans-serif}
 body{font-family:var(--sans);background:var(--bg);color:var(--t1);line-height:1.7;-webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit}
 nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line)}
@@ -228,8 +228,8 @@ h1{font-size:40px;font-weight:800;line-height:1.15;margin-bottom:16px}
 .nl-item-desc{font-size:14px;color:var(--t2);line-height:1.6}
 .nl-arrow{font-size:18px;color:var(--t3);flex-shrink:0;margin-top:22px}
 .empty{color:var(--t2)}
-footer{border-top:1px solid var(--line);padding:20px 24px;max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#a3a3a3;flex-wrap:wrap;gap:8px}
-footer a{color:#a3a3a3}
+footer{border-top:1px solid var(--line);padding:20px 24px;max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#6e6e6e;flex-wrap:wrap;gap:8px}
+footer a{color:#6e6e6e}
 footer a:hover{color:var(--accent)}
 .toast{position:fixed;right:24px;bottom:24px;z-index:300;display:flex;align-items:center;gap:12px;max-width:380px;padding:18px 22px;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.08);font-size:15px;font-weight:600;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .25s,transform .25s}
 .toast.show{opacity:1;transform:translateY(0);pointer-events:auto}
@@ -291,7 +291,7 @@ ${schema}
 <body>
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-brand"><div class="nav-avatar"><img src="/igor-avatar.jpg" alt="Igor Sautier"></div>Igor Sautier</a>
+    <a href="/" class="nav-brand"><div class="nav-avatar"><img src="/igor-avatar-sm.jpg" alt="" width="36" height="36"></div>Igor Sautier</a>
     <div class="nav-links">
       <a href="/">Accueil</a>
       <a href="/ressources/index.html">Ressources</a>
@@ -306,7 +306,7 @@ ${schema}
 <div class="mobile-menu" id="mobileMenu">
   <button class="mm-close" id="mmClose" aria-label="Fermer">&times;</button>
   <div class="mm-profile">
-    <div class="mm-avatar"><img src="/igor-avatar.jpg" alt="Igor Sautier"></div>
+    <div class="mm-avatar"><img src="/igor-avatar.jpg" alt=""></div>
     <div class="mm-name">Igor Sautier</div>
     <div class="mm-title">Formateur IA &amp; Automatisation</div>
   </div>
