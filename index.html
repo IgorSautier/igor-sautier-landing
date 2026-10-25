@@ -198,8 +198,10 @@
 
         /* ---- TOAST ---- */
         .toast{position:fixed;right:24px;bottom:24px;z-index:300;display:flex;align-items:center;gap:12px;max-width:380px;padding:18px 22px;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.08);font-size:15px;font-weight:600;color:var(--t1);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .25s,transform .25s}
-        .toast.show{opacity:1;transform:translateY(0)}
+        .toast.show{opacity:1;transform:translateY(0);pointer-events:auto}
         .toast-check{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .toast-close{margin-left:auto;background:none;border:none;cursor:pointer;color:var(--t3);font-size:20px;line-height:1;padding:0 0 2px 8px;transition:color .15s}
+        .toast-close:hover{color:var(--accent)}
         @media(max-width:768px){.toast{left:16px;right:16px;bottom:16px;max-width:none}}
 
         /* ---- MOBILE MENU ---- */
@@ -495,7 +497,7 @@ MA SITUATION :
     <div class="w">
         <div class="nl-top">
             <h2>Les derni&egrave;res newsletters.</h2>
-            <a href="ressources/index.html">Voir les ressources &rarr;</a>
+            <a href="/newsletter/">Toutes les newsletters &rarr;</a>
         </div>
         <p class="nl-sub">Ce qui arrive dans ta bo&icirc;te mail chaque semaine.</p>
 
@@ -624,11 +626,14 @@ MA SITUATION :
     toast.setAttribute('role', 'status');
     document.body.appendChild(toast);
     var toastTimer;
+    function hideToast(){ toast.classList.remove('show'); }
     function showToast(msg, isError){
-        toast.innerHTML = (isError ? '' : '<span class="toast-check"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>') + msg;
+        toast.innerHTML = (isError ? '' : '<span class="toast-check"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>') +
+            '<span>' + msg + '</span><button type="button" class="toast-close" aria-label="Fermer">&times;</button>';
+        toast.querySelector('.toast-close').addEventListener('click', hideToast);
         toast.classList.add('show');
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 4500);
+        toastTimer = setTimeout(hideToast, 3000);
     }
     var nlForms = document.querySelectorAll('form[data-netlify]');
     for(var f=0;f<nlForms.length;f++){
@@ -645,7 +650,7 @@ MA SITUATION :
                 if(!r.ok) throw new Error(r.status);
                 form.reset();
                 closeMenu();
-                showToast('Tu es inscrit. Rendez-vous mardi dans ta boîte mail.');
+                showToast('Bienvenue ! Ton premier email arrive très bientôt.');
             }).catch(function(){
                 showToast('Oups, ça n\'a pas marché. Réessaie dans un instant.', true);
             }).then(function(){ submitBtn.disabled = false; });
@@ -699,7 +704,7 @@ MA SITUATION :
 
 // Load newsletters from Brevo via Netlify Function
 (function(){
-    fetch('/.netlify/functions/get-newsletters?t='+Date.now())
+    fetch('/newsletters.json?t='+Date.now())
         .then(function(r){ return r.json(); })
         .then(function(campaigns){
             if(!campaigns || !campaigns.length) return;
@@ -712,8 +717,8 @@ MA SITUATION :
                 campaigns.forEach(function(c){
                     var d = new Date(c.date);
                     var dateStr = d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
-                    var link = c.shareLink || '#';
-                    container.innerHTML += '<a href="'+link+'" target="_blank" rel="noopener" style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;transition:border-color .15s"><div><div style="font-size:13px;color:var(--t3);margin-bottom:4px">'+dateStr+'</div><div style="font-size:15px;font-weight:700;line-height:1.3">'+c.subject+'</div></div><span style="font-size:16px;color:var(--t3);flex-shrink:0;margin-top:6px">&rarr;</span></a>';
+                    var link = c.url || '/newsletter/';
+                    container.innerHTML += '<a href="'+link+'" style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;transition:border-color .15s"><div><div style="font-size:13px;color:var(--t3);margin-bottom:4px">'+dateStr+'</div><div style="font-size:15px;font-weight:700;line-height:1.3">'+c.subject+'</div></div><span style="font-size:16px;color:var(--t3);flex-shrink:0;margin-top:6px">&rarr;</span></a>';
                 });
             } else {
                 container.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:20px';
@@ -721,11 +726,11 @@ MA SITUATION :
                 campaigns.forEach(function(c, i){
                     var d = new Date(c.date);
                     var dateStr = d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
-                    var link = c.shareLink || '#';
+                    var link = c.url || '/newsletter/';
                     if(i === 0){
-                        html += '<a href="'+link+'" target="_blank" rel="noopener" style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;grid-row:1/3;transition:border-color .15s"><div style="font-size:13px;color:var(--t3);margin-bottom:8px">'+dateStr+'</div><div style="font-size:20px;font-weight:700;line-height:1.3;margin-bottom:10px">'+c.subject+'</div><div style="font-size:14px;color:var(--t2);line-height:1.6;flex:1">'+c.previewText+'</div><div style="font-size:14px;color:var(--accent);font-weight:500;margin-top:16px">Lire la newsletter &rarr;</div></a>';
+                        html += '<a href="'+link+'" style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;grid-row:1/3;transition:border-color .15s"><div style="font-size:13px;color:var(--t3);margin-bottom:8px">'+dateStr+'</div><div style="font-size:20px;font-weight:700;line-height:1.3;margin-bottom:10px">'+c.subject+'</div><div style="font-size:14px;color:var(--t2);line-height:1.6;flex:1">'+c.previewText+'</div><div style="font-size:14px;color:var(--accent);font-weight:500;margin-top:16px">Lire la newsletter &rarr;</div></a>';
                     } else {
-                        html += '<a href="'+link+'" target="_blank" rel="noopener" style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;transition:border-color .15s"><div style="font-size:13px;color:var(--t3);margin-bottom:8px">'+dateStr+'</div><div style="font-size:16px;font-weight:700;line-height:1.3;margin-bottom:8px">'+c.subject+'</div><div style="font-size:14px;color:var(--t2);line-height:1.5;flex:1">'+c.previewText+'</div><div style="font-size:14px;color:var(--accent);font-weight:500;margin-top:12px">Lire la newsletter &rarr;</div></a>';
+                        html += '<a href="'+link+'" style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;transition:border-color .15s"><div style="font-size:13px;color:var(--t3);margin-bottom:8px">'+dateStr+'</div><div style="font-size:16px;font-weight:700;line-height:1.3;margin-bottom:8px">'+c.subject+'</div><div style="font-size:14px;color:var(--t2);line-height:1.5;flex:1">'+c.previewText+'</div><div style="font-size:14px;color:var(--accent);font-weight:500;margin-top:12px">Lire la newsletter &rarr;</div></a>';
                     }
                 });
                 container.innerHTML = html;

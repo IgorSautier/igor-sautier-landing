@@ -1,8 +1,20 @@
+[build]
+  # Generates /newsletter/ pages and newsletters.json from Brevo (see scripts/build-newsletters.js)
+  command = "node scripts/build-newsletters.js"
+
+[build.environment]
+  NODE_VERSION = "20"
+
 [functions]
   directory = "netlify/functions"
 
+# Every Wednesday at 06:00 UTC (7h or 8h in Paris): rebuild with Tuesday's newsletter
+[functions."weekly-newsletter-rebuild"]
+  schedule = "0 6 * * 3"
+
+# SAMEORIGIN (not DENY): newsletter pages show the email in a same-site iframe
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Frame-Options = "DENY"
+    X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
