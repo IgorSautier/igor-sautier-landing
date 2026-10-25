@@ -24,16 +24,26 @@
     };
   })(window, 'https://app.cal.com/embed/embed.js', 'init');
 
-  Cal('init', 'audit', { origin: 'https://cal.com' });
-  Cal.ns.audit('ui', { theme: 'light', layout: 'month_view', cssVarsPerTheme: { light: { 'cal-brand': '#BB111C' } } });
+  // Cal.com (and its cookies) only loads when a visitor heads for a booking button, not on every page view
+  var booted = false;
+  function boot() {
+    if (booted) return;
+    booted = true;
+    Cal('init', 'audit', { origin: 'https://cal.com' });
+    Cal.ns.audit('ui', { theme: 'light', layout: 'month_view', cssVarsPerTheme: { light: { 'cal-brand': '#BB111C' } } });
+  }
 
   for (var i = 0; i < links.length; i++) {
+    links[i].addEventListener('pointerenter', boot);
+    links[i].addEventListener('touchstart', boot, { passive: true });
+    links[i].addEventListener('focus', boot);
     links[i].addEventListener('click', function (e) {
       e.preventDefault();
+      boot();
       var href = this.href;
       Cal.ns.audit('modal', { calLink: LINK, config: { layout: 'month_view', theme: 'light' } });
-      // Fallback: no popup after 2.5 s means the embed couldn't load, go to Cal.com directly
-      setTimeout(function () { if (!document.querySelector('cal-modal-box')) location.href = href; }, 2500);
+      // Fallback: no popup after 4 s means the embed couldn't load, go to Cal.com directly
+      setTimeout(function () { if (!document.querySelector('cal-modal-box')) location.href = href; }, 4000);
     });
   }
 })();
