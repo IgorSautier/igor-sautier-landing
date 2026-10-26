@@ -660,7 +660,8 @@ MA SITUATION :
         clearTimeout(toastTimer);
         toastTimer = setTimeout(hideToast, 3000);
     }
-    var nlForms = document.querySelectorAll('form[data-netlify]');
+    // By name: Netlify strips data-netlify from the HTML it serves
+    var nlForms = document.querySelectorAll('form[name="newsletter"]');
     for(var f=0;f<nlForms.length;f++){
         nlForms[f].addEventListener('submit', function(e){
             e.preventDefault();

@@ -359,7 +359,8 @@ ${body}
     toastTimer = setTimeout(hideToast, 3000);
   }
 
-  var forms = document.querySelectorAll('form[data-netlify]');
+  // By name: Netlify strips data-netlify from the HTML it serves
+  var forms = document.querySelectorAll('form[name="newsletter"]');
   for(var f=0;f<forms.length;f++){
     forms[f].addEventListener('submit', function(e){
       e.preventDefault();
