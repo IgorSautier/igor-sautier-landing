@@ -291,6 +291,7 @@ function page({ title, description, canonical, body, schema = '', scripts = '' }
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(description)}">
 <meta name="twitter:image" content="${SITE}/og-image.jpg">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="bc9d294b-7ed0-4bb4-a810-b07bada25d07"></script>
 ${FONT_HEAD}
 <style>${CSS}</style>
 ${schema}
@@ -365,7 +366,7 @@ ${body}
       var form = this, btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
       fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(new FormData(form)).toString()})
-        .then(function(r){ if(!r.ok) throw new Error(r.status); form.reset(); showToast('Bienvenue ! Ton premier email arrive tr\\u00e8s bient\\u00f4t.'); })
+        .then(function(r){ if(!r.ok) throw new Error(r.status); form.reset(); if(window.umami) umami.track('Inscription newsletter', {source: 'page newsletter'}); showToast('Bienvenue ! Ton premier email arrive tr\\u00e8s bient\\u00f4t.'); })
         .catch(function(){ showToast('Oups, \\u00e7a n\\'a pas march\\u00e9. R\\u00e9essaie dans un instant.', true); })
         .then(function(){ btn.disabled = false; });
     });

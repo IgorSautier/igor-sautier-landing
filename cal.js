@@ -40,6 +40,7 @@
     links[i].addEventListener('click', function (e) {
       e.preventDefault();
       boot();
+      if (window.umami) umami.track('Clic reserver audit', { page: location.pathname });
       var href = this.href;
       Cal.ns.audit('modal', { calLink: LINK, config: { layout: 'month_view', theme: 'light' } });
       // Fallback: no popup after 4 s means the embed couldn't load, go to Cal.com directly

@@ -5,6 +5,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Igor Sautier | Formateur IA & Automatisation</title>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="bc9d294b-7ed0-4bb4-a810-b07bada25d07"></script>
     <meta name="description" content="Igor Sautier, formateur IA et automatisation. Guides gratuits, prompts pr&ecirc;ts &agrave; l'emploi et astuces pour utiliser l'IA dans ton business.">
 <link rel="canonical" href="https://nevios.fr/">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://nevios.fr/#igor","name":"Igor Sautier","alternateName":"@automatise_avec_igor","url":"https://nevios.fr/","image":"https://nevios.fr/igor-avatar.jpg","jobTitle":"Formateur IA et automatisation","description":"Formateur IA et automatisation. Il aide les indépendants et les entreprises à utiliser l'IA (ChatGPT, Claude, n8n) pour automatiser leurs tâches.","knowsAbout":["Intelligence artificielle","Automatisation","ChatGPT","Claude","n8n","Prompt engineering"],"worksFor":{"@type":"Organization","name":"Nevios","url":"https://nevios.fr/"},"sameAs":["https://instagram.com/automatise_avec_igor","https://tiktok.com/@automatise_avec_igor","https://youtube.com/@automatise_avec_igor","https://linkedin.com/in/igor-sautier"]},{"@type":"WebSite","@id":"https://nevios.fr/#website","url":"https://nevios.fr/","name":"Igor Sautier","inLanguage":"fr-FR","publisher":{"@id":"https://nevios.fr/#igor"}},{"@type":"WebPage","@id":"https://nevios.fr/#page","url":"https://nevios.fr/","name":"Igor Sautier | Formateur IA & Automatisation","description":"Igor Sautier, formateur IA et automatisation. Je t'aide à comprendre et utiliser l'intelligence artificielle dans ton business. Guides gratuits, prompts prêts à l'emploi et astuces automatisation chaque semaine.","inLanguage":"fr-FR","about":{"@id":"https://nevios.fr/#igor"},"isPartOf":{"@id":"https://nevios.fr/#website"}}]}</script>
@@ -673,6 +674,7 @@ MA SITUATION :
             }).then(function(r){
                 if(!r.ok) throw new Error(r.status);
                 form.reset();
+                if(window.umami) umami.track('Inscription newsletter', {source: form.closest('.mobile-menu') ? 'menu' : 'accueil'});
                 closeMenu();
                 showToast('Bienvenue ! Ton premier email arrive très bientôt.');
             }).catch(function(){
@@ -716,6 +718,7 @@ MA SITUATION :
         var text = document.getElementById('promptText').textContent;
         if(navigator.clipboard){
             navigator.clipboard.writeText(text);
+            if(window.umami) umami.track('Copie prompt', {prompt: document.querySelector('.prompt-tab.active .prompt-tab-title') ? document.querySelector('.prompt-tab.active .prompt-tab-title').textContent : ''});
             this.querySelector('span') || this.insertAdjacentHTML('beforeend','');
             var orig = this.innerHTML;
             this.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Copie !';
