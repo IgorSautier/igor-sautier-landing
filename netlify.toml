@@ -24,7 +24,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
     # Everything is served from nevios.fr except the Cal.com booking popup and Umami statistics. Blocks any other foreign script.
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://app.cal.com https://cloud.umami.is; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://app.cal.com; connect-src 'self' https://app.cal.com https://cal.com https://cloud.umami.is https://api-gateway.umami.dev; frame-src https://app.cal.com https://cal.com; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://app.cal.com https://cloud.umami.is; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://app.cal.com; connect-src 'self' https://app.cal.com https://cal.com https://cloud.umami.is https://gateway.umami.is https://api-gateway.umami.dev; frame-src https://app.cal.com https://cal.com; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
 
 # Pages are served without ".html" (Netlify Pretty URLs): send old .html addresses to the clean one
 [[redirects]]
