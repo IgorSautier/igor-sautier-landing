@@ -1,7 +1,7 @@
 // Runs at every Netlify deploy (build command). Generates the newsletter pages from Brevo and the site indexes:
 //   newsletter/index.html           archive of every newsletter sent
 //   newsletter/<slug>/index.html    one page per newsletter
-//   newsletters.json                latest newsletters, read by the homepage
+//   newsletters.json                list of newsletters (data only)
 //   sitemap.xml, llms.txt           every page of the site, for Google and AI assistants
 // Needs BREVO_API_KEY. NEWSLETTER_FIXTURE=path.json uses local data instead (for testing).
 // Any Brevo error fails the build on purpose, so Netlify keeps the previous deploy live.
@@ -325,7 +325,7 @@ ${schema}
     <a href="/a-propos" class="mm-link"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg> &Agrave; propos</a>
   </div>
   <div class="mm-bottom">
-    <p>Rejoins 1 000+ lecteurs</p>
+    <p>Rejoins 1 500+ lecteurs</p>
     <div class="mm-sub">Chaque mardi. Pas de spam.</div>
     <a href="#subscribe" class="mm-cta">S'inscrire &agrave; la newsletter</a>
   </div>
@@ -469,7 +469,7 @@ function archivePage(items) {
   <h1>Toutes les newsletters.</h1>
   <p class="lead">Ce qui a vraiment chang&eacute; dans l'IA, ce que &ccedil;a change pour toi, et un truc &agrave; faire tout de suite. Chaque mardi.</p>
   <div class="sub-box" id="subscribe">
-    <p>Rejoins 1 000+ lecteurs. Chaque mardi dans ta bo&icirc;te mail.</p>
+    <p>Rejoins 1 500+ lecteurs. Chaque mardi dans ta bo&icirc;te mail.</p>
     ${subForm('S\'inscrire gratuitement')}
   </div>
   <div class="nl-list">
@@ -514,7 +514,7 @@ ${urls.map(u => `  <url><loc>${u.url}</loc>${u.lastmod ? `<lastmod>${new Date(u.
   const main = pages.filter(p => !p.file.startsWith('ressources/') || p.file === 'ressources/index.html');
   fs.writeFileSync(path.join(ROOT, 'llms.txt'), `# Igor Sautier (@automatise_avec_igor)
 
-> Igor Sautier est formateur IA et automatisation, fondateur de Nevios (Le Vésinet, France). Il aide les indépendants et les entreprises à utiliser l'IA (ChatGPT, Claude, n8n) pour gagner du temps. Plus de 25 000 abonnés sur Instagram, TikTok et YouTube. Contenu en français.
+> Igor Sautier est formateur IA et automatisation, fondateur de Nevios (Le Vésinet, France). Il aide les indépendants et les entreprises à utiliser l'IA (ChatGPT, Claude, n8n) pour gagner du temps. Plus de 30 000 abonnés sur Instagram, TikTok et YouTube. Contenu en français.
 
 Il propose un audit gratuit de 30 minutes pour identifier les tâches automatisables : https://cal.com/igor-sautier/audit-des-taches-automatisables
 
@@ -537,6 +537,16 @@ ${items.map(n => `- [${n.subject}](${SITE}/newsletter/${n.slug}/) (${new Date(n.
 - YouTube : https://youtube.com/@automatise_avec_igor
 - LinkedIn : https://linkedin.com/in/igor-sautier
 `);
+}
+
+// The homepage cards are written as plain HTML, so visitors, crawlers and AI tools all get real links
+function writeHomepageCards(items) {
+  const file = path.join(ROOT, 'index.html');
+  const cards = items.slice(0, 5).map((n, i) => `<a href="/newsletter/${n.slug}/" class="nlh-card${i === 0 ? ' nlh-feat' : ''}"><div class="nlh-body"><div class="nlh-date">${frDate(n.date)}</div><div class="nlh-title">${esc(n.subject)}</div><div class="nlh-text">${esc(n.previewText)}</div><div class="nlh-more">Lire la newsletter &rarr;</div></div><span class="nlh-arrow">&rarr;</span></a>`).join('\n            ');
+  const html = fs.readFileSync(file, 'utf8');
+  const updated = html.replace(/(<!-- NEWSLETTERS:START[^>]*-->)[\s\S]*?(<!-- NEWSLETTERS:END -->)/, (m, a, z) => `${a}\n            ${cards}\n            ${z}`);
+  if (updated === html && items.length) throw new Error('Homepage newsletter markers not found in index.html');
+  fs.writeFileSync(file, updated);
 }
 
 async function main() {
@@ -569,6 +579,7 @@ async function main() {
   fs.writeFileSync(path.join(OUT, 'index.html'), archivePage(items));
   fs.writeFileSync(path.join(ROOT, 'newsletters.json'), JSON.stringify(
     items.map(({ subject, previewText, date, slug }) => ({ subject, previewText, date, url: `/newsletter/${slug}/` })), null, 2) + '\n');
+  writeHomepageCards(items);
   writeSiteIndexes(items);
 
   console.log(`Newsletter pages built: ${items.length} newsletter(s)`);

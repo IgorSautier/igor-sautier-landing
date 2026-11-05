@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://nevios.fr/">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://nevios.fr/#igor","name":"Igor Sautier","alternateName":"@automatise_avec_igor","url":"https://nevios.fr/","image":"https://nevios.fr/igor-avatar.jpg","jobTitle":"Formateur IA et automatisation","description":"Formateur IA et automatisation. Il aide les indépendants et les entreprises à utiliser l'IA (ChatGPT, Claude, n8n) pour automatiser leurs tâches.","knowsAbout":["Intelligence artificielle","Automatisation","ChatGPT","Claude","n8n","Prompt engineering"],"worksFor":{"@type":"Organization","name":"Nevios","url":"https://nevios.fr/"},"sameAs":["https://instagram.com/automatise_avec_igor","https://tiktok.com/@automatise_avec_igor","https://youtube.com/@automatise_avec_igor","https://linkedin.com/in/igor-sautier"]},{"@type":"WebSite","@id":"https://nevios.fr/#website","url":"https://nevios.fr/","name":"Igor Sautier","inLanguage":"fr-FR","publisher":{"@id":"https://nevios.fr/#igor"}},{"@type":"WebPage","@id":"https://nevios.fr/#page","url":"https://nevios.fr/","name":"Igor Sautier | Formateur IA & Automatisation","description":"Igor Sautier, formateur IA et automatisation. Je t'aide à comprendre et utiliser l'intelligence artificielle dans ton business. Guides gratuits, prompts prêts à l'emploi et astuces automatisation chaque semaine.","inLanguage":"fr-FR","about":{"@id":"https://nevios.fr/#igor"},"isPartOf":{"@id":"https://nevios.fr/#website"}}]}</script>
     <meta property="og:title" content="Igor Sautier | Formateur IA &amp; Automatisation">
-    <meta property="og:description" content="Je rends l'IA simple. Guides gratuits, prompts et automatisation chaque semaine. Rejoins + de 25K abonn&eacute;s.">
+    <meta property="og:description" content="Je rends l'IA simple. Guides gratuits, prompts et automatisation chaque semaine. Rejoins + de 30K abonn&eacute;s.">
     <meta property="og:image" content="https://nevios.fr/og-image.jpg">
     <meta property="og:image:alt" content="Igor Sautier - Formateur IA et automatisation">
     <meta property="og:url" content="https://nevios.fr">
@@ -18,7 +18,7 @@
     <meta property="og:site_name" content="@automatise_avec_igor">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Igor Sautier | Formateur IA &amp; Automatisation">
-    <meta name="twitter:description" content="Je rends l'IA simple. Guides gratuits, prompts et automatisation chaque semaine. Rejoins + de 25K abonn&eacute;s.">
+    <meta name="twitter:description" content="Je rends l'IA simple. Guides gratuits, prompts et automatisation chaque semaine. Rejoins + de 30K abonn&eacute;s.">
     <meta name="twitter:image" content="https://nevios.fr/og-image.jpg">
     <link rel="preload" href="/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>@font-face{font-family:'Outfit';font-style:normal;font-weight:400 800;font-display:swap;src:url(/fonts/outfit-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Outfit';font-style:normal;font-weight:400 800;font-display:swap;src:url(/fonts/outfit-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}</style>
@@ -149,6 +149,24 @@
         .nl-top a{font-size:14px;color:var(--accent);font-weight:500}
         .nl-top a:hover{text-decoration:underline}
         .nl-sub{font-size:15px;color:var(--t2);margin-bottom:32px}
+        .nlh-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+        .nlh-card{display:flex;justify-content:space-between;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;transition:border-color .15s}
+        .nlh-feat{grid-row:1/3}
+        .nlh-body{display:flex;flex-direction:column;flex:1}
+        .nlh-date{font-size:13px;color:var(--t3);margin-bottom:8px}
+        .nlh-title{font-size:16px;font-weight:700;line-height:1.3;margin-bottom:8px}
+        .nlh-feat .nlh-title{font-size:20px;margin-bottom:10px}
+        .nlh-text{font-size:14px;color:var(--t2);line-height:1.5;flex:1}
+        .nlh-more{font-size:14px;color:var(--accent);font-weight:500;margin-top:12px}
+        .nlh-arrow{display:none;font-size:16px;color:var(--t3);flex-shrink:0;margin-top:6px}
+        @media(max-width:767px){
+            .nlh-cards{display:flex;flex-direction:column;gap:12px}
+            .nlh-card{padding:16px}
+            .nlh-date{margin-bottom:4px}
+            .nlh-title,.nlh-feat .nlh-title{font-size:15px;margin-bottom:0}
+            .nlh-text,.nlh-more{display:none}
+            .nlh-arrow{display:block}
+        }
         .nl-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
         .nl-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column}
         .nl-card-date{font-size:13px;color:var(--t3);margin-bottom:8px}
@@ -351,7 +369,7 @@
         <a href="a-propos.html" class="mm-link"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg> &Agrave; propos</a>
     </div>
     <div class="mm-bottom">
-        <p>Rejoins 1 000+ lecteurs</p>
+        <p>Rejoins 1 500+ lecteurs</p>
         <div class="mm-sub">Chaque semaine. Pas de spam.</div>
         <form name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci.html" style="margin-bottom:0">
             <input type="hidden" name="form-name" value="newsletter">
@@ -383,7 +401,7 @@
                 <p class="hero-desc">Chaque semaine, je t'envoie des guides, des prompts et des astuces automatisation. Gratuit.</p>
                 <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="hero-cta-btn" target="_blank" rel="noopener">R&eacute;server mon audit gratuit &rarr;</a>
                 <p class="hero-cta-micro">30 min - Gratuit - Sans engagement</p>
-                <div class="hero-proof"><strong>Rejoins 1 000+ lecteurs</strong></div>
+                <div class="hero-proof"><strong>Rejoins 1 500+ lecteurs</strong></div>
                 <p class="hero-proof-sub">Guides, prompts et automatisations chaque semaine.</p>
                 <form name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci.html" class="hero-email-form" style="display:flex;gap:10px;max-width:400px;margin-bottom:16px">
                     <input type="hidden" name="form-name" value="newsletter">
@@ -399,7 +417,7 @@
                     <!-- Hidden below 1050px: an empty image there so phones skip the download -->
                     <source media="(max-width:1050px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
                     <source srcset="hero-photo.webp" type="image/webp">
-                    <img src="hero-photo.png" alt="Igor Sautier - + de 25K abonn&eacute;s, 3,5M+ vues, 1 guide par semaine" width="560" height="610" fetchpriority="high" style="width:100%;max-width:480px;height:auto;border-radius:0;display:block;margin:0 auto">
+                    <img src="hero-photo.png" alt="Igor Sautier - + de 30K abonn&eacute;s, 3,5M+ vues, 1 guide par semaine" width="560" height="610" fetchpriority="high" style="width:100%;max-width:480px;height:auto;border-radius:0;display:block;margin:0 auto">
                 </picture>
             </div>
         </div>
@@ -528,14 +546,10 @@ MA SITUATION :
         </div>
         <p class="nl-sub">Ce qui arrive dans ta bo&icirc;te mail chaque semaine.</p>
 
-        <div id="nlCards" style="display:flex;flex-direction:column;gap:12px">
-            <a href="#" class="nl-item" style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px;background:var(--card);border:1px solid var(--line);border-radius:12px;transition:border-color .15s">
-                <div>
-                    <div style="font-size:13px;color:var(--t3);margin-bottom:6px">Newsletter</div>
-                    <div style="font-size:16px;font-weight:700;line-height:1.3">Inscris-toi pour recevoir la prochaine</div>
-                </div>
-                <span style="font-size:18px;color:var(--t3);flex-shrink:0;margin-top:8px">&rarr;</span>
-            </a>
+        <div class="nlh-cards">
+            <!-- NEWSLETTERS:START (filled at deploy by scripts/build-newsletters.js) -->
+            <a href="/newsletter/" class="nlh-card nlh-feat"><div class="nlh-body"><div class="nlh-title">Lire les newsletters</div><div class="nlh-text">Toutes les &eacute;ditions d&eacute;j&agrave; envoy&eacute;es sont en ligne.</div><div class="nlh-more">Voir les newsletters &rarr;</div></div><span class="nlh-arrow">&rarr;</span></a>
+            <!-- NEWSLETTERS:END -->
         </div>
     </div>
 </section>
@@ -548,7 +562,7 @@ MA SITUATION :
             L'IA ne devrait pas faire peur. Si ta m&egrave;re ne comprend pas comment s'en servir, c'est que j'ai rat&eacute; mon job.
         </blockquote>
         <p class="about-text">Je m'appelle Igor Sautier. Depuis 2023, j'explore l'intelligence artificielle et je documente tout ce que j'apprends. Mon approche est simple : tester les outils, trouver ce qui marche vraiment, et t'expliquer comment t'en servir sans jargon.</p>
-        <p class="about-text">Aujourd'hui, plus de 25 000 personnes me suivent sur les r&eacute;seaux et mes vid&eacute;os cumulent plus de 3,5 millions de vues. Mon objectif : te donner les cl&eacute;s pour utiliser l'IA dans ta vie pro, m&ecirc;me si tu pars de z&eacute;ro.</p>
+        <p class="about-text">Aujourd'hui, plus de 30 000 personnes me suivent sur les r&eacute;seaux et mes vid&eacute;os cumulent plus de 3,5 millions de vues. Mon objectif : te donner les cl&eacute;s pour utiliser l'IA dans ta vie pro, m&ecirc;me si tu pars de z&eacute;ro.</p>
         <a href="a-propos.html" class="about-link">Lire mon histoire compl&egrave;te &rarr;</a>
     </div>
 </section>
@@ -729,44 +743,6 @@ MA SITUATION :
             setTimeout(function(){ btn.innerHTML = orig; }, 1500);
         }
     });
-})();
-
-
-// Load newsletters from Brevo via Netlify Function
-(function(){
-    fetch('/newsletters.json?t='+Date.now())
-        .then(function(r){ return r.json(); })
-        .then(function(campaigns){
-            if(!campaigns || !campaigns.length) return;
-            var container = document.getElementById('nlCards');
-            if(!container) return;
-            var isMobile = window.innerWidth < 768;
-            if(isMobile){
-                container.style.cssText = 'display:flex;flex-direction:column;gap:12px';
-                container.innerHTML = '';
-                campaigns.forEach(function(c){
-                    var d = new Date(c.date);
-                    var dateStr = d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
-                    var link = c.url || '/newsletter/';
-                    container.innerHTML += '<a href="'+link+'" style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;transition:border-color .15s"><div><div style="font-size:13px;color:var(--t3);margin-bottom:4px">'+dateStr+'</div><div style="font-size:15px;font-weight:700;line-height:1.3">'+c.subject+'</div></div><span style="font-size:16px;color:var(--t3);flex-shrink:0;margin-top:6px">&rarr;</span></a>';
-                });
-            } else {
-                container.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:20px';
-                var html = '';
-                campaigns.forEach(function(c, i){
-                    var d = new Date(c.date);
-                    var dateStr = d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
-                    var link = c.url || '/newsletter/';
-                    if(i === 0){
-                        html += '<a href="'+link+'" style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;grid-row:1/3;transition:border-color .15s"><div style="font-size:13px;color:var(--t3);margin-bottom:8px">'+dateStr+'</div><div style="font-size:20px;font-weight:700;line-height:1.3;margin-bottom:10px">'+c.subject+'</div><div style="font-size:14px;color:var(--t2);line-height:1.6;flex:1">'+c.previewText+'</div><div style="font-size:14px;color:var(--accent);font-weight:500;margin-top:16px">Lire la newsletter &rarr;</div></a>';
-                    } else {
-                        html += '<a href="'+link+'" style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;transition:border-color .15s"><div style="font-size:13px;color:var(--t3);margin-bottom:8px">'+dateStr+'</div><div style="font-size:16px;font-weight:700;line-height:1.3;margin-bottom:8px">'+c.subject+'</div><div style="font-size:14px;color:var(--t2);line-height:1.5;flex:1">'+c.previewText+'</div><div style="font-size:14px;color:var(--accent);font-weight:500;margin-top:12px">Lire la newsletter &rarr;</div></a>';
-                    }
-                });
-                container.innerHTML = html;
-            }
-        })
-        .catch(function(){});
 })();
 </script>
 

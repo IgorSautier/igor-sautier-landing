@@ -1,6 +1,6 @@
 # Igor Sautier (@automatise_avec_igor)
 
-> Igor Sautier est formateur IA et automatisation, fondateur de Nevios (Le Vésinet, France). Il aide les indépendants et les entreprises à utiliser l'IA (ChatGPT, Claude, n8n) pour gagner du temps. Plus de 25 000 abonnés sur Instagram, TikTok et YouTube. Contenu en français.
+> Igor Sautier est formateur IA et automatisation, fondateur de Nevios (Le Vésinet, France). Il aide les indépendants et les entreprises à utiliser l'IA (ChatGPT, Claude, n8n) pour gagner du temps. Plus de 30 000 abonnés sur Instagram, TikTok et YouTube. Contenu en français.
 
 Il propose un audit gratuit de 30 minutes pour identifier les tâches automatisables : https://cal.com/igor-sautier/audit-des-taches-automatisables
 
