@@ -261,7 +261,7 @@ const SOCIAL = `
 <a href="https://linkedin.com/in/igor-sautier" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.75 1.75 0 0024 22.27V1.73A1.75 1.75 0 0022.22 0z"/></svg></a>`;
 
 function subForm(cta) {
-  return `<form class="sub-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci.html">
+  return `<form class="sub-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/bienvenue.html">
   <input type="hidden" name="form-name" value="newsletter">
   <p hidden><label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
   <input type="email" name="email" required placeholder="Ton adresse email" aria-label="Ton adresse email">
@@ -481,7 +481,7 @@ function archivePage(items) {
 
 // ---------- sitemap.xml and llms.txt: hand-written pages + generated newsletters ----------
 
-const NOT_LISTED = new Set(['merci.html', '404.html']);
+const NOT_LISTED = new Set(['merci.html', 'bienvenue.html', '404.html']);
 const ENTITIES = { amp: '&', quot: '"', apos: "'", lt: '<', gt: '>', nbsp: ' ', rarr: '→', middot: '·', eacute: 'é', egrave: 'è', ecirc: 'ê', euml: 'ë', agrave: 'à', acirc: 'â', ccedil: 'ç', icirc: 'î', iuml: 'ï', ocirc: 'ô', ugrave: 'ù', ucirc: 'û', Eacute: 'É', Agrave: 'À', Ccedil: 'Ç', rsquo: '’', hellip: '…' };
 const decode = s => s.replace(/&([a-zA-Z]+);/g, (m, e) => ENTITIES[e] || m).replace(/&#(\d+);/g, (m, c) => String.fromCharCode(c));
 

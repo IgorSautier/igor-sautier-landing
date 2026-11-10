@@ -4,48 +4,64 @@
 <meta charset="UTF-8">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Merci ! | Igor Sautier</title>
-<script defer src="https://cloud.umami.is/script.js" data-website-id="bc9d294b-7ed0-4bb4-a810-b07bada25d07"></script>
+<title>Merci pour ton avis ! | Igor Sautier</title>
+<!-- Page reached from the "Ce mail t'a servi ?" buttons of the newsletter: /merci?avis=carrement|moyen|pas-pour-moi.
+     Brevo counts the votes from the link clicks, this page only says thank you. -->
 <meta name="robots" content="noindex">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="bc9d294b-7ed0-4bb4-a810-b07bada25d07"></script>
 <link rel="preload" href="/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>@font-face{font-family:'Outfit';font-style:normal;font-weight:400 800;font-display:swap;src:url(/fonts/outfit-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Outfit';font-style:normal;font-weight:400 800;font-display:swap;src:url(/fonts/outfit-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}</style>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--accent:#BB111C;--accent-hover:#a00f18;--t1:#1a1a1a;--t2:#6b6b6b;--t3:#6e6e6e;--bg:#f5f2ef;--sans:'Outfit',system-ui,sans-serif}
-body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;-webkit-font-smoothing:antialiased}
-a{text-decoration:none}
-.avatar{width:88px;height:88px;border-radius:50%;object-fit:cover;margin-bottom:20px}
-.check{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;margin:-40px 0 20px 56px;border:3px solid var(--bg)}
-h1{font-size:40px;font-weight:800;line-height:1.15;margin-bottom:12px}
-p{font-size:17px;color:var(--t2);max-width:460px;line-height:1.6;margin-bottom:28px}
-.btn{display:inline-block;background:var(--accent);color:#fff;padding:13px 28px;border-radius:9999px;font-weight:600;font-size:15px;transition:background .15s}
-.btn:hover{background:var(--accent-hover)}
-.micro{font-size:13px;color:var(--t3);margin-top:10px}
-.links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:28px;font-size:14px}
-.links a{color:var(--t2);transition:color .15s}
-.links a:hover{color:var(--accent)}
-@media(max-width:768px){h1{font-size:30px}}
-
-/* Phones: 44px touch targets on small links and buttons, without moving the layout */
-@media(max-width:768px){
-.prompt-link,.about-link,.tools-more,.links a,.guides-header>a,.nl-top>a,.back,.back-bar a{display:inline-block;padding-block:11px;margin-block:-11px}
-.back-link{padding-block:11px;margin-top:13px;margin-bottom:13px}
-.prompt-copy{min-height:36px}
+:root{--accent:#BB111C;--accent-hover:#a00f18;--t1:#1a1a1a;--t2:#6b6b6b;--bg:#f5f2ef;--line:#ded9d3;--sans:'Outfit',system-ui,sans-serif}
+html{color-scheme:light}
+body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100vh;min-height:100svh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+header{border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;height:56px;padding:0 20px;max-width:1280px;margin:0 auto;font-size:16px;font-weight:700}
+.brand img{width:36px;height:36px;border-radius:50%;object-fit:cover}
+main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px 56px}
+.badge{width:56px;height:56px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:24px}
+h1{font-size:32px;font-weight:800;line-height:1.15;margin-bottom:14px}
+.msg{font-size:17px;color:var(--t2);line-height:1.6;max-width:440px;margin-bottom:32px}
+.actions{display:flex;flex-direction:column;gap:12px;width:100%;max-width:360px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:14px 24px;border-radius:9999px;font-weight:600;font-size:16px;transition:background .15s,border-color .15s,color .15s}
+.btn-main{background:var(--accent);color:#fff}
+.btn-main:hover{background:var(--accent-hover)}
+.btn-alt{background:#fff;border:1px solid var(--line);color:var(--t1)}
+.btn-alt:hover{border-color:var(--accent);color:var(--accent)}
+@media(min-width:769px){
+  .brand{padding:0 48px}
+  h1{font-size:44px}
+  .actions{flex-direction:row;max-width:none;width:auto}
 }
 </style>
 </head>
 <body>
-<img src="/igor-avatar.jpg" alt="Igor Sautier" class="avatar" width="88" height="88">
-<div class="check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-<h1>Bienvenue !</h1>
-<p>Ton inscription est bien prise en compte. Ton premier email arrive tr&egrave;s bient&ocirc;t dans ta bo&icirc;te mail. Pense &agrave; v&eacute;rifier tes promotions ou tes spams.</p>
-<a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="btn" target="_blank" rel="noopener">R&eacute;server mon audit gratuit &rarr;</a>
-<div class="micro">30 min - Gratuit - Sans engagement</div>
-<div class="links">
-  <a href="/">Retour &agrave; l'accueil</a>
-  <a href="/ressources/index.html">Les guides gratuits</a>
-  <a href="/newsletter/">Les anciennes newsletters</a>
-</div>
+<header>
+  <a href="/" class="brand"><img src="/igor-avatar-sm.jpg" alt="" width="36" height="36">Igor Sautier</a>
+</header>
+<main>
+  <div class="badge" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <h1>Merci pour ton avis !</h1>
+  <p class="msg" id="msg">Content que ça t'ait servi. Rendez-vous mardi prochain.</p>
+  <div class="actions">
+    <a href="https://www.tiktok.com/@automatise_avec_igor" class="btn btn-alt" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.48a8.27 8.27 0 004.76 1.51V7.54a4.83 4.83 0 01-1-.85z"/></svg>Me suivre sur TikTok</a>
+    <a href="https://cal.com/igor-sautier/audit-des-taches-automatisables" class="btn btn-main" target="_blank" rel="noopener">Réserver un appel</a>
+  </div>
+</main>
+<script>
+// The sentence follows ?avis=... ; no value or an unknown one keeps the "carrement" sentence already in the page
+(function () {
+  var MESSAGES = {
+    'carrement': "Content que ça t'ait servi. Rendez-vous mardi prochain.",
+    'moyen': "Merci, je vais faire mieux. Réponds au mail si tu veux me dire ce qui manquait.",
+    'pas-pour-moi': "Merci pour ta franchise. Réponds au mail pour me dire ce que tu aimerais lire."
+  };
+  var avis = (new URLSearchParams(location.search).get('avis') || '').toLowerCase();
+  if (Object.prototype.hasOwnProperty.call(MESSAGES, avis)) document.getElementById('msg').textContent = MESSAGES[avis];
+})();
+</script>
 <script src="/cal.js" defer></script>
 </body>
 </html>
