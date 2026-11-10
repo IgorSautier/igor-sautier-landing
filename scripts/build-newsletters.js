@@ -542,7 +542,7 @@ ${items.map(n => `- [${n.subject}](${SITE}/newsletter/${n.slug}/) (${new Date(n.
 // The homepage cards are written as plain HTML, so visitors, crawlers and AI tools all get real links
 function writeHomepageCards(items) {
   const file = path.join(ROOT, 'index.html');
-  const cards = items.slice(0, 3).map((n, i) => `<a href="/newsletter/${n.slug}/" class="nlh-card${i === 0 ? ' nlh-feat' : ''}"><div class="nlh-body"><div class="nlh-date">${frDate(n.date)}</div><div class="nlh-title">${esc(n.subject)}</div><div class="nlh-text">${esc(n.previewText)}</div><div class="nlh-more">Lire la newsletter &rarr;</div></div><span class="nlh-arrow">&rarr;</span></a>`).join('\n            ');
+  const cards = items.slice(0, 3).map((n, i) => `<a href="/newsletter/${n.slug}/" class="nlh-card"><div class="nlh-body"><div class="nlh-date">${frDate(n.date)}</div><div class="nlh-title">${esc(n.subject)}</div><div class="nlh-text">${esc(n.previewText)}</div><div class="nlh-more">Lire la newsletter &rarr;</div></div><span class="nlh-arrow">&rarr;</span></a>`).join('\n            ');
   const html = fs.readFileSync(file, 'utf8');
   const updated = html.replace(/(<!-- NEWSLETTERS:START[^>]*-->)[\s\S]*?(<!-- NEWSLETTERS:END -->)/, (m, a, z) => `${a}\n            ${cards}\n            ${z}`);
   if (updated === html && items.length) throw new Error('Homepage newsletter markers not found in index.html');

@@ -149,13 +149,11 @@
         .nl-top a{font-size:14px;color:var(--accent);font-weight:500}
         .nl-top a:hover{text-decoration:underline}
         .nl-sub{font-size:15px;color:var(--t2);margin-bottom:32px}
-        .nlh-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+        .nlh-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
         .nlh-card{display:flex;justify-content:space-between;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;transition:border-color .15s}
-        .nlh-feat{grid-row:1/3}
         .nlh-body{display:flex;flex-direction:column;flex:1}
         .nlh-date{font-size:13px;color:var(--t3);margin-bottom:8px}
-        .nlh-title{font-size:16px;font-weight:700;line-height:1.3;margin-bottom:8px}
-        .nlh-feat .nlh-title{font-size:20px;margin-bottom:10px}
+        .nlh-title{font-size:17px;font-weight:700;line-height:1.3;margin-bottom:8px}
         .nlh-text{font-size:14px;color:var(--t2);line-height:1.5;flex:1}
         .nlh-more{font-size:14px;color:var(--accent);font-weight:500;margin-top:12px}
         .nlh-arrow{display:none;font-size:16px;color:var(--t3);flex-shrink:0;margin-top:6px}
@@ -163,7 +161,7 @@
             .nlh-cards{display:flex;flex-direction:column;gap:12px}
             .nlh-card{padding:16px}
             .nlh-date{margin-bottom:4px}
-            .nlh-title,.nlh-feat .nlh-title{font-size:15px;margin-bottom:0}
+            .nlh-title{font-size:15px;margin-bottom:0}
             .nlh-text,.nlh-more{display:none}
             .nlh-arrow{display:block}
         }
@@ -548,7 +546,7 @@ MA SITUATION :
 
         <div class="nlh-cards">
             <!-- NEWSLETTERS:START (filled at deploy by scripts/build-newsletters.js) -->
-            <a href="/newsletter/" class="nlh-card nlh-feat"><div class="nlh-body"><div class="nlh-title">Lire les newsletters</div><div class="nlh-text">Toutes les &eacute;ditions d&eacute;j&agrave; envoy&eacute;es sont en ligne.</div><div class="nlh-more">Voir les newsletters &rarr;</div></div><span class="nlh-arrow">&rarr;</span></a>
+            <a href="/newsletter/" class="nlh-card"><div class="nlh-body"><div class="nlh-title">Lire les newsletters</div><div class="nlh-text">Toutes les &eacute;ditions d&eacute;j&agrave; envoy&eacute;es sont en ligne.</div><div class="nlh-more">Voir les newsletters &rarr;</div></div><span class="nlh-arrow">&rarr;</span></a>
             <!-- NEWSLETTERS:END -->
         </div>
     </div>
