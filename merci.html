@@ -14,7 +14,8 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--accent:#BB111C;--accent-hover:#a00f18;--t1:#1a1a1a;--t2:#6b6b6b;--bg:#f5f2ef;--line:#ded9d3;--sans:'Outfit',system-ui,sans-serif}
-html{color-scheme:light}
+/* Short page, so no scrollbar: keep its space anyway, otherwise the header sits a few pixels right of the other pages */
+html{color-scheme:light;overflow-y:scroll}
 body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100vh;min-height:100svh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit}
 header{border-bottom:1px solid var(--line)}
